@@ -1,0 +1,25 @@
+{
+  "name": "rpg-classif",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xabufr/rpg-classif.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/xabufr/rpg-classif/issues"
+  },
+  "homepage": "https://github.com/xabufr/rpg-classif#readme",
+  "devDependencies": {
+    "typescript": "^2.0.10"
+  },
+  "dependencies": {
+    "phaser": "^2.6.2"
+  }
+}
