@@ -1,0 +1,22 @@
+{
+  "name": "rpg-classif",
+  "description": "",
+  "directory": "public/lib/",
+  "main": "index.js",
+  "authors": [
+    "Thomas Loubiou <xabufr@gmail.com>"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/xabufr/rpg-classif",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "^2.6.2"
+  }
+}
