@@ -10,7 +10,7 @@ gulp.task("build", ["compile-ts"]);
 gulp.task("compile-ts", () => {
     const tsResult = tsProject.src().pipe(tsProject());
 
-    return tsResult.js.pipe(gulp.dest("public/app"));
+    return tsResult.js.pipe(gulp.dest("public/app")).pipe(browserSync.stream());
 });
 
 gulp.task("serve", ["build"], () => {
