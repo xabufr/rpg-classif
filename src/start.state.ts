@@ -11,7 +11,7 @@ export class Start extends Phaser.State {
         ]];
 
         this.printTexts(lines, () => {
-            console.log("ok");
+            this.game.state.start("mainMenu");
         });
     }
 
