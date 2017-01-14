@@ -2,10 +2,10 @@ const SPEED = 250.0;
 
 export class Player extends Phaser.Sprite {
     private cursors: Phaser.CursorKeys;
-    constructor(game: Phaser.Game, texture: string) {
+    constructor(game: Phaser.Game, texture: string, position: Phaser.Point) {
         super(game, 0, 0, texture);
         game.add.existing(this);
-        this.position.set(50, 50);
+        this.position = position.add(-this.width / 2, -this.height / 2);
 
         this.setupControls();
         this.setupPhysics();
@@ -18,6 +18,7 @@ export class Player extends Phaser.Sprite {
 
     private setupPhysics() {
         this.game.physics.enable(this);
+        this.body.collideWorldBounds = true;
     }
 
     public update(): void {

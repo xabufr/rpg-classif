@@ -10,8 +10,39 @@
          "width":100,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":100,
+         "name":"world-zones",
+         "objects":[
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"player-spawn"
+                    },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":272,
+                 "y":944
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":100,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":7,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

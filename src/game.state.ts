@@ -27,8 +27,8 @@ export class GameState extends Phaser.State {
         // this.physics.p2.convertTilemap(this.map, layer).forEach(b => {
         //     b.debug = this.debugPhysics;
         // });
-        this.player = new Player(this.game, "player");
-        this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_PLATFORMER, 100, 100);
+        this.player = new Player(this.game, "player", this.findSpawnZone(this.map));
+        this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_PLATFORMER, 0.1, 0.1);
     }
 
     public update() {
@@ -55,5 +55,18 @@ export class GameState extends Phaser.State {
             }
         });
         return indexes;
+    }
+
+    public findSpawnZone(map: Phaser.Tilemap) {
+        if ("world-zones" in map.objects) {
+            let zones = (<any[]>(<any>map).objects["world-zones"]).filter((zone: any) => {
+                return "properties" in zone && zone.properties.type === "player-spawn";
+            });
+            if (zones.length === 1) {
+                return new Phaser.Point(zones[0].x, zones[0].y);
+            }
+            console.warn("Cannot find a valid spwn point !!!");
+        }
+        return new Phaser.Point(50, 50);
     }
 }
