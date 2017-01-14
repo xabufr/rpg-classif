@@ -1,6 +1,7 @@
 import { Boot } from "./boot.state";
 import { Start } from "./start.state";
 import { MainMenu } from "./mainMenu.state";
+import { GameState } from "./game.state";
 
 export class Game extends Phaser.Game {
     constructor() {
@@ -8,7 +9,8 @@ export class Game extends Phaser.Game {
         this.state.add("boot", Boot);
         this.state.add("start", Start);
         this.state.add("mainMenu", MainMenu);
+        this.state.add("game", GameState);
 
-        this.state.start("boot");
+        this.state.start("game");
     }
 }
