@@ -9,7 +9,7 @@ export class GameState extends Phaser.State {
     public preload() {
         this.game.load.tilemap("map", "/assets/map.json", null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image("tileset", "/assets/Bureau/base prototype carte.png");
-        this.game.load.image("player", "/assets/images/player.png");
+        this.game.load.spritesheet("player", "/assets/images/player.png", 32, 32);
     }
 
     public create() {
