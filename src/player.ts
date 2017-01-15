@@ -98,7 +98,6 @@ export class Player extends Phaser.Sprite {
 
     private getWalkAnimation(direction: Direction) {
         let name = Direction[direction];
-        console.log(name);
         return this.animations.getAnimation(name);
     }
 
