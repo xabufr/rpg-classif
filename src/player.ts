@@ -5,10 +5,10 @@ enum Direction {
     DOWN = Math.PI / 2,
     RIGHT = 0,
     LEFT = Math.PI,
-    UP_RIGHT = Math.PI / 4,
-    UP_LEFT = 3 * Math.PI / 4,
-    DOWN_LEFT = 5 * Math.PI / 4,
-    DOWN_RIGHT = 7 * Math.PI / 4,
+    UP_RIGHT = 7 * Math.PI / 4,
+    UP_LEFT = 5 * Math.PI / 4,
+    DOWN_LEFT = 3 * Math.PI / 4,
+    DOWN_RIGHT = 1 * Math.PI / 4,
 }
 export class Player extends Phaser.Sprite {
     private cursors: Phaser.CursorKeys;
@@ -21,14 +21,14 @@ export class Player extends Phaser.Sprite {
         game.add.existing(this);
         this.position = position.add(-this.width / 2, -this.height / 2);
 
-        this.currentAnimation = this.registerAnimation("walk-down", [0, 1, 2]);
-        this.registerAnimation("walk-up", [36, 37, 38]);
-        this.registerAnimation("walk-left", [12, 13, 14]);
-        this.registerAnimation("walk-right", [24, 25, 26]);
-        this.registerAnimation("walk-up-left", [15, 16, 17]);
-        this.registerAnimation("walk-up-right", [39, 40, 41]);
-        this.registerAnimation("walk-down-left", [3, 4, 5]);
-        this.registerAnimation("walk-down-right", [27, 28, 29]);
+        this.currentAnimation = this.registerAnimation(Direction.DOWN, [0, 1, 2]);
+        this.registerAnimation(Direction.UP, [36, 37, 38]);
+        this.registerAnimation(Direction.LEFT, [12, 13, 14]);
+        this.registerAnimation(Direction.RIGHT, [24, 25, 26]);
+        this.registerAnimation(Direction.UP_LEFT, [15, 16, 17]);
+        this.registerAnimation(Direction.UP_RIGHT, [39, 40, 41]);
+        this.registerAnimation(Direction.DOWN_LEFT, [3, 4, 5]);
+        this.registerAnimation(Direction.DOWN_RIGHT, [27, 28, 29]);
 
         this.setupControls();
         this.setupPhysics();
@@ -97,28 +97,13 @@ export class Player extends Phaser.Sprite {
     }
 
     private getWalkAnimation(direction: Direction) {
-        switch (direction) {
-        case Direction.UP:
-            return this.animations.getAnimation("walk-up");
-        case Direction.DOWN:
-            return this.animations.getAnimation("walk-down");
-        case Direction.LEFT:
-            return this.animations.getAnimation("walk-left");
-        case Direction.RIGHT:
-            return this.animations.getAnimation("walk-right");
-        case Direction.UP_RIGHT:
-            return this.animations.getAnimation("walk-up-right");
-        case Direction.UP_LEFT:
-            return this.animations.getAnimation("walk-up-left");
-        case Direction.DOWN_RIGHT:
-            return this.animations.getAnimation("walk-down-right");
-        case Direction.DOWN_LEFT:
-            return this.animations.getAnimation("walk-down-left");
-        }
-        return null;
+        let name = Direction[direction];
+        console.log(name);
+        return this.animations.getAnimation(name);
     }
 
-    private registerAnimation(name: string, indexes: number[]) {
+    private registerAnimation(direction: Direction, indexes: number[]) {
+        let name = Direction[direction];
         let anim = this.animations.add(name, indexes, 10, true);
         return anim;
     }
