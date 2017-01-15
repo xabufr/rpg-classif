@@ -42,17 +42,17 @@ export class Player extends Phaser.Sprite {
         let velocity: Phaser.Point = this.body.velocity;
         let newDirection = this.direction;
 
-        if (this.cursors.up.isDown) {
+        if (this.cursors.up.isDown && !this.body.blocked.up) {
             velocity.y = SPEED * -1.0;
             newDirection = Direction.UP;
-        } else if (this.cursors.down.isDown) {
+        } else if (this.cursors.down.isDown && !this.body.blocked.down) {
             velocity.y = SPEED;
             newDirection = Direction.DOWN;
         } else {
             velocity.y = 0;
         }
 
-        if (this.cursors.left.isDown) {
+        if (this.cursors.left.isDown && !this.body.blocked.left) {
             velocity.x = SPEED * -1.0;
             if (newDirection === Direction.UP) {
                 newDirection = Direction.UP_LEFT;
@@ -61,7 +61,7 @@ export class Player extends Phaser.Sprite {
             } else {
                 newDirection = Direction.LEFT;
             }
-        } else if (this.cursors.right.isDown) {
+        } else if (this.cursors.right.isDown && !this.body.blocked.right) {
             velocity.x = SPEED;
             if (newDirection === Direction.UP) {
                 newDirection = Direction.UP_RIGHT;
@@ -74,7 +74,7 @@ export class Player extends Phaser.Sprite {
             velocity.x = 0;
         }
 
-        let isMoving = velocity.x !== 0 || velocity.y !== 0;
+        let isMoving = (velocity.x !== 0 || velocity.y !== 0);
 
         if (newDirection !== this.direction) {
             this.direction = newDirection;
@@ -82,7 +82,7 @@ export class Player extends Phaser.Sprite {
             this.currentAnimation.play();
         } else if (!isMoving) {
             this.currentAnimation.stop();
-        } else if (!this.currentAnimation.isPlaying){
+        } else if (!this.currentAnimation.isPlaying) {
             this.currentAnimation.play();
         }
     }
