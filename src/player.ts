@@ -5,10 +5,6 @@ enum Direction {
     DOWN = Math.PI / 2,
     RIGHT = 0,
     LEFT = Math.PI,
-    UP_RIGHT = 7 * Math.PI / 4,
-    UP_LEFT = 5 * Math.PI / 4,
-    DOWN_LEFT = 3 * Math.PI / 4,
-    DOWN_RIGHT = 1 * Math.PI / 4,
 }
 export class Player extends Phaser.Sprite {
     private cursors: Phaser.CursorKeys;
@@ -25,10 +21,6 @@ export class Player extends Phaser.Sprite {
         this.registerAnimation(Direction.UP, [36, 37, 38]);
         this.registerAnimation(Direction.LEFT, [12, 13, 14]);
         this.registerAnimation(Direction.RIGHT, [24, 25, 26]);
-        this.registerAnimation(Direction.UP_LEFT, [15, 16, 17]);
-        this.registerAnimation(Direction.UP_RIGHT, [39, 40, 41]);
-        this.registerAnimation(Direction.DOWN_LEFT, [3, 4, 5]);
-        this.registerAnimation(Direction.DOWN_RIGHT, [27, 28, 29]);
 
         this.setupControls();
         this.setupPhysics();
@@ -69,31 +61,16 @@ export class Player extends Phaser.Sprite {
     }
 
     private computeNewDirection() {
-        let newDirection: Direction = null;
         if (this.cursors.up.isDown && !this.body.blocked.up) {
-            newDirection = Direction.UP;
+            return Direction.UP;
         } else if (this.cursors.down.isDown && !this.body.blocked.down) {
-            newDirection = Direction.DOWN;
-        }
-
-        if (this.cursors.left.isDown && !this.body.blocked.left) {
-            if (newDirection === Direction.UP) {
-                newDirection = Direction.UP_LEFT;
-            } else if (newDirection === Direction.DOWN) {
-                newDirection = Direction.DOWN_LEFT;
-            } else {
-                newDirection = Direction.LEFT;
-            }
+            return Direction.DOWN;
+        } else if (this.cursors.left.isDown && !this.body.blocked.left) {
+            return Direction.LEFT;
         } else if (this.cursors.right.isDown && !this.body.blocked.right) {
-            if (newDirection === Direction.UP) {
-                newDirection = Direction.UP_RIGHT;
-            } else if (newDirection === Direction.DOWN) {
-                newDirection = Direction.DOWN_RIGHT;
-            } else {
-                newDirection = Direction.RIGHT;
-            }
+            return Direction.RIGHT;
         }
-        return newDirection;
+        return null;
     }
 
     private getWalkAnimation(direction: Direction) {
