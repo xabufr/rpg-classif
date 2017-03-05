@@ -1,5 +1,5 @@
-import { Game } from './game'
+import { Game } from "./game";
 
 window.onload = () => {
     const game = new Game();
-}
+};
