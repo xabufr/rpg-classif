@@ -17,6 +17,7 @@ export class GameState extends Phaser.State {
         this.game.stage.backgroundColor = "#787878";
         this.physics.startSystem(Phaser.Physics.ARCADE);
         this.map.setup();
+        this.map.loadCreatures();
 
 
         this.player = new Player(this.game, "player", this.map.findSpawnZone());

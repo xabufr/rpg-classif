@@ -12,8 +12,8 @@ interface FactoryData {
 }
 
 export function createPnj(object: WorldObject, map: Map): Pnj {
-    if (object.name in PNJ_TYPES) {
-        return PNJ_TYPES[object.name](object, map);
+    if (object.type in PNJ_TYPES) {
+        return PNJ_TYPES[object.type](object, map);
     }
-    throw `Unknown PNJ type ${object.name}`;
+    throw `Unknown PNJ type ${object.type}`;
 }

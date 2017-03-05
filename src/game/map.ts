@@ -1,4 +1,5 @@
 import { WorldObject } from "./worldObject";
+import { createPnj } from "./pnjFactory";
 
 export class Map {
     private map: Phaser.Tilemap;
@@ -70,5 +71,9 @@ export class Map {
 
     public getGame() {
         return this.game;
+    }
+
+    public loadCreatures() {
+        return this.getCreaturesLayer().map(object => createPnj(object, this));
     }
 }
