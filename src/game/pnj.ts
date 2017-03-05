@@ -1,5 +1,7 @@
+import { Map } from "./map";
+
 export class Pnj extends Phaser.Sprite  {
-    constructor(game: Phaser.Game, texture: string) {
-        super(game, 0, 0, texture);
+    constructor(map: Map, texture: string) {
+        super(map.getGame(), 0, 0, texture);
     }
 }

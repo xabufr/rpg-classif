@@ -67,4 +67,8 @@ export class Map {
     public getLayer() {
         return this.layer;
     }
+
+    public getGame() {
+        return this.game;
+    }
 }
