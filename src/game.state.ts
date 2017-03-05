@@ -1,4 +1,4 @@
-import { Player } from "./player";
+import { Player } from "./game/player";
 import { Map } from "./game/map";
 
 export class GameState extends Phaser.State {
