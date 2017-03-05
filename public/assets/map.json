@@ -53,7 +53,7 @@
                 {
                  "height":0,
                  "id":8,
-                 "name":"spawn",
+                 "name":"player-spawn",
                  "properties":
                     {
                      "type":"player-spawn"

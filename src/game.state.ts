@@ -1,10 +1,12 @@
 import { Player } from "./game/player";
 import { Map } from "./game/map";
+import { Pnj } from "./game/pnj";
 
 export class GameState extends Phaser.State {
     private map: Map;
     private debugPhysics: boolean = true;
     private player: Player;
+    private pnjs: Pnj[];
 
     public preload() {
         this.map = new Map(this.game);
@@ -17,7 +19,7 @@ export class GameState extends Phaser.State {
         this.game.stage.backgroundColor = "#787878";
         this.physics.startSystem(Phaser.Physics.ARCADE);
         this.map.setup();
-        this.map.loadCreatures();
+        this.pnjs = this.map.loadCreatures();
 
 
         this.player = new Player(this.game, "player", this.map.findSpawnZone());
@@ -27,6 +29,7 @@ export class GameState extends Phaser.State {
     public update() {
         this.player.update();
         this.game.physics.arcade.collide(this.player, this.map.getLayer());
+        this.pnjs.forEach(p => p.updateForPlayer(this.player));
     }
 
     public render()  {

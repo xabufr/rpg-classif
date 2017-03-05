@@ -43,11 +43,16 @@ export class Map {
     }
 
     public findSpawnZone() {
-        let spawnZones = this.getZonesLayer().filter(z => z.type === "player-spawn");
-        if (spawnZones.length === 1) {
-            return new Phaser.Point(spawnZones[0].x, spawnZones[0].y);
+        let spawnZone = this.getZoneNamed("player-spawn");
+        return new Phaser.Point(spawnZone.x, spawnZone.y);
+    }
+
+    public getZoneNamed(name: string): WorldObject {
+        let zones = this.getZonesLayer().filter(z => z.name === name);
+        if (zones.length === 1) {
+            return zones[0];
         }
-        throw "Multiple spawn-zone detected !";
+        throw `Multiple zones named ${name} detected !`;
     }
 
     public getCreaturesLayer() {
