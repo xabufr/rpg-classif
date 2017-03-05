@@ -1,3 +1,4 @@
+import { WorldObject } from "./worldObject";
 
 export class Map {
     private map: Phaser.Tilemap;
@@ -20,10 +21,8 @@ export class Map {
         this.layer = this.map.createLayer("world-layer");
         this.layer.resizeWorld();
         this.layer.debug = true;
+        this.map.createLayer("world-objects").visible = true;
         this.map.setCollision(this.findCollisionTilesIndexes());
-        // this.physics.p2.convertTilemap(this.map, layer).forEach(b => {
-        //     b.debug = this.debugPhysics;
-        // });
     }
 
     public findCollisionTilesIndexes(): number[] {
@@ -43,16 +42,26 @@ export class Map {
     }
 
     public findSpawnZone() {
-        if ("world-zones" in this.map.objects) {
-            let zones = (<any[]>(<any>this.map).objects["world-zones"]).filter((zone: any) => {
-                return "properties" in zone && zone.properties.type === "player-spawn";
-            });
-            if (zones.length === 1) {
-                return new Phaser.Point(zones[0].x, zones[0].y);
-            }
-            console.warn("Cannot find a valid spwn point !!!");
+        let spawnZones = this.getZonesLayer().filter(z => z.type === "player-spawn");
+        if (spawnZones.length === 1) {
+            return new Phaser.Point(spawnZones[0].x, spawnZones[0].y);
         }
-        return new Phaser.Point(50, 50);
+        throw "Multiple spawn-zone detected !";
+    }
+
+    public getCreaturesLayer() {
+        return this.getObjectLayer("world-creatures");
+    }
+
+    public getZonesLayer() {
+        return this.getObjectLayer("world-zones");
+    }
+
+    public getObjectLayer(layerName: string): WorldObject[] {
+        if (layerName in this.map.objects) {
+            return (<any>this.map).objects[layerName];
+        }
+        throw `Cannot find layer ${layerName}`;
     }
 
     public getLayer() {

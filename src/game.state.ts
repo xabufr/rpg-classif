@@ -10,6 +10,7 @@ export class GameState extends Phaser.State {
         this.map = new Map(this.game);
         this.map.load();
         this.game.load.spritesheet("player", "/assets/images/player.png", 32, 32);
+        this.game.load.json("dialogs", "/assets/dialogs.json");
     }
 
     public create() {
