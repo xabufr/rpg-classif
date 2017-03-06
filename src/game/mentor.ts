@@ -11,11 +11,13 @@ export class Mentor extends Pnj {
     public constructor(o: WorldObject, map: Map) {
         super(o, map, "mentor");
         this.hasTalk = false;
+
         let talkZoneObject = this.map.getZoneNamed(`${o.name}_zone`);
         this.autoTalkZone = this.game.add.sprite(talkZoneObject.x, talkZoneObject.y, null);
         this.game.physics.enable(this.autoTalkZone);
         let body = this.autoTalkZone.body;
         body.setSize(talkZoneObject.width, talkZoneObject.height);
+
         this.talkText = this.game.cache.getJSON("dialogs")[o.properties.talk].text;
     }
 
