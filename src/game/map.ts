@@ -12,8 +12,8 @@ export class Map {
     }
 
     public load() {
-        this.game.load.tilemap("map", "/assets/map.json", null, Phaser.Tilemap.TILED_JSON);
-        this.game.load.image("tileset", "/assets/Bureau/base prototype carte.png");
+        this.game.load.tilemap("map", "./assets/map.json", null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.image("tileset", "./assets/Bureau/base prototype carte.png");
     }
 
     public setup() {
