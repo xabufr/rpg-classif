@@ -31,6 +31,14 @@
                  "height":0,
                  "id":11,
                  "name":"mentor1",
+                 "properties":
+                    {
+                     "talk":"intro"
+                    },
+                 "propertytypes":
+                    {
+                     "talk":"string"
+                    },
                  "rotation":0,
                  "type":"mentor",
                  "visible":true,

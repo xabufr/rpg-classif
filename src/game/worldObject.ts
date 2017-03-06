@@ -6,4 +6,9 @@ export interface WorldObject {
     height?: number;
     width?: number;
     rectangle?: boolean;
+    properties?: WorldObjectCustomProperties;
+}
+
+export interface WorldObjectCustomProperties {
+    [name: string]: any;
 }

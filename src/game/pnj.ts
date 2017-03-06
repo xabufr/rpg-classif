@@ -2,7 +2,7 @@ import { Map } from "./map";
 import { WorldObject } from "./worldObject";
 import { Player } from "./player";
 
-export class Pnj extends Phaser.Sprite  {
+export abstract class Pnj extends Phaser.Sprite  {
     protected worldObject: WorldObject;
     protected map: Map;
 
@@ -13,3 +13,4 @@ export class Pnj extends Phaser.Sprite  {
     }
 
     public abstract updateForPlayer(player: Player): void;
+}
