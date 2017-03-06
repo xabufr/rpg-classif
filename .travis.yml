@@ -2,7 +2,8 @@ language: node_js
 node_js:
   - stable
 before_script:
-  - npm install -g gulp
+  - npm install -g gulp bower
+  - bower install
 script: gulp
 deploy:
   provider: pages
