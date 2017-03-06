@@ -1,15 +1,11 @@
+import { GameState } from "../game.state";
 import { Map } from "./map";
 import { WorldObject } from "./worldObject";
 import { Player } from "./player";
 
 export abstract class Pnj extends Phaser.Sprite  {
-    protected worldObject: WorldObject;
-    protected map: Map;
-
-    constructor(object: WorldObject, map: Map, texture: string) {
-        super(map.getGame(), 0, 0, texture);
-        this.worldObject = object;
-        this.map = map;
+    constructor(protected worldObject: WorldObject, protected gameState: GameState, texture: string) {
+        super(gameState.game, 0, 0, texture);
     }
 
     public abstract updateForPlayer(player: Player): void;

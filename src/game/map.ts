@@ -1,3 +1,4 @@
+import { GameState } from "../game.state";
 import { WorldObject } from "./worldObject";
 import { createPnj } from "./pnjFactory";
 
@@ -6,8 +7,8 @@ export class Map {
     private layer: Phaser.TilemapLayer;
     private game: Phaser.Game;
 
-    public constructor(game: Phaser.Game) {
-        this.game = game;
+    public constructor(private gameState: GameState) {
+        this.game = gameState.game;
     }
 
     public load() {
@@ -78,7 +79,11 @@ export class Map {
         return this.game;
     }
 
+    public getGameState() {
+        return this.gameState;
+    }
+
     public loadCreatures() {
-        return this.getCreaturesLayer().map(object => createPnj(object, this));
+        return this.getCreaturesLayer().map(object => createPnj(object, this.gameState));
     }
 }

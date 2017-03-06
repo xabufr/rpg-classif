@@ -1,3 +1,4 @@
+import { GameState } from "../game.state";
 import { WorldObject } from "./worldObject";
 import { Pnj } from "./pnj";
 import { Map } from "./map";
@@ -8,11 +9,11 @@ export class Mentor extends Pnj {
     private autoTalkZone: Phaser.Sprite;
     private talkText: string;
 
-    public constructor(o: WorldObject, map: Map) {
-        super(o, map, "mentor");
+    public constructor(o: WorldObject, gameState: GameState) {
+        super(o, gameState, "mentor");
         this.hasTalk = false;
 
-        let talkZoneObject = this.map.getZoneNamed(`${o.name}_zone`);
+        let talkZoneObject = this.gameState.getMap().getZoneNamed(`${o.name}_zone`);
         this.autoTalkZone = this.game.add.sprite(talkZoneObject.x, talkZoneObject.y, null);
         this.game.physics.enable(this.autoTalkZone);
         let body = this.autoTalkZone.body;
@@ -25,7 +26,7 @@ export class Mentor extends Pnj {
         if (!this.hasTalk) {
             if (this.game.physics.arcade.overlap(player, this.autoTalkZone)) {
                 this.hasTalk = true;
-                console.log(this.talkText);
+                this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText);
             }
         }
     }
