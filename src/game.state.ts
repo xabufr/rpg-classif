@@ -38,7 +38,6 @@ export class GameState extends Phaser.State {
 
     public preRender() {
         this.hub.preRender();
-        this.hub.preRender();
     }
 
     public render()  {

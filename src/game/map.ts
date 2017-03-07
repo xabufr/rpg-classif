@@ -3,12 +3,14 @@ import { WorldObject } from "./worldObject";
 import { createPnj } from "./pnjFactory";
 
 export class Map {
+    private group: Phaser.Group;
     private map: Phaser.Tilemap;
     private layer: Phaser.TilemapLayer;
     private game: Phaser.Game;
 
     public constructor(private gameState: GameState) {
         this.game = gameState.game;
+        this.group = this.game.add.group();
     }
 
     public load() {
@@ -22,7 +24,7 @@ export class Map {
         this.map.addTilesetImage("test", "tileset");
         this.layer = this.map.createLayer("world-layer");
         this.layer.resizeWorld();
-        this.layer.debug = true;
+        this.group.addChild(this.layer);
         this.map.createLayer("world-objects").visible = true;
         this.map.setCollision(this.findCollisionTilesIndexes());
     }
