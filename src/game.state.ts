@@ -31,7 +31,10 @@ export class GameState extends Phaser.State {
 
     public update() {
         this.player.update();
-        this.game.physics.arcade.collide(this.player, this.map.getLayer());
+        this.map.getLayers().forEach(layer => {
+            this.game.debug.body(layer);
+            this.game.physics.arcade.collide(this.player, layer);
+        });
         this.pnjs.forEach(p => p.updateForPlayer(this.player));
         this.hub.update();
     }

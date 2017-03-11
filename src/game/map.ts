@@ -33,18 +33,20 @@ export class Map {
     public setup() {
         this.map = this.game.add.tilemap(MAP_CACHE_KEY);
         this.map.tilesets.forEach(tileset => this.map.addTilesetImage(tileset.name, MAP_CACHE_PREFIX + tileset.name));
+        let collidesIndexes = this.findCollisionTilesIndexes();
         this.shownLayers = this.findLayersToShow().map(layer => {
             let displayLayer = this.map.createLayer(layer.name);
             displayLayer.resizeWorld();
+            // displayLayer.debug = true;
             this.group.addChild(displayLayer);
+            this.map.setCollision(collidesIndexes, true, displayLayer);
             return displayLayer;
         });
-        this.map.setCollision(this.findCollisionTilesIndexes());
-        console.log(this.map);
     }
 
     public findCollisionTilesIndexes(): number[] {
         let indexes: number[] = [];
+        console.log(this.map.tilesets);
         this.map.tilesets.forEach((tileset, i) =>  {
             let tilesProperties: any = (<any>tileset)["tileProperties"];
             if (tilesProperties !== undefined) {
@@ -56,6 +58,7 @@ export class Map {
                 });
             }
         });
+        console.log(indexes);
         return indexes;
     }
 
@@ -87,7 +90,7 @@ export class Map {
         throw `Cannot find layer ${layerName}`;
     }
 
-    public getLayer() {
+    public getLayers() {
         return this.shownLayers;
     }
 
@@ -105,7 +108,7 @@ export class Map {
 
     private findLayersToShow() {
         return this.map.layers.filter(layer => {
-            return !("display" in layer.properties) || layer.properties.display === false;
+            return layer.visible && !("display" in layer.properties) || layer.properties.display === false;
         });
     }
 }
