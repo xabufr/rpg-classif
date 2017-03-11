@@ -18,7 +18,6 @@ export class Map {
 
     public load() {
         this.game.load.onFileComplete.add((progress: any, cacheKey: any) => {
-            console.log(cacheKey);
             if (cacheKey === MAP_CACHE_KEY) {
                 let tilemap = this.game.cache.getTilemapData(MAP_CACHE_KEY);
                 let baseUrl = tilemap.url + "/../";
@@ -46,7 +45,6 @@ export class Map {
 
     public findCollisionTilesIndexes(): number[] {
         let indexes: number[] = [];
-        console.log(this.map.tilesets);
         this.map.tilesets.forEach((tileset, i) =>  {
             let tilesProperties: any = (<any>tileset)["tileProperties"];
             if (tilesProperties !== undefined) {
@@ -58,7 +56,6 @@ export class Map {
                 });
             }
         });
-        console.log(indexes);
         return indexes;
     }
 
