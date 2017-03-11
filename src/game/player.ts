@@ -10,6 +10,7 @@ export class Player extends Phaser.Sprite {
     private cursors: Phaser.CursorKeys;
     private direction: Direction;
     private currentAnimation: Phaser.Animation;
+    private canMove: boolean;
 
     constructor(game: Phaser.Game, texture: string, position: Phaser.Point) {
         super(game, 0, 0, texture);
@@ -25,6 +26,7 @@ export class Player extends Phaser.Sprite {
         this.setupControls();
         this.setupPhysics();
         this.debug = true;
+        this.canMove = true;
     }
 
     private setupControls() {
@@ -37,26 +39,30 @@ export class Player extends Phaser.Sprite {
     }
 
     public update(): void {
-        let velocity: Phaser.Point = this.body.velocity;
-        let newDirection = this.computeNewDirection();
-        if (newDirection !== null) {
-            velocity.x = Math.cos(newDirection) * SPEED;
-            velocity.y = Math.sin(newDirection) * SPEED;
+        if (this.canMove) {
+            let velocity: Phaser.Point = this.body.velocity;
+            let newDirection = this.computeNewDirection();
+            if (newDirection !== null) {
+                velocity.x = Math.cos(newDirection) * SPEED;
+                velocity.y = Math.sin(newDirection) * SPEED;
 
-            let isMoving = (velocity.x !== 0 || velocity.y !== 0);
+                let isMoving = (velocity.x !== 0 || velocity.y !== 0);
 
-            if (newDirection !== this.direction) {
-                this.direction = newDirection;
-                this.currentAnimation = this.getWalkAnimation(newDirection);
-                this.currentAnimation.play();
-            } else if (!isMoving) {
-                this.currentAnimation.stop();
-            } else if (!this.currentAnimation.isPlaying) {
+                if (newDirection !== this.direction) {
+                    this.direction = newDirection;
+                    this.currentAnimation = this.getWalkAnimation(newDirection);
+                    this.currentAnimation.play();
+                } else if (!isMoving) {
+                    this.currentAnimation.stop();
+                } else if (!this.currentAnimation.isPlaying) {
+                    this.currentAnimation.play();
+                }
+            } else {
+                velocity.x = velocity.y = 0;
                 this.currentAnimation.play();
             }
         } else {
-            velocity.x = velocity.y = 0;
-            this.currentAnimation.play();
+            this.currentAnimation.stop();
         }
     }
 
@@ -86,5 +92,9 @@ export class Player extends Phaser.Sprite {
 
     public collide() {
         // this.body.velocity.setTo(0, 0);
+    }
+
+    public setCanMove(canMove: boolean) {
+        this.canMove = canMove;
     }
 }

@@ -1,5 +1,7 @@
 import { GameState } from "../game.state";
 
+const UI_RES_PREFIX = "__ui__";
+
 export class GameHub {
     private monologDialog: MonologDialog;
     private game: Phaser.Game;
@@ -9,7 +11,12 @@ export class GameHub {
         this.monologDialog = new MonologDialog(this.game);
     }
 
+    public setup() {
+        this.monologDialog.setup();
+    }
+
     public preload(): void {
+        this.monologDialog.preload();
     }
 
     public update(): void {
@@ -25,46 +32,73 @@ export class GameHub {
 }
 
 export class MonologDialog {
-    private graphics: Phaser.Graphics;
     private text: Phaser.Text;
-    private isShowingText: boolean;
     private internalDim: Phaser.Point;
     private group: Phaser.Group;
+    private dialogImg: Phaser.Image;
+    private internalMargin: Phaser.Point;
+    private onTextShown: () => void;
+    private style: Phaser.PhaserTextStyle;
 
     public constructor(private game: Phaser.Game) {
+        this.internalMargin = new Phaser.Point(25, 25);
+    }
+
+    public preload() {
+        this.game.load.image(UI_RES_PREFIX + "dialog-box", "./assets/images/dialog-box.png");
+    }
+
+    public setup() {
         this.group = this.game.add.group();
         this.group.fixedToCamera = true;
         this.group.z = 10000;
-        this.graphics = this.game.add.graphics(0, 0, this.group);
-        this.isShowingText = false;
+        this.dialogImg = this.game.add.image(0, 0, UI_RES_PREFIX + "dialog-box", null, this.group);
 
-        let width = this.game.width * 0.2;
-        let height = this.game.width * 0.2;
-        this.internalDim = new Phaser.Point(width - 10, height - 10);
+        this.group.cameraOffset.y = this.game.height - this.dialogImg.height;
+        this.group.cameraOffset.x = (this.game.width - this.dialogImg.width) / 2;
+        this.group.position.x = -100;
 
-        this.graphics.beginFill(0x000000);
-        this.graphics.drawRoundedRect(0, 0, width, height, 10);
-        this.graphics.endFill();
+        this.internalDim = new Phaser.Point(this.dialogImg.width - this.internalMargin.x * 2, this.dialogImg.height - this.internalMargin.y * 2);
+        let mask = this.game.add.graphics(this.internalMargin.x, this.internalMargin.y, this.group);
+        mask.beginFill(0xFFFFFF);
+        mask.drawRect(0, 0, this.internalDim.x, this.internalDim.y);
+        mask.endFill();
 
-        this.text = this.game.add.text(0, 0, "", {
+
+        this.style = {
+            fontSize: 32,
             wordWrap: true,
             wordWrapWidth: this.internalDim.x,
-            maxLines: 999,
-            fill: "grey"
-        }, this.group);
+            maxLines: 9999,
+            fill: "black"
+        };
+
+        this.text = this.game.add.text(this.internalMargin.x, this.internalMargin.y, "", this.style, this.group);
+        this.text.mask = mask;
+        this.text.useAdvancedWrap = true;
+        this.game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR).onDown.add(() => {
+            if (this.group.visible) {
+                this.showNext();
+            }
+        });
     }
 
-    public showTextToPlayer(text: string) {
-        this.isShowingText = true;
-        console.log(text);
+    public showTextToPlayer(text: string, cb: () => void) {
         this.text.setText(text, true);
+        this.onTextShown = cb;
+        this.group.visible = true;
     }
 
     public update(): void {
-        if (this.isShowingText) {
-            this.group.visible = true;
-        } else {
-            this.group.visible = false;
+        if (this.group.visible) {
         }
+    }
+
+    private showNext() {
+        if (this.text.bottom < this.internalMargin.y + this.internalDim.y) {
+            this.group.visible = false;
+            this.onTextShown();
+        }
+        this.text.position.y -= this.style.fontSize;
     }
 }

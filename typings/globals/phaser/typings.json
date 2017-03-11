@@ -1,8 +1,8 @@
 {
   "resolution": "main",
   "tree": {
-    "src": "https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/typings.json",
-    "raw": "github:photonstorm/phaser/typescript/typings.json",
+    "src": "https://raw.githubusercontent.com/photonstorm/phaser-ce/master/typescript/typings.json",
+    "raw": "github:photonstorm/phaser-ce/typescript/typings.json",
     "main": "phaser.comments.d.ts",
     "files": [
       "pixi.comments.d.ts",

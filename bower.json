@@ -17,7 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "phaser": "^2.6.2",
+    "phaser-ce": "^2.7.2",
     "system.js": "^0.19.41"
   }
 }

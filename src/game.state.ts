@@ -14,6 +14,7 @@ export class GameState extends Phaser.State {
         this.map = new Map(this);
         this.hub = new GameHub(this);
         this.map.load();
+        this.hub.preload();
         this.game.load.spritesheet("player", "./assets/images/player.png", 32, 32);
         this.game.load.json("dialogs", "./assets/dialogs.json");
     }
@@ -26,6 +27,7 @@ export class GameState extends Phaser.State {
 
 
         this.player = new Player(this.game, "player", this.map.findSpawnZone());
+        this.hub.setup();
         this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_PLATFORMER, 0.1, 0.1);
     }
 

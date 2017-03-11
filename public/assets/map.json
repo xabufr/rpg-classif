@@ -37,7 +37,26 @@
          "draworder":"topdown",
          "height":100,
          "name":"world-creatures",
-         "objects":[],
+         "objects":[
+                {
+                 "height":0,
+                 "id":3,
+                 "name":"mentor1",
+                 "properties":
+                    {
+                     "talk":"intro"
+                    },
+                 "propertytypes":
+                    {
+                     "talk":"string"
+                    },
+                 "rotation":0,
+                 "type":"mentor",
+                 "visible":true,
+                 "width":0,
+                 "x":303.333333333333,
+                 "y":2705.33333333333
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -60,6 +79,17 @@
                  "width":0,
                  "x":237,
                  "y":2702
+                }, 
+                {
+                 "height":52.6666666666665,
+                 "id":4,
+                 "name":"mentor1_zone",
+                 "rotation":0,
+                 "type":"mentor_zone",
+                 "visible":true,
+                 "width":55.3333333333333,
+                 "x":212.666666666667,
+                 "y":2680
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -68,7 +98,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":3,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
