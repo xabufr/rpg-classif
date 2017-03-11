@@ -26,7 +26,10 @@ export class Mentor extends Pnj {
         if (!this.hasTalk) {
             if (this.game.physics.arcade.overlap(player, this.autoTalkZone)) {
                 this.hasTalk = true;
-                this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText);
+                player.setCanMove(false);
+                this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText, () => {
+                    player.setCanMove(true);
+                });
             }
         }
     }

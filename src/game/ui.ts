@@ -33,11 +33,12 @@ export class GameHub {
 
 export class MonologDialog {
     private text: Phaser.Text;
-    private isShowingText: boolean;
     private internalDim: Phaser.Point;
     private group: Phaser.Group;
     private dialogImg: Phaser.Image;
     private internalMargin: Phaser.Point;
+    private onTextShown: () => void;
+    private style: Phaser.PhaserTextStyle;
 
     public constructor(private game: Phaser.Game) {
         this.internalMargin = new Phaser.Point(25, 25);
@@ -56,7 +57,6 @@ export class MonologDialog {
         this.group.cameraOffset.y = this.game.height - this.dialogImg.height;
         this.group.cameraOffset.x = (this.game.width - this.dialogImg.width) / 2;
         this.group.position.x = -100;
-        this.isShowingText = false;
 
         this.internalDim = new Phaser.Point(this.dialogImg.width - this.internalMargin.x * 2, this.dialogImg.height - this.internalMargin.y * 2);
         let mask = this.game.add.graphics(this.internalMargin.x, this.internalMargin.y, this.group);
@@ -65,25 +65,40 @@ export class MonologDialog {
         mask.endFill();
 
 
-        this.text = this.game.add.text(this.internalMargin.x, this.internalMargin.y, "", {
+        this.style = {
+            fontSize: 32,
             wordWrap: true,
             wordWrapWidth: this.internalDim.x,
-            maxLines: 999,
+            maxLines: 9999,
             fill: "black"
-        }, this.group);
+        };
+
+        this.text = this.game.add.text(this.internalMargin.x, this.internalMargin.y, "", this.style, this.group);
         this.text.mask = mask;
+        this.text.useAdvancedWrap = true;
+        this.game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR).onDown.add(() => {
+            if (this.group.visible) {
+                this.showNext();
+            }
+        });
     }
 
-    public showTextToPlayer(text: string) {
-        this.isShowingText = true;
+    public showTextToPlayer(text: string, cb: () => void) {
         this.text.setText(text, true);
+        this.onTextShown = cb;
+        this.group.visible = true;
     }
 
     public update(): void {
-        if (this.isShowingText) {
-            this.group.visible = true;
-        } else {
-            this.group.visible = false;
+        if (this.group.visible) {
         }
+    }
+
+    private showNext() {
+        if (this.text.bottom < this.internalMargin.y + this.internalDim.y) {
+            this.group.visible = false;
+            this.onTextShown();
+        }
+        this.text.position.y -= this.style.fontSize;
     }
 }
