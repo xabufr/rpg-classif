@@ -5,7 +5,7 @@ import { createPnj } from "./pnjFactory";
 export class Map {
     private group: Phaser.Group;
     private map: Phaser.Tilemap;
-    private layer: Phaser.TilemapLayer;
+    private shownLayers: Phaser.TilemapLayer[];
     private game: Phaser.Game;
 
     public constructor(private gameState: GameState) {
@@ -22,10 +22,12 @@ export class Map {
         this.map = this.game.add.tilemap("map");
         this.map.addTilesetImage("tileset", "tileset");
         this.map.addTilesetImage("test", "tileset");
-        this.layer = this.map.createLayer("world-layer");
-        this.layer.resizeWorld();
-        this.group.addChild(this.layer);
-        this.map.createLayer("world-objects").visible = true;
+        this.shownLayers = this.findLayersToShow().map(layer => {
+            let displayLayer = this.map.createLayer(layer.name);
+            displayLayer.resizeWorld();
+            this.group.addChild(displayLayer);
+            return displayLayer;
+        });
         this.map.setCollision(this.findCollisionTilesIndexes());
     }
 
@@ -74,7 +76,7 @@ export class Map {
     }
 
     public getLayer() {
-        return this.layer;
+        return this.shownLayers;
     }
 
     public getGame() {
@@ -87,5 +89,11 @@ export class Map {
 
     public loadCreatures() {
         return this.getCreaturesLayer().map(object => createPnj(object, this.gameState));
+    }
+
+    private findLayersToShow() {
+        return this.map.layers.filter(layer => {
+            return !("display" in layer.properties) || layer.properties.display === false;
+        });
     }
 }
