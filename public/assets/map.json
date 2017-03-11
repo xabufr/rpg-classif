@@ -103,7 +103,7 @@
         {
          "columns":4,
          "firstgid":1,
-         "image":"Bureau\/base prototype carte.png",
+         "image":"./images/base prototype carte.png",
          "imageheight":64,
          "imagewidth":128,
          "margin":0,
@@ -275,7 +275,7 @@
         {
          "columns":4,
          "firstgid":9,
-         "image":"Bureau\/base prototype carte.png",
+         "image":"./images/base prototype carte.png",
          "imageheight":64,
          "imagewidth":128,
          "margin":0,

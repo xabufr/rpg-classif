@@ -2,6 +2,9 @@ import { GameState } from "../game.state";
 import { WorldObject } from "./worldObject";
 import { createPnj } from "./pnjFactory";
 
+const MAP_CACHE_PREFIX = "map_private_resource_";
+const MAP_CACHE_KEY = `${MAP_CACHE_PREFIX}_tilemap_json_tiled`;
+
 export class Map {
     private group: Phaser.Group;
     private map: Phaser.Tilemap;
@@ -14,14 +17,22 @@ export class Map {
     }
 
     public load() {
-        this.game.load.tilemap("map", "./assets/map.json", null, Phaser.Tilemap.TILED_JSON);
-        this.game.load.image("tileset", "./assets/Bureau/base prototype carte.png");
+        this.game.load.onFileComplete.add((progress: any, cacheKey: any) => {
+            console.log(cacheKey);
+            if (cacheKey === MAP_CACHE_KEY) {
+                let tilemap = this.game.cache.getTilemapData(MAP_CACHE_KEY);
+                let baseUrl = tilemap.url + "/../";
+                tilemap.data.tilesets.forEach((tileset: any) => {
+                    this.game.load.image(MAP_CACHE_PREFIX + tileset.name, baseUrl + tileset.image);
+                });
+            }
+        });
+        this.game.load.tilemap(MAP_CACHE_KEY, "./assets/map.json", null, Phaser.Tilemap.TILED_JSON);
     }
 
     public setup() {
-        this.map = this.game.add.tilemap("map");
-        this.map.addTilesetImage("tileset", "tileset");
-        this.map.addTilesetImage("test", "tileset");
+        this.map = this.game.add.tilemap(MAP_CACHE_KEY);
+        this.map.tilesets.forEach(tileset => this.map.addTilesetImage(tileset.name, MAP_CACHE_PREFIX + tileset.name));
         this.shownLayers = this.findLayersToShow().map(layer => {
             let displayLayer = this.map.createLayer(layer.name);
             displayLayer.resizeWorld();
@@ -29,6 +40,7 @@ export class Map {
             return displayLayer;
         });
         this.map.setCollision(this.findCollisionTilesIndexes());
+        console.log(this.map);
     }
 
     public findCollisionTilesIndexes(): number[] {
