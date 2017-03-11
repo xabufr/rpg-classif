@@ -18,9 +18,9 @@ export class Player extends Phaser.Sprite {
         this.position = position.add(-this.width / 2, -this.height / 2);
 
         this.currentAnimation = this.registerAnimation(Direction.DOWN, [0, 1, 2]);
-        this.registerAnimation(Direction.UP, [36, 37, 38]);
-        this.registerAnimation(Direction.LEFT, [12, 13, 14]);
-        this.registerAnimation(Direction.RIGHT, [24, 25, 26]);
+        this.registerAnimation(Direction.UP, [9, 10, 11]);
+        this.registerAnimation(Direction.LEFT, [3, 4, 5]);
+        this.registerAnimation(Direction.RIGHT, [6, 7, 8]);
 
         this.setupControls();
         this.setupPhysics();
