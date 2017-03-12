@@ -5,7 +5,7 @@ import { GameState } from "./game.state";
 
 export class Game extends Phaser.Game {
     constructor() {
-        super(800, 600, Phaser.AUTO);
+        super(800, 600, Phaser.AUTO, "", null, false, false);
         this.state.add("boot", Boot);
         this.state.add("start", Start);
         this.state.add("mainMenu", MainMenu);
