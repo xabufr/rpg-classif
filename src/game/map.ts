@@ -36,7 +36,9 @@ export class Map {
         this.shownLayers = this.findLayersToShow().map(layer => {
             let displayLayer = this.map.createLayer(layer.name);
             displayLayer.resizeWorld();
-            // displayLayer.debug = true;
+            if ("display" in layer.properties && layer.properties.display === false) {
+                displayLayer.visible = false;
+            }
             this.group.addChild(displayLayer);
             this.map.setCollision(collidesIndexes, true, displayLayer);
             return displayLayer;
@@ -64,12 +66,15 @@ export class Map {
         return new Phaser.Point(spawnZone.x, spawnZone.y);
     }
 
-    public getZoneNamed(name: string): WorldObject {
+    public getZoneNamed(name: string, required = true): WorldObject {
         let zones = this.getZonesLayer().filter(z => z.name === name);
         if (zones.length === 1) {
             return zones[0];
         }
-        throw `Multiple zones named ${name} detected !`;
+        if (required === true) {
+            throw `Multiple zones named ${name} detected !`;
+        }
+        return null;
     }
 
     public getCreaturesLayer() {
@@ -105,7 +110,7 @@ export class Map {
 
     private findLayersToShow() {
         return this.map.layers.filter(layer => {
-            return layer.visible && !("display" in layer.properties) || layer.properties.display === false;
+            return layer.visible;
         });
     }
 }

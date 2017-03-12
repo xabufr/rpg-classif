@@ -7,18 +7,18 @@ enum Direction {
     LEFT = Math.PI,
 }
 export class Player extends Phaser.Sprite {
-    private cursors: Phaser.CursorKeys;
-    private direction: Direction;
-    private currentAnimation: Phaser.Animation;
+    private directions: Direction[];
+    private lastDirection: Direction;
     private canMove: boolean;
 
     constructor(game: Phaser.Game, texture: string, position: Phaser.Point) {
         super(game, 0, 0, texture);
-        this.direction = Direction.DOWN;
+        this.directions = [];
         game.add.existing(this);
-        this.position = position.add(-this.width / 2, -this.height / 2);
+        this.anchor.setTo(0.5, 0.5);
+        this.position.setTo(position.x, position.y);
 
-        this.currentAnimation = this.registerAnimation(Direction.DOWN, [0, 1, 2]);
+        this.animations.currentAnim = this.registerAnimation(Direction.DOWN, [0, 1, 2]);
         this.registerAnimation(Direction.UP, [9, 10, 11]);
         this.registerAnimation(Direction.LEFT, [3, 4, 5]);
         this.registerAnimation(Direction.RIGHT, [6, 7, 8]);
@@ -30,7 +30,23 @@ export class Player extends Phaser.Sprite {
     }
 
     private setupControls() {
-        this.cursors = this.game.input.keyboard.createCursorKeys();
+        this.registerKeyDirection(Phaser.Keyboard.RIGHT, Direction.RIGHT);
+        this.registerKeyDirection(Phaser.Keyboard.LEFT, Direction.LEFT);
+        this.registerKeyDirection(Phaser.Keyboard.UP, Direction.UP);
+        this.registerKeyDirection(Phaser.Keyboard.DOWN, Direction.DOWN);
+    }
+
+    private registerKeyDirection(keyCode: number, direction: Direction) {
+        let key = this.game.input.keyboard.addKey(keyCode);
+        key.onDown.add(() => {
+            this.directions.push(direction);
+        });
+        key.onUp.add(() => {
+            let index = this.directions.indexOf(direction);
+            if (index !== -1) {
+                this.directions.splice(index, 1);
+            }
+        });
     }
 
     private setupPhysics() {
@@ -41,42 +57,26 @@ export class Player extends Phaser.Sprite {
     public update(): void {
         if (this.canMove) {
             let velocity: Phaser.Point = this.body.velocity;
-            let newDirection = this.computeNewDirection();
-            if (newDirection !== null) {
-                velocity.x = Math.cos(newDirection) * SPEED;
-                velocity.y = Math.sin(newDirection) * SPEED;
+            let direction = this.findFreeDirection();
+            if (direction !== null) {
+                velocity.x = Math.cos(direction) * SPEED;
+                velocity.y = Math.sin(direction) * SPEED;
 
-                let isMoving = (velocity.x !== 0 || velocity.y !== 0);
-
-                if (newDirection !== this.direction) {
-                    this.direction = newDirection;
-                    this.currentAnimation = this.getWalkAnimation(newDirection);
-                    this.currentAnimation.play();
-                } else if (!isMoving) {
-                    this.currentAnimation.stop();
-                } else if (!this.currentAnimation.isPlaying) {
-                    this.currentAnimation.play();
+                if (direction !== this.lastDirection) {
+                    console.log(direction);
+                    this.lastDirection = direction;
+                    this.animations.currentAnim = this.getWalkAnimation(direction);
+                    this.animations.currentAnim.play();
+                } else if (!this.animations.currentAnim.isPlaying) {
+                    this.animations.currentAnim.play();
                 }
             } else {
                 velocity.x = velocity.y = 0;
-                this.currentAnimation.play();
+                this.animations.currentAnim.play();
             }
         } else {
-            this.currentAnimation.stop();
+            this.animations.currentAnim.stop();
         }
-    }
-
-    private computeNewDirection() {
-        if (this.cursors.up.isDown && !this.body.blocked.up) {
-            return Direction.UP;
-        } else if (this.cursors.down.isDown && !this.body.blocked.down) {
-            return Direction.DOWN;
-        } else if (this.cursors.left.isDown && !this.body.blocked.left) {
-            return Direction.LEFT;
-        } else if (this.cursors.right.isDown && !this.body.blocked.right) {
-            return Direction.RIGHT;
-        }
-        return null;
     }
 
     private getWalkAnimation(direction: Direction) {
@@ -96,5 +96,30 @@ export class Player extends Phaser.Sprite {
 
     public setCanMove(canMove: boolean) {
         this.canMove = canMove;
+    }
+
+    private findFreeDirection() {
+        for (let i = this.directions.length - 1; i >= 0; --i) {
+            let direction = this.directions[i];
+            if (!this.isDirectionBlocked(direction)) {
+                return direction;
+            }
+        }
+        return null;
+    }
+    private isDirectionBlocked(direction: Direction) {
+        let body = <Phaser.Physics.Arcade.Body> this.body;
+        let blocked = body.blocked;
+        switch (direction) {
+        case Direction.UP:
+            return blocked.up;
+        case Direction.DOWN:
+            return blocked.down;
+        case Direction.LEFT:
+            return blocked.left;
+        case Direction.RIGHT:
+            return blocked.right;
+        }
+        return false;
     }
 }

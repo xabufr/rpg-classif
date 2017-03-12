@@ -36,6 +36,7 @@ export class MonologDialog {
     private internalDim: Phaser.Point;
     private group: Phaser.Group;
     private dialogImg: Phaser.Image;
+    private dialogBtn: Phaser.Image;
     private internalMargin: Phaser.Point;
     private onTextShown: () => void;
     private style: Phaser.PhaserTextStyle;
@@ -46,6 +47,7 @@ export class MonologDialog {
 
     public preload() {
         this.game.load.image(UI_RES_PREFIX + "dialog-box", "./assets/images/dialog-box.png");
+        this.game.load.image(UI_RES_PREFIX + "show-next", "./assets/images/dialog-button.png");
     }
 
     public setup() {
@@ -53,10 +55,11 @@ export class MonologDialog {
         this.group.fixedToCamera = true;
         this.group.z = 10000;
         this.dialogImg = this.game.add.image(0, 0, UI_RES_PREFIX + "dialog-box", null, this.group);
+        this.dialogBtn = this.game.add.image(0, 0, UI_RES_PREFIX + "show-next", null, this.group);
 
         this.group.cameraOffset.y = this.game.height - this.dialogImg.height;
         this.group.cameraOffset.x = (this.game.width - this.dialogImg.width) / 2;
-        this.group.position.x = -100;
+        this.group.visible = false;
 
         this.internalDim = new Phaser.Point(this.dialogImg.width - this.internalMargin.x * 2, this.dialogImg.height - this.internalMargin.y * 2);
         let mask = this.game.add.graphics(this.internalMargin.x, this.internalMargin.y, this.group);
@@ -73,7 +76,10 @@ export class MonologDialog {
             fill: "black"
         };
 
-        this.text = this.game.add.text(this.internalMargin.x, this.internalMargin.y, "", this.style, this.group);
+        this.dialogBtn.anchor.setTo(0.5, 0.5);
+        this.dialogBtn.position.setTo(this.internalMargin.x + this.internalDim.x - 3, this.internalMargin.y + this.internalDim.y - 15);
+
+        this.text = this.game.add.text(0, 0, "", this.style, this.group);
         this.text.mask = mask;
         this.text.useAdvancedWrap = true;
         this.game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR).onDown.add(() => {
@@ -84,6 +90,7 @@ export class MonologDialog {
     }
 
     public showTextToPlayer(text: string, cb: () => void) {
+        this.text.position.setTo(this.internalMargin.x, this.internalMargin.y);
         this.text.setText(text, true);
         this.onTextShown = cb;
         this.group.visible = true;
@@ -100,5 +107,6 @@ export class MonologDialog {
             this.onTextShown();
         }
         this.text.position.y -= this.style.fontSize;
+        this.dialogBtn.visible = this.text.bottom >= this.internalMargin.y + this.internalDim.y;
     }
 }

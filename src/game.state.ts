@@ -17,6 +17,7 @@ export class GameState extends Phaser.State {
         this.hub.preload();
         this.game.load.spritesheet("player", "./assets/images/player.png", 32, 32);
         this.game.load.json("dialogs", "./assets/dialogs.json");
+        this.game.load.spritesheet("mentor", "./assets/images/mentor_ghost.png", 32, 32);
     }
 
     public create() {
