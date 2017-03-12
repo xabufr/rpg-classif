@@ -37,14 +37,6 @@ export class Mentor extends Pnj {
     }
 
     public updateForPlayer(player: Player) {
-        if (this.game.physics.arcade.collide(player, this)) {
-            this.talk(player);
-        }
-        if (this.autoTalkZone !== null && !this.hasTalk) {
-            if (this.game.physics.arcade.overlap(player, this.autoTalkZone)) {
-                this.talk(player);
-            }
-        }
         let dist = this.distanceToPlayer(player);
         if (dist > MAX_DIST) {
             this.visible = false;
@@ -52,10 +44,21 @@ export class Mentor extends Pnj {
             this.visible = true;
             this.alpha = this.getAlpha(dist);
         }
+        if (this.visible === true) {
+            if (this.game.physics.arcade.collide(player, this)) {
+                this.talk(player);
+            }
+            if (this.autoTalkZone !== null && !this.hasTalk) {
+                if (this.game.physics.arcade.overlap(player, this.autoTalkZone)) {
+                    this.talk(player);
+                }
+            }
+        }
     }
 
     private talk(player: Player) {
         this.hasTalk = true;
+        console.log(this);
         player.setCanMove(false);
         this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText, () => {
             player.setCanMove(true);
