@@ -52,6 +52,9 @@ export class Player extends Phaser.Sprite {
     private setupPhysics() {
         this.game.physics.enable(this);
         this.body.collideWorldBounds = true;
+        let body = <Phaser.Physics.Arcade.Body> this.body;
+        body.setCircle(16, 0, 0);
+        // this.debug = true;
     }
 
     public update(): void {
@@ -76,6 +79,7 @@ export class Player extends Phaser.Sprite {
         } else {
             this.animations.currentAnim.stop();
         }
+        this.game.debug.body(this, 'rgba(255, 255, 0, 1)');
     }
 
     private getWalkAnimation(direction: Direction) {
