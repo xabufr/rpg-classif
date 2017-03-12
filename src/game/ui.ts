@@ -56,7 +56,7 @@ export class MonologDialog {
 
         this.group.cameraOffset.y = this.game.height - this.dialogImg.height;
         this.group.cameraOffset.x = (this.game.width - this.dialogImg.width) / 2;
-        this.group.position.x = -100;
+        this.group.visible = false;
 
         this.internalDim = new Phaser.Point(this.dialogImg.width - this.internalMargin.x * 2, this.dialogImg.height - this.internalMargin.y * 2);
         let mask = this.game.add.graphics(this.internalMargin.x, this.internalMargin.y, this.group);
@@ -73,7 +73,7 @@ export class MonologDialog {
             fill: "black"
         };
 
-        this.text = this.game.add.text(this.internalMargin.x, this.internalMargin.y, "", this.style, this.group);
+        this.text = this.game.add.text(0, 0, "", this.style, this.group);
         this.text.mask = mask;
         this.text.useAdvancedWrap = true;
         this.game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR).onDown.add(() => {
@@ -84,6 +84,7 @@ export class MonologDialog {
     }
 
     public showTextToPlayer(text: string, cb: () => void) {
+        this.text.position.setTo(this.internalMargin.x, this.internalMargin.y);
         this.text.setText(text, true);
         this.onTextShown = cb;
         this.group.visible = true;

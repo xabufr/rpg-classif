@@ -64,12 +64,15 @@ export class Map {
         return new Phaser.Point(spawnZone.x, spawnZone.y);
     }
 
-    public getZoneNamed(name: string): WorldObject {
+    public getZoneNamed(name: string, required = true): WorldObject {
         let zones = this.getZonesLayer().filter(z => z.name === name);
         if (zones.length === 1) {
             return zones[0];
         }
-        throw `Multiple zones named ${name} detected !`;
+        if (required === true) {
+            throw `Multiple zones named ${name} detected !`;
+        }
+        return null;
     }
 
     public getCreaturesLayer() {
