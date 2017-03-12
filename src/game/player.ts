@@ -16,7 +16,9 @@ export class Player extends Phaser.Sprite {
         super(game, 0, 0, texture);
         this.direction = Direction.DOWN;
         game.add.existing(this);
-        this.position = position.add(-this.width / 2, -this.height / 2);
+        this.anchor.setTo(0.5, 0.5);
+        this.position.setTo(position.x, position.y);
+        // this.position = position.add(-this.width / 2, -this.height / 2);
 
         this.currentAnimation = this.registerAnimation(Direction.DOWN, [0, 1, 2]);
         this.registerAnimation(Direction.UP, [9, 10, 11]);

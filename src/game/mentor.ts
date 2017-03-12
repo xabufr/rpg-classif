@@ -4,7 +4,7 @@ import { Pnj } from "./pnj";
 import { Map } from "./map";
 import { Player } from "./player";
 
-const MIN_DIST = 20;
+const MIN_DIST = 50;
 const MAX_DIST = 300;
 
 export class Mentor extends Pnj {
