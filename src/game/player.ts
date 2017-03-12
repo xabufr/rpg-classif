@@ -57,19 +57,16 @@ export class Player extends Phaser.Sprite {
     public update(): void {
         if (this.canMove) {
             let velocity: Phaser.Point = this.body.velocity;
-            if (this.directions.length !== 0) {
-                let direction = this.directions[this.directions.length - 1];
+            let direction = this.findFreeDirection();
+            if (direction !== null) {
                 velocity.x = Math.cos(direction) * SPEED;
                 velocity.y = Math.sin(direction) * SPEED;
 
-                let isMoving = (velocity.x !== 0 || velocity.y !== 0);
-
                 if (direction !== this.lastDirection) {
+                    console.log(direction);
                     this.lastDirection = direction;
                     this.animations.currentAnim = this.getWalkAnimation(direction);
                     this.animations.currentAnim.play();
-                } else if (!isMoving) {
-                    this.animations.currentAnim.stop();
                 } else if (!this.animations.currentAnim.isPlaying) {
                     this.animations.currentAnim.play();
                 }
@@ -99,5 +96,30 @@ export class Player extends Phaser.Sprite {
 
     public setCanMove(canMove: boolean) {
         this.canMove = canMove;
+    }
+
+    private findFreeDirection() {
+        for (let i = this.directions.length - 1; i >= 0; --i) {
+            let direction = this.directions[i];
+            if (!this.isDirectionBlocked(direction)) {
+                return direction;
+            }
+        }
+        return null;
+    }
+    private isDirectionBlocked(direction: Direction) {
+        let body = <Phaser.Physics.Arcade.Body> this.body;
+        let blocked = body.blocked;
+        switch (direction) {
+        case Direction.UP:
+            return blocked.up;
+        case Direction.DOWN:
+            return blocked.down;
+        case Direction.LEFT:
+            return blocked.left;
+        case Direction.RIGHT:
+            return blocked.right;
+        }
+        return false;
     }
 }
