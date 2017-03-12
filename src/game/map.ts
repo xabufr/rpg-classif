@@ -36,7 +36,9 @@ export class Map {
         this.shownLayers = this.findLayersToShow().map(layer => {
             let displayLayer = this.map.createLayer(layer.name);
             displayLayer.resizeWorld();
-            // displayLayer.debug = true;
+            if ("display" in layer.properties && layer.properties.display === false) {
+                displayLayer.visible = false;
+            }
             this.group.addChild(displayLayer);
             this.map.setCollision(collidesIndexes, true, displayLayer);
             return displayLayer;
@@ -108,7 +110,7 @@ export class Map {
 
     private findLayersToShow() {
         return this.map.layers.filter(layer => {
-            return layer.visible && !("display" in layer.properties) || layer.properties.display === false;
+            return layer.visible;
         });
     }
 }
