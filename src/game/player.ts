@@ -63,7 +63,6 @@ export class Player extends Phaser.Sprite {
                 velocity.y = Math.sin(direction) * SPEED;
 
                 if (direction !== this.lastDirection) {
-                    console.log(direction);
                     this.lastDirection = direction;
                     this.animations.currentAnim = this.getWalkAnimation(direction);
                     this.animations.currentAnim.play();
