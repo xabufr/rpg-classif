@@ -2,7 +2,7 @@ import { GameState } from "../game.state";
 import { WorldObject } from "./worldObject";
 import { Pnj } from "./pnj";
 import { Map } from "./map";
-import { Player } from "./player";
+import { Player, Direction } from "./player";
 
 const MIN_DIST = 50;
 const MAX_DIST = 300;
@@ -11,11 +11,13 @@ export class Mentor extends Pnj {
     private hasTalk: boolean;
     private autoTalkZone: Phaser.Sprite;
     private talkText: string;
+    private isTalking: boolean;
     // private sprite: Phaser.Sprite;
 
     public constructor(o: WorldObject, gameState: GameState) {
         super(o, gameState, "mentor");
         this.hasTalk = false;
+        this.isTalking = false;
 
         let talkZoneObject = this.gameState.getMap().getZoneNamed(`${o.name}_zone`, false);
         if (talkZoneObject) {
@@ -45,9 +47,10 @@ export class Mentor extends Pnj {
             this.alpha = this.getAlpha(dist);
         }
         if (this.visible === true) {
-            if (this.game.physics.arcade.collide(player, this)) {
+            this.game.physics.arcade.collide(player, this, () => {
                 this.talk(player);
-            }
+                player.goBack(10);
+            });
             if (this.autoTalkZone !== null && !this.hasTalk) {
                 if (this.game.physics.arcade.overlap(player, this.autoTalkZone)) {
                     this.talk(player);
@@ -57,12 +60,15 @@ export class Mentor extends Pnj {
     }
 
     private talk(player: Player) {
-        this.hasTalk = true;
-        console.log(this);
-        player.setCanMove(false);
-        this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText, () => {
-            player.setCanMove(true);
-        });
+        if (!this.isTalking) {
+            this.isTalking = true;
+            this.hasTalk = true;
+            player.setCanMove(false);
+            this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText, () => {
+                player.setCanMove(true);
+                this.isTalking = false;
+            });
+        }
     }
 
     private distanceToPlayer(player: Player) {

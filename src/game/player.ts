@@ -1,6 +1,6 @@
 const SPEED = 300.0;
 
-enum Direction {
+export enum Direction {
     UP = -Math.PI / 2,
     DOWN = Math.PI / 2,
     RIGHT = 0,
@@ -39,7 +39,9 @@ export class Player extends Phaser.Sprite {
     private registerKeyDirection(keyCode: number, direction: Direction) {
         let key = this.game.input.keyboard.addKey(keyCode);
         key.onDown.add(() => {
-            this.directions.push(direction);
+            if (this.canMove) {
+                this.directions.push(direction);
+            }
         });
         key.onUp.add(() => {
             let index = this.directions.indexOf(direction);
@@ -74,12 +76,12 @@ export class Player extends Phaser.Sprite {
                 }
             } else {
                 velocity.x = velocity.y = 0;
-                this.animations.currentAnim.play();
+                this.animations.currentAnim.stop();
             }
         } else {
             this.animations.currentAnim.stop();
         }
-        this.game.debug.body(this, 'rgba(255, 255, 0, 1)');
+        // this.game.debug.body(this, 'rgba(255, 255, 0, 1)');
     }
 
     private getWalkAnimation(direction: Direction) {
@@ -99,6 +101,11 @@ export class Player extends Phaser.Sprite {
 
     public setCanMove(canMove: boolean) {
         this.canMove = canMove;
+        if (!this.canMove) {
+            this.directions = [];
+            let velocity: Phaser.Point = this.body.velocity;
+            velocity.x = velocity.y = 0;
+        }
     }
 
     private findFreeDirection() {
@@ -124,5 +131,11 @@ export class Player extends Phaser.Sprite {
             return blocked.right;
         }
         return false;
+    }
+
+    public goBack(count: number) {
+        let angle = this.lastDirection + Math.PI;
+        angle = Phaser.Math.radToDeg(angle);
+        (<Phaser.Physics.Arcade.Body> this.body).moveTo(50, count, angle);
     }
 }
