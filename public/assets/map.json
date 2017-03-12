@@ -200,7 +200,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "width":100,
          "x":0,
          "y":0
@@ -238,7 +238,7 @@
                  "name":"mentor2_zone",
                  "rotation":0,
                  "type":"mentor_zone",
-                 "visible":false,
+                 "visible":true,
                  "width":95,
                  "x":897,
                  "y":2753
@@ -249,7 +249,7 @@
                  "name":"mentor7_zone",
                  "rotation":0,
                  "type":"mentor_zone",
-                 "visible":false,
+                 "visible":true,
                  "width":128,
                  "x":2686,
                  "y":2017
