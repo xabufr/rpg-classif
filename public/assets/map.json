@@ -197,10 +197,35 @@
                  "width":0,
                  "x":943,
                  "y":2799
+                }, 
+                {
+                 "height":0,
+                 "id":30,
+                 "name":"creature1",
+                 "properties":
+                    {
+                     "behaviour":"passive",
+                     "talk":"intro",
+                     "textureName":"creature1",
+                     "zone":"creature1_zone"
+                    },
+                 "propertytypes":
+                    {
+                     "behaviour":"string",
+                     "talk":"string",
+                     "textureName":"string",
+                     "zone":"string"
+                    },
+                 "rotation":0,
+                 "type":"animal",
+                 "visible":true,
+                 "width":0,
+                 "x":295.333333333333,
+                 "y":2812.66666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "width":100,
          "x":0,
          "y":0
@@ -253,6 +278,17 @@
                  "width":128,
                  "x":2686,
                  "y":2017
+                }, 
+                {
+                 "height":96,
+                 "id":31,
+                 "name":"creature1_zone",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":191.666666666667,
+                 "x":224,
+                 "y":2752
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -261,7 +297,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":30,
+ "nextobjectid":33,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

@@ -1,11 +1,13 @@
 import { GameState } from "../game.state";
 import { Mentor } from "./mentor";
+import { Animal } from "./animal";
 import { Pnj } from "./pnj";
 import { WorldObject } from "./worldObject";
 import { Map } from "./map";
 
 const PNJ_TYPES: FactoryData = {
-    mentor: (o: WorldObject, s: GameState) => new Mentor(o, s)
+    mentor: (o: WorldObject, s: GameState) => new Mentor(o, s),
+    animal: (o: WorldObject, s: GameState) => new Animal(o, s)
 };
 
 interface FactoryData {
