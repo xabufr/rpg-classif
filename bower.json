@@ -18,6 +18,7 @@
   ],
   "dependencies": {
     "phaser-ce": "^2.7.2",
-    "system.js": "^0.19.41"
+    "system.js": "^0.19.41",
+    "pixi.js": "^4.4.2"
   }
 }
