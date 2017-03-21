@@ -73,54 +73,88 @@ interface ObjectData {
 const MAP_SPLIT_SIZE = 1024;
 
 export class Map {
-    private container: PIXI.Container;
-
-    public constructor(private parent: PIXI.Container, mapData: TiledMapData, world: World) {
-        this.container = new PIXI.Container();
-        let loader = new PIXI.loaders.Loader("./assets");
-        mapData.tilesets.map((v, i) => {
-            loader.add(v.image);
-        });
-        loader.load(() => {
-            let tileTextures: PIXI.Texture[] = [];
-            mapData.tilesets.forEach((v, i) => {
-                let texture = loader.resources[v.image].texture;
-                let columns = v.imagewidth / v.tilewidth;
-                let lines = v.imageheight / v.tileheight;
-                for (let x = 0; x < columns; ++x) {
-                    for (let y = 0; y < lines; ++y) {
-                        tileTextures[v.firstgid + y * v.columns + x] = new PIXI.Texture(texture.baseTexture, new PIXI.Rectangle(x * v.tilewidth, y * v.tileheight, v.tilewidth, v.tileheight));
-                    }
-                }
-            });
-            mapData.layers.filter(l =>  l.type === "tilelayer").forEach((layer: ITilesetLayer) => {
-                layer.data.forEach((v, i) => {
-                    let col = i % mapData.width;
-                    let lin = Math.floor(i / mapData.width);
-                    let sprite = new PIXI.Sprite(tileTextures[v]);
-                    sprite.x = col * mapData.tilewidth;
-                    sprite.y = lin * mapData.tileheight;
-                    this.container.addChild(sprite);
-                });
-            });
-            let col = mapData.width * mapData.tilewidth / MAP_SPLIT_SIZE;
-            let lin = mapData.height * mapData.tileheight / MAP_SPLIT_SIZE;
-            for (let x = 0; x < col; ++x) {
-                for (let y = 0; y < lin; ++y) {
-                    this.container.x = -x * MAP_SPLIT_SIZE;
-                    this.container.y = -y * MAP_SPLIT_SIZE;
-                    let rt = PIXI.RenderTexture.create(MAP_SPLIT_SIZE, MAP_SPLIT_SIZE);
-                    world.renderer.render(this.container, rt);
-                    let sprite = new PIXI.Sprite(rt);
-                    sprite.x = x * MAP_SPLIT_SIZE;
-                    sprite.y = y * MAP_SPLIT_SIZE;
-                    parent.addChild(sprite);
-                }
-            }
-        });
+    private mapContainer: PIXI.Container;
+    public constructor(private world: World, private mapName: string) {
     }
 
     public load() {
+        PIXI.loader.add(this.mapName);
+        new Promise(r => {
+            PIXI.loader.load(r);
+        }).then(() => {
+            return <TiledMapData> PIXI.loader.resources[this.mapName].data;
+        }).then((d: TiledMapData) => this.loadMap(d));
+    }
+
+    private loadMap(mapData: TiledMapData) {
+        this.loadMapTextures(mapData).then(() => {
+            let tileTextures = this.createTilesets(mapData);
+            let container = this.createMapTiles(tileTextures, mapData);
+            this.mapContainer = this.createFastCachedDisplay(container);
+            this.world.stage.addChild(this.mapContainer);
+        });
+    }
+
+    private createTilesets(mapData: TiledMapData) {
+        let tileTextures: PIXI.Texture[] = [];
+        mapData.tilesets.forEach((v, i) => {
+            let texture = PIXI.loader.resources[v.image].texture;
+            let columns = v.imagewidth / v.tilewidth;
+            let lines = v.imageheight / v.tileheight;
+            for (let x = 0; x < columns; ++x) {
+                for (let y = 0; y < lines; ++y) {
+                    tileTextures[v.firstgid + y * v.columns + x] = new PIXI.Texture(texture.baseTexture, new PIXI.Rectangle(x * v.tilewidth, y * v.tileheight, v.tilewidth, v.tileheight));
+                }
+            }
+        });
+        return tileTextures;
+    }
+
+    private createMapTiles(tileTextures: PIXI.Texture[], mapData: TiledMapData) {
+        let container = new PIXI.Container();
+        mapData.layers.filter(l =>  l.type === "tilelayer").forEach((layer: ITilesetLayer) => {
+            layer.data.forEach((v, i) => {
+                let col = i % mapData.width;
+                let lin = Math.floor(i / mapData.width);
+                let sprite = new PIXI.Sprite(tileTextures[v]);
+                sprite.x = col * mapData.tilewidth;
+                sprite.y = lin * mapData.tileheight;
+                container.addChild(sprite);
+            });
+        });
+        return container;
+    }
+
+    private createFastCachedDisplay(container: PIXI.Container) {
+        let parent = new PIXI.Container();
+        let bounds = container.getBounds();
+        let col = bounds.width / MAP_SPLIT_SIZE;
+        let lin = bounds.height / MAP_SPLIT_SIZE;
+        for (let x = 0; x < col; ++x) {
+            for (let y = 0; y < lin; ++y) {
+                container.x = -x * MAP_SPLIT_SIZE;
+                container.y = -y * MAP_SPLIT_SIZE;
+                let rt = PIXI.RenderTexture.create(MAP_SPLIT_SIZE, MAP_SPLIT_SIZE);
+                this.world.renderer.render(container, rt);
+                let sprite = new PIXI.Sprite(rt);
+                sprite.x = x * MAP_SPLIT_SIZE;
+                sprite.y = y * MAP_SPLIT_SIZE;
+                parent.addChild(sprite);
+            }
+        }
+        return parent;
+    }
+
+    private loadMapTextures(mapData: TiledMapData) {
+        mapData.tilesets.map((v, i) => {
+            PIXI.loader.add(v.image, this.mapName + "/../" + v.image);
+        });
+        return new Promise(r => {
+            PIXI.loader.load(r);
+        });
+    }
+
+    // public load() {
         // this.game.load.onFileComplete.add((progress: any, cacheKey: any) => {
         //     if (cacheKey === MAP_CACHE_KEY) {
         //         let tilemap = this.game.cache.getTilemapData(MAP_CACHE_KEY);
@@ -131,7 +165,7 @@ export class Map {
         //     }
         // });
         // this.game.load.tilemap(MAP_CACHE_KEY, "./assets/map.json", null, Phaser.Tilemap.TILED_JSON);
-    }
+    // }
 
     public setup() {
         // this.map = this.game.add.tilemap(MAP_CACHE_KEY);

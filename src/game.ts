@@ -25,50 +25,68 @@ export class Game {
         this.renderer.view.style.border = "1px dashed red";
 
         let stage = this.world.stage;
-        //Tell the `renderer` to `render` the `stage`
-        this.renderer.render(stage);
-        PIXI.loader.baseUrl = "./assets/";
-        PIXI.loader.add("map.json", (data: any) => {
-            console.log(data.data);
-            new Map(stage, data.data, this.world);
-        }).add("images/player_f.png").load(() => {
+        this.load().then(() => this.start());
+        // PIXI.loader.baseUrl = "./assets/";
+        // PIXI.loader.add("map.json", (data: any) => {
+        //     console.log(data.data);
+        //     new Map(stage, data.data, this.world);
+        // }).add("images/player_f.png").load(() => {
 
-            let sprite = new AnimatedSprite("images/player_f.png", {
-                frameWidth: 24,
-                frameHeight: 32
-            }, [{
-                name: "up",
-                frames: [
-                    {x: 0, y: 3},
-                    {x: 1, y: 3},
-                    {x: 2, y: 3}]
-            }, {
-                name: "down",
-                frames: [
-                    {x: 0, y: 0},
-                    {x: 1, y: 0},
-                    {x: 2, y: 0}]
-            }]);
-            sprite.setCurrentAnimation("up");
-            sprite.play();
-            let cont = new PIXI.particles.ParticleContainer();
-            cont.addChild(sprite);
+        //     let sprite = new AnimatedSprite("images/player_f.png", {
+        //         frameWidth: 24,
+        //         frameHeight: 32
+        //     }, [{
+        //         name: "up",
+        //         frames: [
+        //             {x: 0, y: 3},
+        //             {x: 1, y: 3},
+        //             {x: 2, y: 3}]
+        //     }, {
+        //         name: "down",
+        //         frames: [
+        //             {x: 0, y: 0},
+        //             {x: 1, y: 0},
+        //             {x: 2, y: 0}]
+        //     }]);
+        //     sprite.setCurrentAnimation("up");
+        //     sprite.play();
+        //     let cont = new PIXI.particles.ParticleContainer();
+        //     cont.addChild(sprite);
 
-            let sprite2 = new PIXI.Sprite(PIXI.loader.resources["images/player_f.png"].texture);
-            sprite2.texture.frame = new PIXI.Rectangle(10, 10, 50, 32);
-            sprite2.x = 100;
-            cont.addChild(sprite2);
-            stage.addChild(cont);
-            this.gameLoopEnter();
-        });
+        //     let sprite2 = new PIXI.Sprite(PIXI.loader.resources["images/player_f.png"].texture);
+        //     sprite2.texture.frame = new PIXI.Rectangle(10, 10, 50, 32);
+        //     sprite2.x = 100;
+        //     cont.addChild(sprite2);
+        //     stage.addChild(cont);
+        //     this.gameLoopEnter();
+        // });
     }
 
-    public gameLoopEnter() {
-        requestAnimationFrame(() => this.gameLoopEnter());
-	      stats.begin();
+    private load() {
+        PIXI.loader.baseUrl = "./assets/";
+        PIXI.loader.add("images/player_f.png");
+        return new Promise(r => {
+            PIXI.loader.load(r);
+        }).then(() => this.loadMap("./map.json"));
+    }
+
+    private loadMap(mapName: string) {
+        let map = new Map(this.world, mapName);
+        return map.load();
+    }
+
+    private start() {
+        requestAnimationFrame(() => this.gameLoop());
+    }
+
+    public gameLoop() {
+        requestAnimationFrame(() => this.gameLoop());
+
+        stats.begin();
         this.world.render();
         stats.end();
-        this.world.stage.x-= 5;
-        this.world.stage.y-= 5;
+
+        this.world.stage.x -= 5;
+        this.world.stage.y -= 5;
     }
 }
