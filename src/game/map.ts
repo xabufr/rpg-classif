@@ -1,5 +1,6 @@
 import { GameState } from "../game.state";
 import { WorldObject } from "./worldObject";
+import { World } from "../world";
 import { createPnj } from "./pnjFactory";
 
 const MAP_CACHE_PREFIX = "map_private_resource_";
@@ -69,11 +70,13 @@ interface ObjectData {
     properties: any;
 }
 
+const MAP_SPLIT_SIZE = 1024;
+
 export class Map {
     private container: PIXI.Container;
 
-    public constructor(private parent: PIXI.Container, mapData: TiledMapData) {
-        this.container = parent.addChild(new PIXI.Container());
+    public constructor(private parent: PIXI.Container, mapData: TiledMapData, world: World) {
+        this.container = new PIXI.Container();
         let loader = new PIXI.loaders.Loader("./assets");
         mapData.tilesets.map((v, i) => {
             loader.add(v.image);
@@ -99,7 +102,21 @@ export class Map {
                     sprite.y = lin * mapData.tileheight;
                     this.container.addChild(sprite);
                 });
-            })
+            });
+            let col = mapData.width * mapData.tilewidth / MAP_SPLIT_SIZE;
+            let lin = mapData.height * mapData.tileheight / MAP_SPLIT_SIZE;
+            for (let x = 0; x < col; ++x) {
+                for (let y = 0; y < lin; ++y) {
+                    this.container.x = -x * MAP_SPLIT_SIZE;
+                    this.container.y = -y * MAP_SPLIT_SIZE;
+                    let rt = PIXI.RenderTexture.create(MAP_SPLIT_SIZE, MAP_SPLIT_SIZE);
+                    world.renderer.render(this.container, rt);
+                    let sprite = new PIXI.Sprite(rt);
+                    sprite.x = x * MAP_SPLIT_SIZE;
+                    sprite.y = y * MAP_SPLIT_SIZE;
+                    parent.addChild(sprite);
+                }
+            }
         });
     }
 
@@ -132,7 +149,7 @@ export class Map {
         // });
     }
 
-    public findCollisionTilesIndexes(): number[] {
+    public findCollisionTilesIndexes(): number[] | null {
         // let indexes: number[] = [];
         // this.map.tilesets.forEach((tileset, i) =>  {
         //     let tilesProperties: any = (<any>tileset)["tileProperties"];
@@ -154,7 +171,7 @@ export class Map {
         // return new Phaser.Point(spawnZone.x, spawnZone.y);
     }
 
-    public getZoneNamed(name: string, required = true): WorldObject {
+    public getZoneNamed(name: string, required = true): WorldObject | null {
         // let zones = this.getZonesLayer().filter(z => z.name === name);
         // if (zones.length === 1) {
         //     return zones[0];
@@ -190,7 +207,7 @@ export class Map {
 
     public getGameState() {
         // return this.gameState;
-    // }
+    }
 
     public loadCreatures() {
         // return this.getCreaturesLayer().map(object => createPnj(object, this.gameState));
