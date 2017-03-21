@@ -32,8 +32,8 @@ interface AnimationDic {
 
 export class AnimatedSprite extends PIXI.extras.AnimatedSprite {
     private animations: AnimationDic;
-    constructor(textureName: string, spriteDefinition: SpritesheetDefinition, animations: AnimationDefinition[]) {
-        let baseTexture = PIXI.BaseTexture.from(textureName);
+    constructor(texture: PIXI.Texture, spriteDefinition: SpritesheetDefinition, animations: AnimationDefinition[]) {
+        let baseTexture = texture.baseTexture;
         let frames: PIXI.Texture[][] = [];
         let nbXFrames = baseTexture.width / spriteDefinition.frameWidth;
         let nbYFrames = baseTexture.height / spriteDefinition.frameHeight;

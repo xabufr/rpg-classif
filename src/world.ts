@@ -4,6 +4,8 @@ export class World {
 
     private root: PIXI.Container;
 
+    private cameraTarget: PIXI.DisplayObject;
+
     constructor(
         public readonly renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer
     ) {
@@ -16,5 +18,16 @@ export class World {
 
     public render() {
         this.renderer.render(this.root);
+    }
+
+    public cameraFollow(target: PIXI.DisplayObject) {
+        this.cameraTarget = target;
+    }
+
+    public update() {
+        if (this.cameraTarget) {
+            this.stage.x = -this.cameraTarget.x + this.renderer.width / 2;
+            this.stage.y = -this.cameraTarget.y + this.renderer.height / 2;
+        }
     }
 }

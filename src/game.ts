@@ -3,6 +3,7 @@
 // import { MainMenu } from "./mainMenu.state";
 // import { GameState } from "./game.state";
 
+import { Player } from "./game/player";
 import { World } from "./world";
 import { Map } from "./game/map";
 import { AnimatedSprite } from "./engine/animatedSprite";
@@ -12,6 +13,7 @@ let stats = new Stats();
 export class Game {
     private renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
     private world: World;
+    private map: Map;
     constructor() {
         this.renderer = PIXI.autoDetectRenderer(800, 600, {
             antialias: false
@@ -67,12 +69,18 @@ export class Game {
         PIXI.loader.add("images/player_f.png");
         return new Promise(r => {
             PIXI.loader.load(r);
-        }).then(() => this.loadMap("./map.json"));
+        }).then(() => this.loadMap("./map.json"))
+            .then(() => this.loadPlayer());
     }
 
     private loadMap(mapName: string) {
         let map = new Map(this.world, mapName);
+        this.map = map;
         return map.load();
+    }
+
+    private loadPlayer() {
+        let player = new Player(this.world, PIXI.loader.resources["images/player_f.png"].texture, this.map.findSpawnZone());
     }
 
     private start() {
@@ -83,10 +91,8 @@ export class Game {
         requestAnimationFrame(() => this.gameLoop());
 
         stats.begin();
+        this.world.update();
         this.world.render();
         stats.end();
-
-        this.world.stage.x -= 5;
-        this.world.stage.y -= 5;
     }
 }

@@ -74,20 +74,22 @@ const MAP_SPLIT_SIZE = 1024;
 
 export class Map {
     private mapContainer: PIXI.Container;
+    private mapData: TiledMapData;
     public constructor(private world: World, private mapName: string) {
     }
 
     public load() {
         PIXI.loader.add(this.mapName);
-        new Promise(r => {
+        return new Promise(r => {
             PIXI.loader.load(r);
         }).then(() => {
-            return <TiledMapData> PIXI.loader.resources[this.mapName].data;
+            this.mapData = <TiledMapData> PIXI.loader.resources[this.mapName].data;
+            return this.mapData;
         }).then((d: TiledMapData) => this.loadMap(d));
     }
 
     private loadMap(mapData: TiledMapData) {
-        this.loadMapTextures(mapData).then(() => {
+        return this.loadMapTextures(mapData).then(() => {
             let tileTextures = this.createTilesets(mapData);
             let container = this.createMapTiles(tileTextures, mapData);
             this.mapContainer = this.createFastCachedDisplay(container);
@@ -201,18 +203,19 @@ export class Map {
     }
 
     public findSpawnZone() {
-        // let spawnZone = this.getZoneNamed("player-spawn");
-        // return new Phaser.Point(spawnZone.x, spawnZone.y);
+        let spawnZone = this.getZoneNamed("player-spawn");
+        return new PIXI.Point(spawnZone.x, spawnZone.y);
     }
 
-    public getZoneNamed(name: string, required = true): WorldObject | null {
-        // let zones = this.getZonesLayer().filter(z => z.name === name);
-        // if (zones.length === 1) {
-        //     return zones[0];
-        // }
-        // if (required === true) {
-        //     throw `Multiple zones named ${name} detected !`;
-        // }
+    public getZoneNamed(name: string): ObjectData;
+    public getZoneNamed(name: string, required = true): ObjectData | null {
+        let zones = this.getZonesLayer().filter(z => z.name === name);
+        if (zones.length === 1) {
+            return zones[0];
+        }
+        if (required === true) {
+            throw `Multiple zones named ${name} detected !`;
+        }
         return null;
     }
 
@@ -221,13 +224,14 @@ export class Map {
     }
 
     public getZonesLayer() {
-        // return this.getObjectLayer("world-zones");
+        return this.getObjectLayer("world-zones");
     }
 
-    public getObjectLayer(layerName: string): WorldObject[] {
-        // if (layerName in this.map.objects) {
-            // return (<any>this.map).objects[layerName];
-        // }
+    public getObjectLayer(layerName: string) {
+        let layers = this.mapData.layers.filter(l => l.type === "objectgroup" && l.name === layerName);
+        if (layers.length === 1) {
+            return (<IObjectLayer> layers[0]).objects;
+        }
         throw `Cannot find layer ${layerName}`;
     }
 
