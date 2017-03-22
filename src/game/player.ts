@@ -1,4 +1,4 @@
-import { AnimatedSprite } from "../engine/animatedSprite";
+import { AnimatedSprite, Animation } from "../engine/animatedSprite";
 import { World } from "../world";
 const SPEED = 300.0;
 
@@ -17,6 +17,10 @@ export class Player {
     private directions: Direction[];
     private lastDirection: Direction;
     private canMove: boolean;
+    private animations: {
+        [dir: number]: Animation;
+        current: Animation;
+    };
 
     constructor(private world: World, texture: PIXI.Texture, position: PIXI.Point) {
         this.directions = [];
@@ -25,9 +29,32 @@ export class Player {
             frameWidth: 24,
             frameHeight: 32
         }, [{
+            name: "down",
+            frames: [
+                {x: 0, y: 0},
+                {x: 1, y: 0},
+                {x: 2, y: 0}
+            ]
+        }, {
+            name: "left",
+            frames: [
+                {x: 0, y: 1},
+                {x: 1, y: 1},
+                {x: 2, y: 1}
+            ]
+        },{
+            name: "right",
+            frames: [
+                {x: 0, y: 2},
+                {x: 1, y: 2},
+                {x: 2, y: 2}
+            ]
+        }, {
             name: "up",
             frames: [
-                {x: 1, y: 1}
+                {x: 0, y: 3},
+                {x: 1, y: 3},
+                {x: 2, y: 3}
             ]
         }]);
         world.stage.addChild(this.sprite);
@@ -35,10 +62,7 @@ export class Player {
         this.sprite.anchor.set(0.5, 0.5);
         this.sprite.position.set(position.x, position.y);
 
-        // this.animations.currentAnim = this.registerAnimation(Direction.DOWN, [0, 1, 2]);
-        // this.registerAnimation(Direction.UP, [9, 10, 11]);
-        // this.registerAnimation(Direction.LEFT, [3, 4, 5]);
-        // this.registerAnimation(Direction.RIGHT, [6, 7, 8]);
+        this.animations = this.initAnimations();
 
         this.setupControls();
         this.setupPhysics();
@@ -50,6 +74,17 @@ export class Player {
         this.registerKeyDirection("left", Direction.LEFT);
         this.registerKeyDirection("up", Direction.UP);
         this.registerKeyDirection("down", Direction.DOWN);
+    }
+
+    private initAnimations() {
+        let down = this.sprite.getAnimation("down");
+        return {
+            [Direction.DOWN]: down,
+            [Direction.UP]: this.sprite.getAnimation("up"),
+            [Direction.RIGHT]: this.sprite.getAnimation("right"),
+            [Direction.LEFT]: this.sprite.getAnimation("left"),
+            current: down
+        };
     }
 
     private registerKeyDirection(key: string, direction: Direction) {
@@ -81,19 +116,20 @@ export class Player {
                 velocity.x = Math.cos(direction) * SPEED;
                 velocity.y = Math.sin(direction) * SPEED;
 
-                // if (direction !== this.lastDirection) {
-                //     this.lastDirection = direction;
-                //     this.animations.currentAnim = this.getWalkAnimation(direction);
-                //     this.animations.currentAnim.play();
-                // } else if (!this.animations.currentAnim.isPlaying) {
-                //     this.animations.currentAnim.play();
+                if (direction !== this.lastDirection) {
+                    this.lastDirection = direction;
+                    this.animations.current = this.animations[direction];
+                    this.animations.current.play();
+                // } else if (!this.animations.current.isPlaying) {
+                //     this.animations.current.play();
                 // }
+                }
             } else {
                 velocity.x = velocity.y = 0;
-                // this.animations.currentAnim.stop();
+                this.animations.current.stop();
             }
         } else {
-            // this.animations.currentAnim.stop();
+            this.animations.current.stop();
         }
         this.sprite.position.x += velocity.x * 0.1;
         this.sprite.position.y += velocity.y * 0.1;
@@ -105,11 +141,11 @@ export class Player {
     //     return this.animations.getAnimation(name);
     // }
 
-    // private registerAnimation(direction: Direction, indexes: number[]) {
-    //     let name = Direction[direction];
-    //     let anim = this.animations.add(name, indexes, 10, true);
-    //     return anim;
-    // }
+    private registerAnimation(direction: Direction, name: string, dico: any) {
+        let anim = this.sprite.getAnimation(name);
+        dico[direction] = anim;
+        return anim;
+    }
 
     // public collide() {
         // this.body.velocity.setTo(0, 0);
