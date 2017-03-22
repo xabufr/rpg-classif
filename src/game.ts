@@ -14,6 +14,7 @@ export class Game {
     private renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
     private world: World;
     private map: Map;
+    private player: Player;
     constructor() {
         this.renderer = PIXI.autoDetectRenderer(800, 600, {
             antialias: false
@@ -80,7 +81,7 @@ export class Game {
     }
 
     private loadPlayer() {
-        let player = new Player(this.world, PIXI.loader.resources["images/player_f.png"].texture, this.map.findSpawnZone());
+        this.player = new Player(this.world, PIXI.loader.resources["images/player_f.png"].texture, this.map.findSpawnZone());
     }
 
     private start() {
@@ -91,6 +92,7 @@ export class Game {
         requestAnimationFrame(() => this.gameLoop());
 
         stats.begin();
+        this.player.update();
         this.world.update();
         this.world.render();
         stats.end();

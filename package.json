@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/xabufr/rpg-classif#readme",
   "devDependencies": {
+    "@types/keyboardjs": "^2.2.30",
     "@types/pixi.js": "^4.4.0",
     "@types/stats.js": "^0.16.0",
     "bower": "^1.8.0",

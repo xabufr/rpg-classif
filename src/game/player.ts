@@ -2,6 +2,10 @@ import { AnimatedSprite } from "../engine/animatedSprite";
 import { World } from "../world";
 const SPEED = 300.0;
 
+// let listener = new window.keypress.Listener();
+enum PlayerKeys {
+    UP = 38, DOWN = 40, RIGHT = 39, LEFT = 37
+}
 export enum Direction {
     UP = -Math.PI / 2,
     DOWN = Math.PI / 2,
@@ -42,25 +46,26 @@ export class Player {
     }
 
     private setupControls() {
-        // this.registerKeyDirection(Phaser.Keyboard.RIGHT, Direction.RIGHT);
-        // this.registerKeyDirection(Phaser.Keyboard.LEFT, Direction.LEFT);
-        // this.registerKeyDirection(Phaser.Keyboard.UP, Direction.UP);
-        // this.registerKeyDirection(Phaser.Keyboard.DOWN, Direction.DOWN);
+        this.registerKeyDirection("right", Direction.RIGHT);
+        this.registerKeyDirection("left", Direction.LEFT);
+        this.registerKeyDirection("up", Direction.UP);
+        this.registerKeyDirection("down", Direction.DOWN);
     }
 
-    private registerKeyDirection(keyCode: number, direction: Direction) {
-        // let key = this.game.input.keyboard.addKey(keyCode);
-        // key.onDown.add(() => {
-        //     if (this.canMove) {
-        //         this.directions.push(direction);
-        //     }
-        // });
-        // key.onUp.add(() => {
-        //     let index = this.directions.indexOf(direction);
-        //     if (index !== -1) {
-        //         this.directions.splice(index, 1);
-        //     }
-        // });
+    private registerKeyDirection(key: string, direction: Direction) {
+        keyboardJS.bind(key, e => {
+            if (this.canMove) {
+                this.directions.push(direction);
+            }
+            if(e) {
+                e.preventRepeat();
+            }
+        }, () => {
+            let index = this.directions.indexOf(direction);
+            if (index !== -1) {
+                this.directions.splice(index, 1);
+            }
+        });
     }
 
     private setupPhysics() {
@@ -69,27 +74,29 @@ export class Player {
     }
 
     public update(): void {
-    //     if (this.canMove) {
-    //         let velocity: Phaser.Point = this.body.velocity;
-    //         let direction = this.findFreeDirection();
-    //         if (direction !== null) {
-    //             velocity.x = Math.cos(direction) * SPEED;
-    //             velocity.y = Math.sin(direction) * SPEED;
+        let velocity = new PIXI.Point();
+        if (this.canMove) {
+            let direction = this.findFreeDirection();
+            if (direction !== null) {
+                velocity.x = Math.cos(direction) * SPEED;
+                velocity.y = Math.sin(direction) * SPEED;
 
-    //             if (direction !== this.lastDirection) {
-    //                 this.lastDirection = direction;
-    //                 this.animations.currentAnim = this.getWalkAnimation(direction);
-    //                 this.animations.currentAnim.play();
-    //             } else if (!this.animations.currentAnim.isPlaying) {
-    //                 this.animations.currentAnim.play();
-    //             }
-    //         } else {
-    //             velocity.x = velocity.y = 0;
-    //             this.animations.currentAnim.stop();
-    //         }
-    //     } else {
-    //         this.animations.currentAnim.stop();
-    //     }
+                // if (direction !== this.lastDirection) {
+                //     this.lastDirection = direction;
+                //     this.animations.currentAnim = this.getWalkAnimation(direction);
+                //     this.animations.currentAnim.play();
+                // } else if (!this.animations.currentAnim.isPlaying) {
+                //     this.animations.currentAnim.play();
+                // }
+            } else {
+                velocity.x = velocity.y = 0;
+                // this.animations.currentAnim.stop();
+            }
+        } else {
+            // this.animations.currentAnim.stop();
+        }
+        this.sprite.position.x += velocity.x * 0.1;
+        this.sprite.position.y += velocity.y * 0.1;
         // this.game.debug.body(this, 'rgba(255, 255, 0, 1)');
     }
 
@@ -117,15 +124,18 @@ export class Player {
     //     }
     // }
 
-    // private findFreeDirection() {
-    //     // for (let i = this.directions.length - 1; i >= 0; --i) {
-        //     let direction = this.directions[i];
-        //     if (!this.isDirectionBlocked(direction)) {
-        //         return direction;
-        //     }
+    private findFreeDirection() {
+        if (this.directions.length > 0) {
+            return this.directions[this.directions.length - 1];
+        }
+        // for (let i = this.directions.length - 1; i >= 0; --i) {
+            // let direction = this.directions[i];
+            // if (!this.isDirectionBlocked(direction)) {
+                // return direction;
+            // }
         // }
-        // return null;
-    // }
+        return null;
+    }
     // private isDirectionBlocked(direction: Direction) {
         // let body = <Phaser.Physics.Arcade.Body> this.body;
         // let blocked = body.blocked;
