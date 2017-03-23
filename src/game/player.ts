@@ -17,6 +17,7 @@ export class Player {
     private directions: Direction[];
     private lastDirection: Direction;
     private canMove: boolean;
+    private body: Matter.Body;
     private animations: {
         [dir: number]: Animation;
         current: Animation;
@@ -57,9 +58,11 @@ export class Player {
                 {x: 2, y: 3}
             ]
         }]);
+        this.body = Matter.Bodies.circle(position.x, position.y, 12);
+        Matter.World.add(this.world.engine.world, [this.body]);
         world.stage.addChild(this.sprite);
         world.cameraFollow(this.sprite);
-        this.sprite.anchor.set(0.5, 0.5);
+        // this.sprite.anchor.set(0.5, 0.5);
         this.sprite.position.set(position.x, position.y);
 
         this.animations = this.initAnimations();
@@ -113,16 +116,15 @@ export class Player {
         if (this.canMove) {
             let direction = this.findFreeDirection();
             if (direction !== null) {
-                velocity.x = Math.cos(direction) * SPEED;
-                velocity.y = Math.sin(direction) * SPEED;
+                velocity.x = Math.cos(direction) * SPEED / 100;
+                velocity.y = Math.sin(direction) * SPEED / 100;
 
                 if (direction !== this.lastDirection) {
                     this.lastDirection = direction;
                     this.animations.current = this.animations[direction];
                     this.animations.current.play();
-                // } else if (!this.animations.current.isPlaying) {
-                //     this.animations.current.play();
-                // }
+                } else if (!this.animations.current.isPlaying) {
+                    this.animations.current.play();
                 }
             } else {
                 velocity.x = velocity.y = 0;
@@ -131,15 +133,16 @@ export class Player {
         } else {
             this.animations.current.stop();
         }
-        this.sprite.position.x += velocity.x * 0.1;
-        this.sprite.position.y += velocity.y * 0.1;
+        // this.body.velocity.x = velocity.x;
+        // this.body.velocity.y = velocity.y;
+        this.body.speed = 10;
+        Matter.Body.setVelocity(this.body, velocity);
+        this.sprite.position.x = this.body.position.x;
+        this.sprite.position.y = this.body.position.y;
+        // this.sprite.position.x += velocity.x * 0.1;
+        // this.sprite.position.y += velocity.y * 0.1;
         // this.game.debug.body(this, 'rgba(255, 255, 0, 1)');
     }
-
-    // private getWalkAnimation(direction: Direction) {
-    //     let name = Direction[direction];
-    //     return this.animations.getAnimation(name);
-    // }
 
     private registerAnimation(direction: Direction, name: string, dico: any) {
         let anim = this.sprite.getAnimation(name);

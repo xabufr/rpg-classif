@@ -12,17 +12,21 @@ export interface SpritesheetDefinition {
 }
 
 export class Animation {
+    public isPlaying: boolean;
     constructor(public name: string,
                 public textures: PIXI.Texture[], private sprite: AnimatedSprite) {
+        this.isPlaying = false;
     }
 
     public play() {
         this.sprite.setCurrentAnimation(this);
         this.sprite.play();
+        this.isPlaying = true;
     }
 
     public stop() {
         this.sprite.stop();
+        this.isPlaying = false;
     }
 }
 

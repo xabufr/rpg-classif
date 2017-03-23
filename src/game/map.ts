@@ -70,6 +70,11 @@ interface ObjectData {
     properties: any;
 }
 
+interface Tile {
+    texture: PIXI.Texture;
+    collide: boolean;
+}
+
 const MAP_SPLIT_SIZE = 1024;
 
 export class Map {
@@ -94,37 +99,76 @@ export class Map {
             let container = this.createMapTiles(tileTextures, mapData);
             this.mapContainer = this.createFastCachedDisplay(container);
             this.world.stage.addChild(this.mapContainer);
+            let bodies = this.createMapBody(tileTextures, mapData);
+            Matter.World.add(this.world.engine.world, bodies);
         });
     }
 
     private createTilesets(mapData: TiledMapData) {
-        let tileTextures: PIXI.Texture[] = [];
+        console.log(mapData);
+        let tileTextures: Tile[] = [];
         mapData.tilesets.forEach((v, i) => {
             let texture = PIXI.loader.resources[v.image].texture;
             let columns = v.imagewidth / v.tilewidth;
             let lines = v.imageheight / v.tileheight;
+            console.log(v);
             for (let x = 0; x < columns; ++x) {
                 for (let y = 0; y < lines; ++y) {
-                    tileTextures[v.firstgid + y * v.columns + x] = new PIXI.Texture(texture.baseTexture, new PIXI.Rectangle(x * v.tilewidth, y * v.tileheight, v.tilewidth, v.tileheight));
+                    let collide: boolean = false;
+                    if (v.tileproperties) {
+                        let properties = v.tileproperties[y * v.columns + x];
+                        if (properties && properties.collide === true) {
+                            collide = true;
+                        }
+                    }
+                    tileTextures[v.firstgid + y * v.columns + x] = {
+                        texture: new PIXI.Texture(texture.baseTexture, new PIXI.Rectangle(x * v.tilewidth, y * v.tileheight, v.tilewidth, v.tileheight)),
+                        collide: collide
+                    };
                 }
             }
         });
         return tileTextures;
     }
 
-    private createMapTiles(tileTextures: PIXI.Texture[], mapData: TiledMapData) {
+    private createMapTiles(tileTextures: Tile[], mapData: TiledMapData) {
         let container = new PIXI.Container();
         mapData.layers.filter(l =>  l.type === "tilelayer").forEach((layer: ITilesetLayer) => {
             layer.data.forEach((v, i) => {
+                if (v === 0) {
+                    return;
+                }
                 let col = i % mapData.width;
                 let lin = Math.floor(i / mapData.width);
-                let sprite = new PIXI.Sprite(tileTextures[v]);
+                let sprite = new PIXI.Sprite(tileTextures[v].texture);
                 sprite.x = col * mapData.tilewidth;
                 sprite.y = lin * mapData.tileheight;
                 container.addChild(sprite);
             });
         });
         return container;
+    }
+
+    private createMapBody(tiles: Tile[], mapData: TiledMapData) {
+        let bodies: Matter.Body[] = [];
+        mapData.layers.filter(l =>  l.type === "tilelayer").forEach((layer: ITilesetLayer) => {
+            layer.data.forEach((v, i) => {
+                if (v === 0) {
+                    return;
+                }
+                let col = i % mapData.width;
+                let lin = Math.floor(i / mapData.width);
+                let x = col * mapData.tilewidth;
+                let y = lin * mapData.tileheight;
+                if (tiles[v].collide === true) {
+                    let tex = tiles[v].texture;
+                    bodies.push(Matter.Bodies.rectangle(x, y, tex.width, tex.height, {
+                        isStatic: true
+                    }));
+                }
+            });
+        });
+        return bodies;
     }
 
     private createFastCachedDisplay(container: PIXI.Container) {
