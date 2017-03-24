@@ -63,13 +63,14 @@ export class Player {
         world.stage.addChild(this.sprite);
         world.cameraFollow(this.sprite);
         // this.sprite.anchor.set(0.5, 0.5);
-        this.sprite.position.set(position.x, position.y);
+        // this.sprite.position.set(position.x, position.y);
 
         this.animations = this.initAnimations();
 
         this.setupControls();
         this.setupPhysics();
         this.canMove = true;
+        console.log(this.sprite);
     }
 
     private setupControls() {
