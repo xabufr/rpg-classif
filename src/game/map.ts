@@ -1,11 +1,7 @@
-import { GameState } from "../game.state";
 import { WorldObject } from "./worldObject";
 import { World } from "../world";
 import { createPnj } from "./pnjFactory";
 import { Player } from "./player";
-
-const MAP_CACHE_PREFIX = "map_private_resource_";
-const MAP_CACHE_KEY = `${MAP_CACHE_PREFIX}_tilemap_json_tiled`;
 
 interface TiledMapData {
     height: number;
@@ -202,52 +198,6 @@ export class Map {
         });
     }
 
-    // public load() {
-        // this.game.load.onFileComplete.add((progress: any, cacheKey: any) => {
-        //     if (cacheKey === MAP_CACHE_KEY) {
-        //         let tilemap = this.game.cache.getTilemapData(MAP_CACHE_KEY);
-        //         let baseUrl = tilemap.url + "/../";
-        //         tilemap.data.tilesets.forEach((tileset: any) => {
-        //             this.game.load.image(MAP_CACHE_PREFIX + tileset.name, baseUrl + tileset.image);
-        //         });
-        //     }
-        // });
-        // this.game.load.tilemap(MAP_CACHE_KEY, "./assets/map.json", null, Phaser.Tilemap.TILED_JSON);
-    // }
-
-    public setup() {
-        // this.map = this.game.add.tilemap(MAP_CACHE_KEY);
-        // this.map.tilesets.forEach(tileset => this.map.addTilesetImage(tileset.name, MAP_CACHE_PREFIX + tileset.name));
-        // let collidesIndexes = this.findCollisionTilesIndexes();
-        // this.shownLayers = this.findLayersToShow().map(layer => {
-        //     let displayLayer = this.map.createLayer(layer.name);
-        //     displayLayer.resizeWorld();
-        //     if ("display" in layer.properties && layer.properties.display === false) {
-        //         displayLayer.visible = false;
-        //     }
-        //     this.container.addChild(displayLayer);
-        //     this.map.setCollision(collidesIndexes, true, displayLayer);
-        //     return displayLayer;
-        // });
-    }
-
-    public findCollisionTilesIndexes(): number[] | null {
-        // let indexes: number[] = [];
-        // this.map.tilesets.forEach((tileset, i) =>  {
-        //     let tilesProperties: any = (<any>tileset)["tileProperties"];
-        //     if (tilesProperties !== undefined) {
-        //         Object.keys(tilesProperties).forEach((key: string) => {
-        //             let tileProperties = tilesProperties[key];
-        //             if (tileProperties["collide"] === true) {
-        //                 indexes.push(tileset.firstgid + parseInt(key));
-        //             }
-        //         });
-        //     }
-        // });
-        // return indexes;
-        return null;
-    }
-
     public findSpawnZone() {
         let spawnZone = this.getZoneNamed("player-spawn");
         return new PIXI.Point(spawnZone.x, spawnZone.y);
@@ -285,25 +235,7 @@ export class Map {
         throw `Cannot find object layer ${layerName}`;
     }
 
-    public getLayers() {
-        // return this.shownLayers;
-    }
-
-    public getGame() {
-        // return this.game;
-    }
-
-    public getGameState() {
-        // return this.gameState;
-    }
-
     public loadCreatures(player: Player) {
         return this.getCreaturesLayer().map(object => createPnj(object, this.world, player));
-    }
-
-    private findLayersToShow() {
-        // return this.map.layers.filter(layer => {
-        //     return layer.visible;
-        // });
     }
 }
