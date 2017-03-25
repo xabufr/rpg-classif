@@ -47,13 +47,14 @@ export class MonologDialog {
     public preload() {
         PIXI.loader
             .add( "images/dialog-box.png")
-            .add( "images/dialog-button.png");
+            .add( "images/press-space-button.png");
     }
 
     public setup() {
         this.group = new PIXI.Container();
-        this.dialogBtn = new PIXI.Sprite(PIXI.loader.resources["images/dialog-button.png"].texture);
+        this.dialogBtn = new PIXI.Sprite(PIXI.loader.resources["images/press-space-button.png"].texture);
         this.dialogImg = new PIXI.Sprite(PIXI.loader.resources["images/dialog-box.png"].texture);
+
         this.group.addChild(this.dialogImg);
         this.group.addChild(this.dialogBtn);
 
@@ -64,11 +65,6 @@ export class MonologDialog {
         this.internalDim = new PIXI.Point(this.dialogImg.width - this.internalMargin.x * 2, this.dialogImg.height - this.internalMargin.y * 2);
 
         this.world.uiStage.addChild(this.group);
-        // let mask = this.game.add.graphics(this.internalMargin.x, this.internalMargin.y, this.group);
-        // mask.beginFill(0xFFFFFF);
-        // mask.drawRect(0, 0, this.internalDim.x, this.internalDim.y);
-        // mask.endFill();
-
 
         this.style = {
             fontSize: 32,
@@ -77,20 +73,13 @@ export class MonologDialog {
             fill: "black"
         };
 
-        this.dialogBtn.anchor.set(0.5, 0.5);
-        this.dialogBtn.position.set(this.internalMargin.x + this.internalDim.x - 3, this.internalMargin.y + this.internalDim.y - 15);
+        this.dialogBtn.anchor.set(0.5, 1);
+        this.dialogBtn.position.set(this.dialogImg.width * 0.5, this.dialogImg.height - 13);
 
-        // this.text = this.game.add.text(0, 0, "", this.style, this.group);
         this.text = new PIXI.Text("", this.style);
         this.text.position.set(this.internalMargin.x, this.internalMargin.y);
         this.group.addChild(this.text);
-        // this.text.mask = mask;
-        // this.text.useAdvancedWrap = true;
-        // this.game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR).onDown.add(() => {
-        //     if (this.group.visible) {
-        //         this.showNext();
-        //     }
-        // });
+
         keyboardJS.bind("space", e => {
             if (this.group.visible) {
                 this.showNext();
