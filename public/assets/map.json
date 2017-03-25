@@ -222,6 +222,25 @@
                  "width":0,
                  "x":295.333333333333,
                  "y":2812.66666666667
+                }, 
+                {
+                 "height":0,
+                 "id":33,
+                 "name":"mentor9",
+                 "properties":
+                    {
+                     "talk":"mentor_speech_9"
+                    },
+                 "propertytypes":
+                    {
+                     "talk":"string"
+                    },
+                 "rotation":0,
+                 "type":"mentor",
+                 "visible":true,
+                 "width":0,
+                 "x":688,
+                 "y":1169
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -289,6 +308,17 @@
                  "width":191.666666666667,
                  "x":224,
                  "y":2752
+                }, 
+                {
+                 "height":62,
+                 "id":36,
+                 "name":"mentor9_zone",
+                 "rotation":0,
+                 "type":"mentor_zone",
+                 "visible":true,
+                 "width":29,
+                 "x":647,
+                 "y":1086
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -297,7 +327,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":33,
+ "nextobjectid":37,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

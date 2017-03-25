@@ -29,5 +29,9 @@
 
     "mentor_speech_8": {
     	"text": "Nous y voila enfin ! La grotte du Mt. Phylo. Vite ! Rentre à l'intérieur et reconstitue les groupes emboîtés en regroupant les espèces que tu as rencontré en fonction de leurs attributs !"
+    },
+
+    "mentor_speech_9": {
+    	"text": "Tu vois ce serpent là-bas ? Il va te raconter qu'il a 4 pattes. Tu vas trouver ça bizarre mais écoute bien son explication !"
     }
 }
