@@ -6,7 +6,11 @@ import { GameHud } from "./game/ui";
 import { AnimatedSprite } from "./engine/animatedSprite";
 import { DEBUGGING } from "./debug";
 
-let stats = new Stats();
+let stats: Stats | null = null;
+
+if (DEBUGGING) {
+    stats = new Stats();
+}
 
 export class Game {
     private renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
@@ -27,8 +31,10 @@ export class Game {
         });
 
         document.body.appendChild(this.renderer.view);
-        stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-        document.body.appendChild( stats.dom );
+        if(stats) {
+            stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+            document.body.appendChild( stats.dom );
+        }
         this.world = new World(this.renderer);
         this.hud = new GameHud(this.world);
 
@@ -84,11 +90,17 @@ export class Game {
     public gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
 
-        stats.begin();
+        if (stats) {
+            stats.begin();
+        }
+
         this.player.update();
         this.world.update();
         this.pnjs.forEach(p => p.update());
         this.world.render();
-        stats.end();
+
+        if (stats) {
+            stats.end();
+        }
     }
 }
