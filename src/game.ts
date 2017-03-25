@@ -21,7 +21,7 @@ export class Game {
     private hud: GameHud;
 
     constructor() {
-        PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
+        PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
         this.renderer = PIXI.autoDetectRenderer(800, 600, {
             antialias: false
         });
