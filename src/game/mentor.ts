@@ -61,7 +61,6 @@ export class Mentor extends Pnj {
 
     private talk() {
         if (!this.isTalking) {
-            console.log(this.talkText);
             this.isTalking = true;
             this.hasTalk = true;
             this.player.canMove = false;

@@ -1,5 +1,7 @@
 import { World } from "../world";
 
+const FONT_SIZE = 24;
+
 export class GameHud {
     private monologDialog: MonologDialog;
 
@@ -62,12 +64,14 @@ export class MonologDialog {
         this.group.x = (this.world.renderer.width - this.dialogImg.width) / 2;
         this.group.visible = false;
 
-        this.internalDim = new PIXI.Point(this.dialogImg.width - this.internalMargin.x * 2, this.dialogImg.height - this.internalMargin.y * 2);
+        let internalHeight = Math.floor((this.dialogImg.height - this.internalMargin.y * 2) / FONT_SIZE) * FONT_SIZE;
+        this.internalDim = new PIXI.Point(this.dialogImg.width - this.internalMargin.x * 2, internalHeight);
 
         this.world.uiStage.addChild(this.group);
 
         this.style = {
-            fontSize: 32,
+            fontSize: FONT_SIZE,
+            fontFamily: "Perfect",
             wordWrap: true,
             wordWrapWidth: this.internalDim.x,
             fill: "black"
@@ -124,7 +128,7 @@ export class MonologDialog {
             this.group.visible = false;
             this.onTextShown();
         }
-        this.readPosition += this.internalDim.y;
+        this.readPosition += this.internalDim.y - FONT_SIZE;
         this.computeDisplayTextRect();
         let hasNext = this.hasNext(this.readPosition);
         this.dialogBtn.visible = hasNext;
