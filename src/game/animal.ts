@@ -1,9 +1,12 @@
 import { SpritesheetDefinition } from "../engine/animatedSprite";
 import { Pnj } from "./pnj";
+import { Animation } from "../engine/animatedSprite";
 import { WorldObject } from "./worldObject";
 import { World } from "../world";
 import { Player } from "./player";
 import { Direction, Directions, getDirectionVector } from "./direction";
+import { GameObject } from "./gameObject";
+import { rectToBody } from "../utils";
 
 
 type BehaviourString = "passive" | "follower" | "fugitive" | "random";
@@ -45,7 +48,7 @@ export class Animal extends Pnj {
             throw `Missing textureName in animal ${o.name}`;
         }
         let spriteDef: SpritesheetDefinition = {
-            frameWidth: o.properties.frameWidth || 24,
+            frameWidth: o.properties.frameWidth || 32,
             frameHeight: o.properties.frameHeight || 32
         };
         super(o, world, player, PIXI.loader.resources[o.properties.textureName].texture, spriteDef, frames);
@@ -55,6 +58,10 @@ export class Animal extends Pnj {
     public update() {
         super.update();
         this.behaviour.update();
+    }
+
+    public onCollisionStart(other: GameObject) {
+        this.behaviour.onCollisionStart(other);
     }
 
     private createBehaviour(): Behaviour {
@@ -80,6 +87,8 @@ abstract class Behaviour {
     }
 
     public abstract update(): void;
+    public onCollisionStart(other: GameObject) {
+    }
 }
 
 class PassiveBehaviour extends Behaviour {
@@ -93,12 +102,26 @@ class PassiveBehaviour extends Behaviour {
     }
 }
 
+const ANIMAL_WALL_TYPE = "animal-wall";
+class AnimalZoneWall extends GameObject {
+    constructor(public readonly animal: Animal, rec: PIXI.Rectangle) {
+        super("animal-wall", animal.getWorld(), rectToBody(rec), null);
+        if(this.body) {
+            this.body.isStatic = true;
+            this.body.collisionFilter.group = 0x2;
+            this.body.collisionFilter.category = 0x2;
+            this.body.collisionFilter.mask = 0x2;
+        }
+    }
+}
 class RandomBehaviour extends Behaviour {
     private zone: PIXI.Rectangle;
-    private zoneCollideBodies: Matter.Body[];
+    private walls: AnimalZoneWall[];
     private currentDirection: Direction | null;
     private lastDecitionMs: number;
     private directionDuration: number;
+    private currentAnimation: Animation;
+
     constructor(animal: Animal, o: WorldObject) {
         super(animal, o);
         if (!this.worldObject.properties || !this.worldObject.properties.zone) {
@@ -111,33 +134,34 @@ class RandomBehaviour extends Behaviour {
                                        zone.y,
                                        zone.width,
                                        zone.height);
-        this.zoneCollideBodies = [Matter.Bodies.rectangle(this.zone.x + this.zone.width * 0.5,
-                                                          this.zone.y - 12,
-                                                          this.zone.width,
-                                                          24),
-                                  Matter.Bodies.rectangle(this.zone.x + this.zone.width * 0.5,
-                                                          this.zone.y + this.zone.height + 12,
-                                                          this.zone.width,
-                                                          24),
-                                  Matter.Bodies.rectangle(this.zone.x - 12,
-                                                          this.zone.y + this.zone.height * 0.5,
-                                                          24,
-                                                          this.zone.height),
-                                  Matter.Bodies.rectangle(this.zone.x + this.zone.width + 12,
-                                                          this.zone.y + this.zone.height * 0.5,
-                                                          24,
-                                                          this.zone.height)];
+        this.walls = [new PIXI.Rectangle(this.zone.x,
+                                         this.zone.y - 25,
+                                         this.zone.width,
+                                         25),
+                     new PIXI.Rectangle(this.zone.x,
+                                         this.zone.y + this.zone.height,
+                                         this.zone.width,
+                                         25),
+                      new PIXI.Rectangle(this.zone.x - 25,
+                                         this.zone.y,
+                                         25,
+                                         this.zone.height),
+                      new PIXI.Rectangle(this.zone.x + this.zone.width,
+                                         this.zone.y,
+                                         25,
+                                         this.zone.height),
+                     ].map(r => new AnimalZoneWall(this.animal, r));
         this.animal.getBody().collisionFilter.group = 0x2;
-        console.log(this.zoneCollideBodies[0].bounds);
-        this.zoneCollideBodies.forEach(b => {
-            b.isStatic = true;
-            b.collisionFilter.group = 0x2;
-            b.collisionFilter.category = 0x2;
-            b.collisionFilter.mask = 0x2;
-        });
-        Matter.World.add(this.animal.getWorld().engine.world, this.zoneCollideBodies);
     }
 
+    public onCollisionStart(other: GameObject) {
+        if (other.type === ANIMAL_WALL_TYPE) {
+            let wall = <AnimalZoneWall> other;
+            if (wall.animal === this.animal) {
+                this.currentAnimation.stop();
+            }
+        }
+    }
     public update() {
         let time = window.performance.now();
         if (this.currentDirection === null ||
@@ -146,6 +170,11 @@ class RandomBehaviour extends Behaviour {
             this.currentDirection = Directions[dirIndex];
             this.lastDecitionMs = time;
             this.directionDuration = 1000;
+
+            let animation = this.animal.getSprite()
+                .getAnimation(Direction[this.currentDirection].toLocaleLowerCase());
+            this.currentAnimation = animation;
+            this.currentAnimation.play();
         }
         // Nothing todo ?
         let vel = getDirectionVector(this.currentDirection, 1);

@@ -18,15 +18,23 @@ export abstract class Pnj extends GameObject {
 
         super("pnj", world, body, sprite);
 
-        Matter.World.add(this.world.engine.world, this.body);
         world.stage.addChild(sprite);
 
         this.worldObject = worldObject;
         this.player = player;
     }
 
+    public getBody() {
+        return <Matter.Body> this.body;
+    }
+
+    public getSprite(): AnimatedSprite {
+        return <AnimatedSprite> this.sprite;
+    }
+
     public update() {
-        this.sprite.position.set(this.body.position.x, this.body.position.y);
+        this.getSprite().position.set(this.getBody().position.x,
+                                      this.getBody().position.y);
     }
 
     public getPlayer() {

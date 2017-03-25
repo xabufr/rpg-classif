@@ -55,7 +55,6 @@ export class Player extends GameObject {
         super("player", world, body, sprite);
 
         this.directions = [];
-        Matter.World.add(this.world.engine.world, [this.body]);
         world.stage.addChild(this.sprite);
         world.cameraFollow(this.sprite);
 

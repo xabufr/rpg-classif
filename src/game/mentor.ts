@@ -2,7 +2,7 @@ import { World } from "../world";
 import { WorldObject } from "./worldObject";
 import { Pnj } from "./pnj";
 import { Map } from "./map";
-import { Player, Direction } from "./player";
+import { Player } from "./player";
 import { distance } from "../utils";
 import { DEBUGGING } from "../debug";
 
@@ -24,7 +24,7 @@ export class Mentor extends Pnj {
             name: "down",
             frames: [{x: 0, y: 0 }]
         }]);
-        this.body.isStatic = true;
+        this.getBody().isStatic = true;
 
         this.hasTalk = false;
         this.isTalking = false;
@@ -50,10 +50,10 @@ export class Mentor extends Pnj {
         super.update();
         let dist = this.distanceToPlayer(this.player);
         if (dist > MAX_DIST) {
-            this.sprite.visible = false;
+            this.getSprite().visible = false;
         } else {
-            this.sprite.visible = true;
-            this.sprite.alpha = this.getAlpha(dist);
+            this.getSprite().visible = true;
+            this.getSprite().alpha = this.getAlpha(dist);
             if ( DEBUGGING === false &&
                 this.talkZone !== null &&
                 this.hasTalk === false &&
@@ -81,7 +81,7 @@ export class Mentor extends Pnj {
     }
 
     private distanceToPlayer(player: Player) {
-        return distance(this.sprite.position, player.getPosition());
+        return distance(this.getSprite().position, player.getPosition());
     }
 
     private getAlpha(distance: number) {

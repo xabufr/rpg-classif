@@ -4,9 +4,12 @@ export class GameObject {
     constructor(
         public readonly type: string,
         protected world: World,
-        protected body: Matter.Body,
-        protected sprite: PIXI.Sprite) {
-        this.world.registerBody(this.body, this);
+        protected body: Matter.Body | null,
+        protected sprite: PIXI.Sprite | null) {
+        if (this.body) {
+            this.world.registerBody(this.body, this);
+            Matter.World.add(this.world.engine.world, this.body);
+        }
     }
 
     public getBody() {
