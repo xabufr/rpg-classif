@@ -4,6 +4,7 @@ import { Pnj } from "./pnj";
 import { Map } from "./map";
 import { Player, Direction } from "./player";
 import { distance } from "../utils";
+import { DEBUGGING } from "../debug";
 
 const MIN_DIST = 50;
 const MAX_DIST = 300;
@@ -53,7 +54,8 @@ export class Mentor extends Pnj {
         } else {
             this.sprite.visible = true;
             this.sprite.alpha = this.getAlpha(dist);
-            if (this.talkZone !== null &&
+            if ( DEBUGGING === false &&
+                this.talkZone !== null &&
                 this.hasTalk === false &&
                 this.talkZone.contains(this.player.getPosition().x,
                                        this.player.getPosition().y)) {
