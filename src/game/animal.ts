@@ -68,7 +68,7 @@ export class Animal extends Pnj {
         case "fugitive":
             // return BehaviourType.Fugitive;
         case "random":
-            // return BehaviourType.Random;
+            return new RandomBehaviour(this, this.worldObject);
         }
         throw `Unknown behaviour ${this.worldObject.properties.behaviour}`;
     }
@@ -96,7 +96,7 @@ class PassiveBehaviour extends Behaviour {
     }
 }
 
-class RandomBehavious extends Behaviour {
+class RandomBehaviour extends Behaviour {
     constructor(animal: Animal, o: WorldObject) {
         super(animal, o);
     }

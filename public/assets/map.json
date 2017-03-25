@@ -185,7 +185,7 @@
                  "name":"creature1",
                  "properties":
                     {
-                     "behaviour":"passive",
+                     "behaviour":"random",
                      "talk":"intro",
                      "textureName":"creature1",
                      "zone":"creature1_zone"
