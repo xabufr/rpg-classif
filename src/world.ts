@@ -1,3 +1,6 @@
+import { Map } from "./game/map";
+import { GameObject } from "./game/gameObject";
+
 export class World {
     public readonly stage: PIXI.Container;
     public readonly uiStage: PIXI.Container;
@@ -7,10 +10,14 @@ export class World {
 
     private cameraTarget: PIXI.DisplayObject;
     private matterRenderer: Matter.Render;
+    private map: Map;
+
+    private bodiesRegistry: GameObject[];
 
     constructor(
         public readonly renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer
     ) {
+        this.bodiesRegistry = [];
         this.stage = new PIXI.Container();
         this.uiStage = new PIXI.Container();
         this.root = new PIXI.Container();
@@ -22,6 +29,8 @@ export class World {
             engine: this.engine,
             element: document.body,
             options: {
+                showAxes: false,
+                showPositions: true,
             }
             bounds: {
                 min: {
@@ -34,6 +43,16 @@ export class World {
                 }
             },
 
+        });
+        Matter.Events.on(this.engine, "collisionStart", e => {
+            e.pairs.forEach(p => {
+                let a = this.bodiesRegistry[p.bodyA.id];
+                let b = this.bodiesRegistry[p.bodyB.id];
+                if (a && b) {
+                    a.onCollisionStart(b);
+                    b.onCollisionStart(a);
+                }
+            });
         });
         Matter.Render.run(this.matterRenderer);
         this.engine.world.gravity.y = 0;
@@ -63,5 +82,17 @@ export class World {
                 }
             };
         }
+    }
+
+    public setMap(map: Map) {
+        this.map = map;
+    }
+
+    public getMap() {
+        return this.map;
+    }
+
+    public registerBody(body: Matter.Body, owner: GameObject) {
+        this.bodiesRegistry[body.id] = owner;
     }
 }

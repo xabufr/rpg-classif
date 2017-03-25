@@ -1,3 +1,4 @@
+import { GameObject } from "./gameObject";
 import { AnimatedSprite, Animation } from "../engine/animatedSprite";
 import { World } from "../world";
 const SPEED = 300.0;
@@ -12,7 +13,7 @@ export enum Direction {
     RIGHT = 0,
     LEFT = Math.PI,
 }
-export class Player {
+export class Player extends GameObject {
     private sprite: AnimatedSprite;
     private directions: Direction[];
     private lastDirection: Direction;
@@ -23,10 +24,9 @@ export class Player {
         current: Animation;
     };
 
-    constructor(private world: World, texture: PIXI.Texture, position: PIXI.Point) {
-        this.directions = [];
-
-        this.sprite = new AnimatedSprite(texture, {
+    constructor(world : World, texture: PIXI.Texture, position: PIXI.Point) {
+        let body = Matter.Bodies.circle(position.x, position.y, 12);
+        let sprite = new AnimatedSprite(texture, {
             frameWidth: 24,
             frameHeight: 32
         }, [{
@@ -58,7 +58,10 @@ export class Player {
                 {x: 2, y: 3}
             ]
         }]);
-        this.body = Matter.Bodies.circle(position.x, position.y, 12);
+
+        super("player", world, body, sprite);
+
+        this.directions = [];
         Matter.World.add(this.world.engine.world, [this.body]);
         world.stage.addChild(this.sprite);
         world.cameraFollow(this.sprite);
@@ -149,6 +152,10 @@ export class Player {
         let anim = this.sprite.getAnimation(name);
         dico[direction] = anim;
         return anim;
+    }
+
+    public getPosition() {
+        return this.body.position;
     }
 
     // public collide() {

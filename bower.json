@@ -22,6 +22,7 @@
     "pixi.js": "^4.4.2",
     "es6-promise": "^4.0.5",
     "keyboardjs": "^2.3.3",
-    "Matter": "matterjs#^0.12.0"
+    "Matter": "matterjs#^0.12.0",
+    "matter-collision-events": "dxu/matter-collision-events#^0.1.5"
   }
 }

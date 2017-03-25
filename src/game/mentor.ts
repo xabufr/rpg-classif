@@ -1,78 +1,92 @@
-import { GameState } from "../game.state";
+import { World } from "../world";
 import { WorldObject } from "./worldObject";
 import { Pnj } from "./pnj";
 import { Map } from "./map";
 import { Player, Direction } from "./player";
+import { distance } from "../utils";
 
 const MIN_DIST = 50;
 const MAX_DIST = 300;
 
 export class Mentor extends Pnj {
     private hasTalk: boolean;
-    private autoTalkZone: Phaser.Sprite;
     private talkText: string;
     private isTalking: boolean;
-    // private sprite: Phaser.Sprite;
 
-    public constructor(o: WorldObject, gameState: GameState) {
-        super(o, gameState, "mentor");
+    public constructor(o: WorldObject, world: World, player: Player) {
+        let texture = PIXI.loader.resources["mentor"].texture;
+        super(o, world, player, texture, {
+            frameWidth: 24,
+            frameHeight: 32
+        }, [{
+            name: "down",
+            frames: [{x: 0, y: 0 }]
+        }]);
+        this.body.isStatic = true;
+
         this.hasTalk = false;
         this.isTalking = false;
 
-        let talkZoneObject = this.gameState.getMap().getZoneNamed(`${o.name}_zone`, false);
+        let talkZoneObject = this.world.getMap().getZoneNamedOptional(`${o.name}_zone`);
         if (talkZoneObject) {
-            this.autoTalkZone = this.game.add.sprite(talkZoneObject.x, talkZoneObject.y, null);
-            this.game.physics.enable(this.autoTalkZone);
-            let body = this.autoTalkZone.body;
-            body.setSize(talkZoneObject.width, talkZoneObject.height);
+            // this.autoTalkZone = this.game.add.sprite(talkZoneObject.x, talkZoneObject.y, null);
+            // this.game.physics.enable(this.autoTalkZone);
+            // let body = this.autoTalkZone.body;
+            // body.setSize(talkZoneObject.width, talkZoneObject.height);
         } else {
-            this.autoTalkZone = null;
+            // this.autoTalkZone = null;
         }
 
-        this.talkText = this.game.cache.getJSON("dialogs")[o.properties.talk].text;
-        this.game.add.existing(this);
-        this.frame = 0;
-        this.anchor.setTo(0.5, 0.5);
-        this.position.setTo(o.x, o.y);
-        this.game.physics.arcade.enable(this);
-        (<Phaser.Physics.Arcade.Body>this.body).immovable = true;
+        if (o.properties) {
+            this.talkText = PIXI.loader.resources["dialogs"].data[o.properties.talk].text;
+        } else {
+            throw `Missing properties in mentor ${o.name}`;
+        }
+        // this.game.physics.arcade.enable(this);
+        // (<Phaser.Physics.Arcade.Body>this.body).immovable = true;
     }
 
-    public updateForPlayer(player: Player) {
-        let dist = this.distanceToPlayer(player);
+    public update() {
+        super.update();
+        let dist = this.distanceToPlayer(this.player);
         if (dist > MAX_DIST) {
-            this.visible = false;
+            this.sprite.visible = false;
         } else {
-            this.visible = true;
-            this.alpha = this.getAlpha(dist);
+            this.sprite.visible = true;
+            this.sprite.alpha = this.getAlpha(dist);
         }
-        if (this.visible === true) {
-            this.game.physics.arcade.collide(player, this, () => {
-                this.talk(player);
-                player.goBack(10);
-            });
-            if (this.autoTalkZone !== null && !this.hasTalk && !this.test) {
-                if (this.game.physics.arcade.overlap(player, this.autoTalkZone)) {
-                    this.talk(player);
-                }
-            }
+        if (this.sprite.visible === true) {
+            // this.game.physics.arcade.collide(player, this, () => {
+            //     this.talk(player);
+            //     player.goBack(10);
+            // });
+            // if (this.autoTalkZone !== null && !this.hasTalk && !this.test) {
+            //     if (this.game.physics.arcade.overlap(player, this.autoTalkZone)) {
+            //         this.talk(player);
+            //     }
+            // }
         }
     }
 
-    private talk(player: Player) {
+    protected onCollideWithPlayer() {
+        this.talk();
+    }
+
+    private talk() {
         if (!this.isTalking) {
+            console.log(this.talkText);
             this.isTalking = true;
             this.hasTalk = true;
-            player.setCanMove(false);
-            this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText, () => {
-                player.setCanMove(true);
-                this.isTalking = false;
-            });
+            // player.setCanMove(false);
+            // this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText, () => {
+            //     player.setCanMove(true);
+            //     this.isTalking = false;
+            // });
         }
     }
 
     private distanceToPlayer(player: Player) {
-        return this.position.distance(player.position, false);
+        return distance(this.sprite.position, player.getPosition());
     }
 
     private getAlpha(distance: number) {

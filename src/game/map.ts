@@ -2,6 +2,7 @@ import { GameState } from "../game.state";
 import { WorldObject } from "./worldObject";
 import { World } from "../world";
 import { createPnj } from "./pnjFactory";
+import { Player } from "./player";
 
 const MAP_CACHE_PREFIX = "map_private_resource_";
 const MAP_CACHE_KEY = `${MAP_CACHE_PREFIX}_tilemap_json_tiled`;
@@ -81,6 +82,7 @@ export class Map {
     private mapContainer: PIXI.Container;
     private mapData: TiledMapData;
     public constructor(private world: World, private mapName: string) {
+        world.setMap(this);
     }
 
     public load() {
@@ -251,20 +253,24 @@ export class Map {
         return new PIXI.Point(spawnZone.x, spawnZone.y);
     }
 
-    public getZoneNamed(name: string): ObjectData;
-    public getZoneNamed(name: string, required = true): ObjectData | null {
+    public getZoneNamed(name: string) {
+        let zone = this.getZoneNamedOptional(name);
+        if (zone !== null) {
+            return zone;
+        }
+        throw `No valid unique zone ${name} detected !`;
+    }
+
+    public getZoneNamedOptional(name: string) {
         let zones = this.getZonesLayer().filter(z => z.name === name);
         if (zones.length === 1) {
             return zones[0];
-        }
-        if (required === true) {
-            throw `Multiple zones named ${name} detected !`;
         }
         return null;
     }
 
     public getCreaturesLayer() {
-        // return this.getObjectLayer("world-creatures");
+        return this.getObjectLayer("world-creatures");
     }
 
     public getZonesLayer() {
@@ -276,7 +282,7 @@ export class Map {
         if (layers.length === 1) {
             return (<IObjectLayer> layers[0]).objects;
         }
-        throw `Cannot find layer ${layerName}`;
+        throw `Cannot find object layer ${layerName}`;
     }
 
     public getLayers() {
@@ -291,8 +297,8 @@ export class Map {
         // return this.gameState;
     }
 
-    public loadCreatures() {
-        // return this.getCreaturesLayer().map(object => createPnj(object, this.gameState));
+    public loadCreatures(player: Player) {
+        return this.getCreaturesLayer().map(object => createPnj(object, this.world, player));
     }
 
     private findLayersToShow() {
