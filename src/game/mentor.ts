@@ -12,6 +12,7 @@ export class Mentor extends Pnj {
     private hasTalk: boolean;
     private talkText: string;
     private isTalking: boolean;
+    private talkZone: PIXI.Rectangle | null;
 
     public constructor(o: WorldObject, world: World, player: Player) {
         let texture = PIXI.loader.resources["mentor"].texture;
@@ -29,12 +30,12 @@ export class Mentor extends Pnj {
 
         let talkZoneObject = this.world.getMap().getZoneNamedOptional(`${o.name}_zone`);
         if (talkZoneObject) {
-            // this.autoTalkZone = this.game.add.sprite(talkZoneObject.x, talkZoneObject.y, null);
-            // this.game.physics.enable(this.autoTalkZone);
-            // let body = this.autoTalkZone.body;
-            // body.setSize(talkZoneObject.width, talkZoneObject.height);
+            this.talkZone = new PIXI.Rectangle(talkZoneObject.x,
+                                               talkZoneObject.y,
+                                               talkZoneObject.width,
+                                               talkZoneObject.height);
         } else {
-            // this.autoTalkZone = null;
+            this.talkZone = null;
         }
 
         if (o.properties) {
@@ -52,6 +53,12 @@ export class Mentor extends Pnj {
         } else {
             this.sprite.visible = true;
             this.sprite.alpha = this.getAlpha(dist);
+            if (this.talkZone !== null &&
+                this.hasTalk === false &&
+                this.talkZone.contains(this.player.getPosition().x,
+                                       this.player.getPosition().y)) {
+                this.talk();
+            }
         }
     }
 

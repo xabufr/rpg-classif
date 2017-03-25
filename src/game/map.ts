@@ -56,7 +56,7 @@ interface IObjectLayer extends IBaseLayer {
 
 interface ObjectData {
     height: number;
-    widsth: number;
+    width: number;
     id: number;
     name: string;
     type: string;
