@@ -33,7 +33,7 @@ export class World {
             options: {
                 showAxes: false,
                 showPositions: true,
-            }
+            },
             bounds: {
                 min: {
                     x: 100,

@@ -1,7 +1,4 @@
-import { GameState } from "../game.state";
 import { World } from "../world";
-
-const UI_RES_PREFIX = "__ui__";
 
 export class GameHub {
     private monologDialog: MonologDialog;
