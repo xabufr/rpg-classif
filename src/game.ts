@@ -47,6 +47,7 @@ export class Game {
         PIXI.loader.add("images/player_f.png");
         PIXI.loader.add("mentor", "images/mentor_ghost.png");
         PIXI.loader.add("dialogs", "dialogs.json");
+        PIXI.loader.add("creature1", "images/mentor_ghost.png");
         return new Promise(r => {
             PIXI.loader.load(r);
         }).then(() => this.loadMap("./map.json"))

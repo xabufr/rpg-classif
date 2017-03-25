@@ -8,15 +8,8 @@ import { Map } from "./map";
 
 const PNJ_TYPES: FactoryData = {
     mentor: (o: WorldObject, w: World, p: Player) => new Mentor(o, w, p),
-    animal: (o: WorldObject, w: World, p: Player) => new Dummy()
+    animal: (o: WorldObject, w: World, p: Player) => new Animal(o, w, p)
 };
-
-class Dummy extends Pnj {
-    constructor() {
-    }
-    public update() {
-    }
-}
 
 interface FactoryData {
     [name: string]: (o: WorldObject, w: World, p: Player) => Pnj;

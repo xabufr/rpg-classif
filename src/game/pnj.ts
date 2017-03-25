@@ -29,6 +29,10 @@ export abstract class Pnj extends GameObject {
         this.sprite.position.set(this.body.position.x, this.body.position.y);
     }
 
+    public getPlayer() {
+        return this.player;
+    }
+
     public onCollisionStart(other: GameObject) {
         if (other.type === "player") {
             this.onCollideWithPlayer();
