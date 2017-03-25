@@ -41,6 +41,8 @@ export class MonologDialog {
     private onTextShown: () => void;
     private style: PIXI.TextStyleOptions;
 
+    private readPosition: number;
+
     public constructor(private world: World) {
         this.internalMargin = new PIXI.Point(25, 25);
     }
@@ -83,6 +85,7 @@ export class MonologDialog {
 
         // this.text = this.game.add.text(0, 0, "", this.style, this.group);
         this.text = new PIXI.Text("", this.style);
+        this.text.position.set(this.internalMargin.x, this.internalMargin.y);
         this.group.addChild(this.text);
         // this.text.mask = mask;
         // this.text.useAdvancedWrap = true;
@@ -91,13 +94,26 @@ export class MonologDialog {
         //         this.showNext();
         //     }
         // });
+        keyboardJS.bind("space", e => {
+            if (this.group.visible) {
+                this.showNext();
+            }
+            if(e && this.group.visible) {
+                // e.preventRepeat();
+            }
+        });
     }
 
     public showTextToPlayer(text: string, cb: () => void) {
-        this.text.position.set(this.internalMargin.x, this.internalMargin.y);
+        this.readPosition = 0;
         this.text.text = text;
+        //Force texture refresh
+        this.text.getBounds();
+        this.computeDisplayTextRect();
         this.onTextShown = cb;
         this.group.visible = true;
+        let hasNext = this.hasNext(this.readPosition);
+        this.dialogBtn.visible = hasNext;
     }
 
     public update(): void {
@@ -105,12 +121,30 @@ export class MonologDialog {
         }
     }
 
+    private computeDisplayTextRect() {
+        let width = this.text.texture.width;
+        let y = this.readPosition;
+        let height = Math.min(this.text.texture.orig.height - y, this.internalDim.y);
+
+        let displayRect = new PIXI.Rectangle(0, y, width, height);
+
+        this.text.texture.frame = displayRect;
+        this.text.texture.trim = displayRect;
+        this.text.position.y = this.internalMargin.y - this.readPosition;
+    }
+
     private showNext() {
-        // if (this.text.bottom < this.internalMargin.y + this.internalDim.y) {
-        //     this.group.visible = false;
-        //     this.onTextShown();
-        // }
-        // this.text.position.y -= this.style.fontSize;
-        // this.dialogBtn.visible = this.text.bottom >= this.internalMargin.y + this.internalDim.y;
+        if (!this.hasNext(this.readPosition)) {
+            this.group.visible = false;
+            this.onTextShown();
+        }
+        this.readPosition += this.internalDim.y;
+        this.computeDisplayTextRect();
+        let hasNext = this.hasNext(this.readPosition);
+        this.dialogBtn.visible = hasNext;
+    }
+
+    private hasNext(position: number) {
+        return position + this.internalDim.y < this.text.texture.height;
     }
 }

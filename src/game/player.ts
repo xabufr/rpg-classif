@@ -14,11 +14,9 @@ export enum Direction {
     LEFT = Math.PI,
 }
 export class Player extends GameObject {
-    private sprite: AnimatedSprite;
     private directions: Direction[];
     private lastDirection: Direction;
-    private canMove: boolean;
-    private body: Matter.Body;
+    public canMove: boolean;
     private animations: {
         [dir: number]: Animation;
         current: Animation;
@@ -84,12 +82,13 @@ export class Player extends GameObject {
     }
 
     private initAnimations() {
-        let down = this.sprite.getAnimation("down");
+        let sprite = (<AnimatedSprite>this.sprite);
+        let down = sprite.getAnimation("down");
         return {
             [Direction.DOWN]: down,
-            [Direction.UP]: this.sprite.getAnimation("up"),
-            [Direction.RIGHT]: this.sprite.getAnimation("right"),
-            [Direction.LEFT]: this.sprite.getAnimation("left"),
+            [Direction.UP]: sprite.getAnimation("up"),
+            [Direction.RIGHT]: sprite.getAnimation("right"),
+            [Direction.LEFT]: sprite.getAnimation("left"),
             current: down
         };
     }
@@ -135,6 +134,7 @@ export class Player extends GameObject {
                 this.animations.current.stop();
             }
         } else {
+            velocity.x = velocity.y = 0;
             this.animations.current.stop();
         }
         // this.body.velocity.x = velocity.x;
@@ -149,7 +149,7 @@ export class Player extends GameObject {
     }
 
     private registerAnimation(direction: Direction, name: string, dico: any) {
-        let anim = this.sprite.getAnimation(name);
+        let anim = (<AnimatedSprite>this.sprite).getAnimation(name);
         dico[direction] = anim;
         return anim;
     }

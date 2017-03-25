@@ -64,12 +64,12 @@ export class Mentor extends Pnj {
             console.log(this.talkText);
             this.isTalking = true;
             this.hasTalk = true;
+            this.player.canMove = false;
             this.world.getHud().getMonologDialog().showTextToPlayer(this.talkText, () => {
+                this.player.canMove = true;
+                this.isTalking = false;
             });
-            // player.setCanMove(false);
             // this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText, () => {
-            //     player.setCanMove(true);
-            //     this.isTalking = false;
             // });
         }
     }
