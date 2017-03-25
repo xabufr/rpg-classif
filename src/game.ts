@@ -1,14 +1,10 @@
-// import { Boot } from "./boot.state";
-// import { Start } from "./start.state";
-// import { MainMenu } from "./mainMenu.state";
-// import { GameState } from "./game.state";
-
 import { Pnj } from "./game/pnj";
 import { Player } from "./game/player";
 import { World } from "./world";
 import { Map } from "./game/map";
 import { GameHud } from "./game/ui";
 import { AnimatedSprite } from "./engine/animatedSprite";
+import { DEBUGGING } from "./debug";
 
 let stats = new Stats();
 
@@ -21,6 +17,10 @@ export class Game {
     private hud: GameHud;
 
     constructor() {
+        if (DEBUGGING) {
+            console.log("Loading game in debugging mode !");
+            console.log("Zone with mentor desactivated !");
+        }
         PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
         this.renderer = PIXI.autoDetectRenderer(800, 600, {
             antialias: false

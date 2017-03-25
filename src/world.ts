@@ -1,6 +1,7 @@
 import { GameHud } from "./game/ui";
 import { Map } from "./game/map";
 import { GameObject } from "./game/gameObject";
+import { DEBUGGING } from "./debug";
 
 export class World {
     public readonly stage: PIXI.Container;
@@ -27,25 +28,28 @@ export class World {
         this.root.addChild(this.uiStage);
 
         this.engine = Matter.Engine.create();
-        this.matterRenderer = Matter.Render.create({
-            engine: this.engine,
-            element: document.body,
-            options: {
-                showAxes: false,
-                showPositions: true,
-            },
-            bounds: {
-                min: {
-                    x: 100,
-                    y: 100
+        if (DEBUGGING) {
+            this.matterRenderer = Matter.Render.create({
+                engine: this.engine,
+                element: document.body,
+                options: {
+                    showAxes: false,
+                    showPositions: true,
                 },
-                max: {
-                    x: 900,
-                    y: 700
-                }
-            },
+                bounds: {
+                    min: {
+                        x: 100,
+                        y: 100
+                    },
+                    max: {
+                        x: 900,
+                        y: 700
+                    }
+                },
 
-        });
+            });
+            Matter.Render.run(this.matterRenderer);
+        }
         Matter.Events.on(this.engine, "collisionStart", e => {
             e.pairs.forEach(p => {
                 let a = this.bodiesRegistry[p.bodyA.id];
@@ -56,7 +60,6 @@ export class World {
                 }
             });
         });
-        Matter.Render.run(this.matterRenderer);
         this.engine.world.gravity.y = 0;
     }
 
@@ -73,16 +76,18 @@ export class World {
         if (this.cameraTarget) {
             this.stage.x = -this.cameraTarget.x + this.renderer.width / 2;
             this.stage.y = -this.cameraTarget.y + this.renderer.height / 2;
-            this.matterRenderer.bounds = {
-                min: {
-                    x: this.cameraTarget.x - this.renderer.width / 2,
-                    y: this.cameraTarget.y - this.renderer.height / 2
-                },
-                max: {
-                    x: this.cameraTarget.x + this.renderer.width / 2,
-                    y: this.cameraTarget.y + this.renderer.height / 2
-                }
-            };
+            if (DEBUGGING) {
+                this.matterRenderer.bounds = {
+                    min: {
+                        x: this.cameraTarget.x - this.renderer.width / 2,
+                        y: this.cameraTarget.y - this.renderer.height / 2
+                    },
+                    max: {
+                        x: this.cameraTarget.x + this.renderer.width / 2,
+                        y: this.cameraTarget.y + this.renderer.height / 2
+                    }
+                };
+            }
         }
     }
 
