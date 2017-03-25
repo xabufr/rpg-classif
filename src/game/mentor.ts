@@ -69,8 +69,6 @@ export class Mentor extends Pnj {
                 this.player.canMove = true;
                 this.isTalking = false;
             });
-            // this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText, () => {
-            // });
         }
     }
 

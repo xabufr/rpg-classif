@@ -1,6 +1,6 @@
 import { World } from "../world";
 
-export class GameHub {
+export class GameHud {
     private monologDialog: MonologDialog;
 
     public constructor(private world: World) {

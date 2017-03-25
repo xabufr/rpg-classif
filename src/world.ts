@@ -1,4 +1,4 @@
-import { GameHub } from "./game/ui";
+import { GameHud } from "./game/ui";
 import { Map } from "./game/map";
 import { GameObject } from "./game/gameObject";
 
@@ -12,7 +12,7 @@ export class World {
     private cameraTarget: PIXI.DisplayObject;
     private matterRenderer: Matter.Render;
     private map: Map;
-    private hud: GameHub;
+    private hud: GameHud;
 
     private bodiesRegistry: GameObject[];
 
@@ -98,7 +98,7 @@ export class World {
         this.bodiesRegistry[body.id] = owner;
     }
 
-    public setHud(hud: GameHub) {
+    public setHud(hud: GameHud) {
         this.hud = hud;
     }
 
