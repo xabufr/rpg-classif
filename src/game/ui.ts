@@ -72,9 +72,9 @@ export class MonologDialog {
         this.style = {
             fontSize: FONT_SIZE,
             fontFamily: "Perfect",
+            fill: "#EEEEEE",
             wordWrap: true,
             wordWrapWidth: this.internalDim.x,
-            fill: "black"
         };
 
         this.dialogBtn.anchor.set(0.5, 1);
