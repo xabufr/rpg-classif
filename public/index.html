@@ -6,12 +6,18 @@
     <script src="./lib/stats.js/build/stats.js"></script>
     <script src="./lib/system.js/dist/system.js"></script>
     <script src="./lib/es6-promise/es6-promise.auto.js"></script>
-    <script src="./lib/keyboardjs/dist/keyboard.min.js"></script>
-    <script src="./lib/Matter/build/matter.min.js"></script>
+    <!-- <script src="./lib/keyboardjs/dist/keyboard.min.js"></script> -->
+    <!-- <script src="./lib/Matter/build/matter.min.js"></script> -->
     <script src="./lib/pixi.js/dist/pixi.js"></script>
     <script src="./app/app.js"></script>
     <script>
-        System.import('app');
+     SystemJS.config({
+         map: {
+             "matter-js": "./lib/Matter/build/matter.min.js",
+             "keyboardjs": "./lib/keyboardjs/dist/keyboard.min.js"
+         },
+     });
+     System.import("app");
     </script>
     <style>
 

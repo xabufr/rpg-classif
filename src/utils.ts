@@ -1,3 +1,5 @@
+import Matter = require("matter-js");
+
 interface Position {
     x: number;
     y: number;

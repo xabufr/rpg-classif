@@ -2,6 +2,7 @@ import { WorldObject } from "./worldObject";
 import { World } from "../world";
 import { createPnj } from "./pnjFactory";
 import { Player } from "./player";
+import Matter = require("matter-js");
 
 interface TiledMapData {
     height: number;

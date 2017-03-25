@@ -1,4 +1,5 @@
 import { World } from "../world";
+import Matter = require("matter-js");
 
 export class GameObject {
     constructor(

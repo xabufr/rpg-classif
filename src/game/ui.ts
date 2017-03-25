@@ -1,4 +1,5 @@
 import { World } from "../world";
+import keyboardJS from "keyboardjs";
 
 const FONT_SIZE = 24;
 

@@ -2,6 +2,7 @@ import { GameHud } from "./game/ui";
 import { Map } from "./game/map";
 import { GameObject } from "./game/gameObject";
 import { DEBUGGING } from "./debug";
+import Matter = require("matter-js");
 
 export class World {
     public readonly stage: PIXI.Container;
@@ -33,8 +34,8 @@ export class World {
                 engine: this.engine,
                 element: document.body,
                 options: {
-                    showAxes: false,
-                    showPositions: true,
+                    // showAxes: false,
+                    // showPositions: true,
                 },
                 bounds: {
                     min: {

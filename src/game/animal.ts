@@ -7,6 +7,7 @@ import { Player } from "./player";
 import { Direction, Directions, getDirectionVector } from "./direction";
 import { GameObject } from "./gameObject";
 import { rectToBody } from "../utils";
+import Matter = require("matter-js");
 
 
 type BehaviourString = "passive" | "follower" | "fugitive" | "random";

@@ -4,6 +4,7 @@ import { Map } from "./map";
 import { WorldObject } from "./worldObject";
 import { Player } from "./player";
 import { AnimatedSprite, AnimationDefinition, SpritesheetDefinition } from "../engine/animatedSprite";
+import Matter = require("matter-js");
 
 export abstract class Pnj extends GameObject {
     protected worldObject: WorldObject;
