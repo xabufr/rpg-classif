@@ -1,17 +1,12 @@
 import { GameObject } from "./gameObject";
 import { AnimatedSprite, Animation } from "../engine/animatedSprite";
 import { World } from "../world";
+import { Direction } from "./direction";
 const SPEED = 300.0;
 
 // let listener = new window.keypress.Listener();
 enum PlayerKeys {
     UP = 38, DOWN = 40, RIGHT = 39, LEFT = 37
-}
-export enum Direction {
-    UP = -Math.PI / 2,
-    DOWN = Math.PI / 2,
-    RIGHT = 0,
-    LEFT = Math.PI,
 }
 export class Player extends GameObject {
     private directions: Direction[];
@@ -56,7 +51,7 @@ export class Player extends GameObject {
                 {x: 2, y: 3}
             ]
         }]);
-
+        sprite.anchor.set(0.5, 0.5);
         super("player", world, body, sprite);
 
         this.directions = [];

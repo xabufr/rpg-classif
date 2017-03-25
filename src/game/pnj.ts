@@ -11,7 +11,7 @@ export abstract class Pnj extends GameObject {
 
     constructor(worldObject: WorldObject, world: World, player: Player, texture: PIXI.Texture, spriteDef: SpritesheetDefinition, animationDefs: AnimationDefinition[]) {
         let sprite = new AnimatedSprite(texture, spriteDef, animationDefs);
-        sprite.anchor.set(0, 0);
+        sprite.anchor.set(0.5, 0.5);
         sprite.position.set(worldObject.x, worldObject.y);
 
         let body = Matter.Bodies.circle(worldObject.x, worldObject.y, sprite.texture.width / 2);

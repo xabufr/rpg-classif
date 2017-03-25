@@ -17,6 +17,10 @@ export class GameObject {
         return this.sprite;
     }
 
+    public getWorld() {
+        return this.world;
+    }
+
     public onCollisionEnd(other: GameObject) {
     }
 

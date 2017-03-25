@@ -103,13 +103,11 @@ export class Map {
     }
 
     private createTilesets(mapData: TiledMapData) {
-        console.log(mapData);
         let tileTextures: Tile[] = [];
         mapData.tilesets.forEach((v, i) => {
             let texture = PIXI.loader.resources[v.image].texture;
             let columns = v.imagewidth / v.tilewidth;
             let lines = v.imageheight / v.tileheight;
-            console.log(v);
             for (let x = 0; x < columns; ++x) {
                 for (let y = 0; y < lines; ++y) {
                     let collide: boolean = false;
@@ -160,12 +158,16 @@ export class Map {
                 let y = lin * mapData.tileheight;
                 if (tiles[v].collide === true) {
                     let tex = tiles[v].texture;
-                    bodies.push(Matter.Bodies.rectangle(x, y, tex.width, tex.height, {
+                    bodies.push(Matter.Bodies.rectangle(x + tex.width * 0.5,
+                                                        y + tex.height * 0.5,
+                                                        tex.width,
+                                                        tex.height, {
                         isStatic: true
                     }));
                 }
             });
         });
+        console.log(bodies[0].bounds);
         return bodies;
     }
 
