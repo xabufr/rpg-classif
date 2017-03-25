@@ -63,8 +63,6 @@ export class Player extends GameObject {
         Matter.World.add(this.world.engine.world, [this.body]);
         world.stage.addChild(this.sprite);
         world.cameraFollow(this.sprite);
-        // this.sprite.anchor.set(0.5, 0.5);
-        // this.sprite.position.set(position.x, position.y);
 
         this.animations = this.initAnimations();
 
@@ -137,15 +135,9 @@ export class Player extends GameObject {
             velocity.x = velocity.y = 0;
             this.animations.current.stop();
         }
-        // this.body.velocity.x = velocity.x;
-        // this.body.velocity.y = velocity.y;
-        this.body.speed = 10;
         Matter.Body.setVelocity(this.body, velocity);
         this.sprite.position.x = this.body.position.x;
         this.sprite.position.y = this.body.position.y;
-        // this.sprite.position.x += velocity.x * 0.1;
-        // this.sprite.position.y += velocity.y * 0.1;
-        // this.game.debug.body(this, 'rgba(255, 255, 0, 1)');
     }
 
     private registerAnimation(direction: Direction, name: string, dico: any) {
@@ -158,50 +150,10 @@ export class Player extends GameObject {
         return this.body.position;
     }
 
-    // public collide() {
-        // this.body.velocity.setTo(0, 0);
-    // }
-
-    // public setCanMove(canMove: boolean) {
-    //     this.canMove = canMove;
-    //     if (!this.canMove) {
-    //         this.directions = [];
-    //         let velocity: Phaser.Point = this.body.velocity;
-    //         velocity.x = velocity.y = 0;
-    //     }
-    // }
-
     private findFreeDirection() {
         if (this.directions.length > 0) {
             return this.directions[this.directions.length - 1];
         }
-        // for (let i = this.directions.length - 1; i >= 0; --i) {
-            // let direction = this.directions[i];
-            // if (!this.isDirectionBlocked(direction)) {
-                // return direction;
-            // }
-        // }
         return null;
     }
-    // private isDirectionBlocked(direction: Direction) {
-        // let body = <Phaser.Physics.Arcade.Body> this.body;
-        // let blocked = body.blocked;
-        // switch (direction) {
-        // case Direction.UP:
-        //     return blocked.up;
-        // case Direction.DOWN:
-        //     return blocked.down;
-        // case Direction.LEFT:
-        //     return blocked.left;
-        // case Direction.RIGHT:
-        //     return blocked.right;
-        // }
-        // return false;
-    // }
-
-    // public goBack(count: number) {
-        // let angle = this.lastDirection + Math.PI;
-        // angle = Phaser.Math.radToDeg(angle);
-        // (<Phaser.Physics.Arcade.Body> this.body).moveTo(50, count, angle);
-    // }
 }
