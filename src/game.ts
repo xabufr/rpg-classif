@@ -7,6 +7,7 @@ import { Pnj } from "./game/pnj";
 import { Player } from "./game/player";
 import { World } from "./world";
 import { Map } from "./game/map";
+import { GameHub } from "./game/ui";
 import { AnimatedSprite } from "./engine/animatedSprite";
 
 let stats = new Stats();
@@ -17,6 +18,7 @@ export class Game {
     private map: Map;
     private player: Player;
     private pnjs: Pnj[];
+    private hud: GameHub;
 
     constructor() {
         this.renderer = PIXI.autoDetectRenderer(800, 600, {
@@ -27,6 +29,7 @@ export class Game {
         stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
         document.body.appendChild( stats.dom );
         this.world = new World(this.renderer);
+        this.hud = new GameHub(this.world);
 
         this.renderer.backgroundColor = 0x061639;
         this.renderer.view.style.border = "1px dashed red";
@@ -37,6 +40,9 @@ export class Game {
 
     private load() {
         PIXI.loader.baseUrl = "./assets/";
+
+        this.hud.preload();
+
         PIXI.loader.add("images/player_f.png");
         PIXI.loader.add("mentor", "images/mentor_ghost.png");
         PIXI.loader.add("dialogs", "dialogs.json");
@@ -44,7 +50,8 @@ export class Game {
             PIXI.loader.load(r);
         }).then(() => this.loadMap("./map.json"))
             .then(() => this.loadPlayer())
-            .then(() => this.loadCreatures());
+            .then(() => this.loadCreatures())
+            .then(() => this.loadHud());
     }
 
     private loadMap(mapName: string) {
@@ -54,11 +61,17 @@ export class Game {
     }
 
     private loadPlayer() {
-        this.player = new Player(this.world, PIXI.loader.resources["images/player_f.png"].texture, this.map.findSpawnZone());
+        this.player = new Player(this.world,
+                                 PIXI.loader.resources["images/player_f.png"].texture,
+                                 this.map.findSpawnZone());
     }
 
     private loadCreatures() {
         this.pnjs = this.map.loadCreatures(this.player);
+    }
+
+    private loadHud() {
+        this.hud.setup();
     }
 
     private start() {

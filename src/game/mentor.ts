@@ -42,8 +42,6 @@ export class Mentor extends Pnj {
         } else {
             throw `Missing properties in mentor ${o.name}`;
         }
-        // this.game.physics.arcade.enable(this);
-        // (<Phaser.Physics.Arcade.Body>this.body).immovable = true;
     }
 
     public update() {
@@ -54,17 +52,6 @@ export class Mentor extends Pnj {
         } else {
             this.sprite.visible = true;
             this.sprite.alpha = this.getAlpha(dist);
-        }
-        if (this.sprite.visible === true) {
-            // this.game.physics.arcade.collide(player, this, () => {
-            //     this.talk(player);
-            //     player.goBack(10);
-            // });
-            // if (this.autoTalkZone !== null && !this.hasTalk && !this.test) {
-            //     if (this.game.physics.arcade.overlap(player, this.autoTalkZone)) {
-            //         this.talk(player);
-            //     }
-            // }
         }
     }
 
@@ -77,6 +64,8 @@ export class Mentor extends Pnj {
             console.log(this.talkText);
             this.isTalking = true;
             this.hasTalk = true;
+            this.world.getHud().getMonologDialog().showTextToPlayer(this.talkText, () => {
+            });
             // player.setCanMove(false);
             // this.gameState.getHub().getMonologDialog().showTextToPlayer(this.talkText, () => {
             //     player.setCanMove(true);
