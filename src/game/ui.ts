@@ -72,6 +72,7 @@ export class MonologDialog {
         this.style = {
             fontSize: FONT_SIZE,
             fontFamily: "Perfect",
+            // fontStyle: "justify",
             fill: "#EEEEEE",
             wordWrap: true,
             wordWrapWidth: this.internalDim.x,

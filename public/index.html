@@ -14,6 +14,15 @@
         System.import('app');
     </script>
     <style>
+
+     canvas, img { /* makes a change, noticeable [28/05/16] */
+	       image-rendering: optimizeSpeed;
+	       image-rendering: -moz-crisp-edges;
+	       image-rendering: -webkit-optimize-contrast;
+	       image-rendering: optimize-contrast;
+	       image-rendering: pixelated;
+	       -ms-interpolation-mode: nearest-neighbor;
+     }
      @font-face {
             font-family: "Perfect";
             src: url("./assets/fonts/Perfect DOS VGA 437 Win.ttf");
