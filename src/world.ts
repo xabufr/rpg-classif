@@ -74,9 +74,20 @@ export class World {
 
     public update() {
         Matter.Engine.update(this.engine, 1000 / 60);
-        if (this.cameraTarget) {
-            this.stage.x = -this.cameraTarget.x + this.renderer.width / 2;
-            this.stage.y = -this.cameraTarget.y + this.renderer.height / 2;
+        this.updateCamera();
+    }
+
+    private updateCamera() {
+        if (this.cameraTarget && this.map) {
+            let mapBounds = this.map.getBounds();
+            let x = this.cameraTarget.x - this.renderer.width / 2;
+            let y = this.cameraTarget.y - this.renderer.height / 2;
+            x = Math.min(Math.max(x, 0),
+                         mapBounds.width - this.renderer.width);
+            y = Math.min(Math.max(y, 0),
+                         mapBounds.height - this.renderer.height);
+            this.stage.x = -x;
+            this.stage.y = -y;
             if (DEBUGGING) {
                 this.matterRenderer.bounds = {
                     min: {

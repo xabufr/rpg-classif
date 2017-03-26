@@ -79,6 +79,8 @@ const MAP_SPLIT_SIZE = 1024;
 export class Map {
     private mapContainer: PIXI.Container;
     private mapData: TiledMapData;
+    private bounds: PIXI.Rectangle;
+
     public constructor(private world: World, private mapName: string) {
         world.setMap(this);
     }
@@ -95,6 +97,7 @@ export class Map {
 
     private loadMap(mapData: TiledMapData) {
         return this.loadMapTextures(mapData).then(() => {
+            this.bounds = this.computeBounds(mapData);
             let tileTextures = this.createTilesets(mapData);
             let container = this.createMapTiles(tileTextures, mapData);
             this.mapContainer = this.createFastCachedDisplay(container);
@@ -102,6 +105,13 @@ export class Map {
             let bodies = this.createMapBody(tileTextures, mapData);
             Matter.World.add(this.world.engine.world, bodies);
         });
+    }
+
+    private computeBounds(mapData: TiledMapData) {
+        return new PIXI.Rectangle(0,
+                                  0,
+                                  mapData.width * mapData.tilewidth,
+                                  mapData.height * mapData.tileheight);
     }
 
     private createTilesets(mapData: TiledMapData) {
@@ -260,5 +270,9 @@ export class Map {
 
     public loadCreatures(player: Player) {
         return this.getCreaturesLayer().map(object => createPnj(object, this.world, player));
+    }
+
+    public getBounds() {
+        return this.bounds;
     }
 }
