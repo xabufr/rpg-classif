@@ -25,6 +25,16 @@ export class GameObject {
         return this.world;
     }
 
+    /**
+      * @param deltaTime in millis
+      */
+    public update(deltaTime: number) {
+        if (this.body && this.sprite) {
+            this.sprite.position.set(this.body.position.x,
+                                     this.body.position.y);
+        }
+    }
+
     public onCollisionEnd(other: GameObject) {
     }
 

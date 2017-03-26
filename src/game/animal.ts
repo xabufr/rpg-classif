@@ -73,9 +73,9 @@ export class Animal extends Pnj {
         this.behaviour = this.createBehaviour();
     }
 
-    public update() {
-        super.update();
-        this.behaviour.update();
+    public update(delta: number) {
+        super.update(delta);
+        this.behaviour.update(delta);
     }
 
     public onCollisionStart(other: GameObject) {
@@ -112,7 +112,7 @@ abstract class Behaviour {
         this.lastTalkMs = -TALK_COOLDOWN;
     }
 
-    public abstract update(): void;
+    public abstract update(delta: number): void;
 
     public canTalkNow() {
         let time = window.performance.now();
@@ -143,7 +143,7 @@ class PassiveBehaviour extends Behaviour {
         this.animal.getBody().isStatic = true;
     }
 
-    public update() {
+    public update(delta: number) {
         // Nothing todo ?
     }
 }
@@ -211,7 +211,7 @@ class RandomBehaviour extends Behaviour {
         }
     }
 
-    public update() {
+    public update(delta: number) {
         let time = window.performance.now();
         if (!this.isTalking && this.lastDecitionMs + this.directionDuration <= time) {
             this.lastDecitionMs = time;

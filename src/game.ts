@@ -19,6 +19,7 @@ export class Game {
     private player: Player;
     private pnjs: Pnj[];
     private hud: GameHud;
+    private lastUpdate: number;
 
     constructor() {
         if (DEBUGGING) {
@@ -83,8 +84,15 @@ export class Game {
     }
 
     private start() {
-        console.log(this);
+        this.lastUpdate = performance.now();
         requestAnimationFrame(() => this.gameLoop());
+    }
+
+    public computeDelta(): number {
+        let now = performance.now();
+        let delta = now - this.lastUpdate;
+        this.lastUpdate = now;
+        return delta;
     }
 
     public gameLoop() {
@@ -93,10 +101,11 @@ export class Game {
         if (stats) {
             stats.begin();
         }
+        let delta = this.computeDelta();
 
-        this.world.updatePhysics();
-        this.player.update();
-        this.pnjs.forEach(p => p.update());
+        this.world.updatePhysics(delta);
+        this.player.update(delta);
+        this.pnjs.forEach(p => p.update(delta));
         this.world.preRender();
         this.world.render();
 

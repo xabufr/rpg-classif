@@ -17,6 +17,7 @@ export class World {
     private hud: GameHud;
 
     private bodiesRegistry: GameObject[];
+    private lastDelta: number;
 
     constructor(
         public readonly renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer
@@ -28,6 +29,7 @@ export class World {
         this.root.addChild(this.stage);
         this.root.addChild(this.uiStage);
 
+        this.lastDelta = 60 / 1000;
         this.engine = Matter.Engine.create();
         if (DEBUGGING) {
             this.matterRenderer = Matter.Render.create({
@@ -72,8 +74,9 @@ export class World {
         this.camera = new AdvancedCamera(this, target);
     }
 
-    public updatePhysics() {
-        Matter.Engine.update(this.engine, 1000 / 60);
+    public updatePhysics(delta: number) {
+        Matter.Engine.update(this.engine, delta, delta / this.lastDelta);
+        this.lastDelta = delta;
     }
 
     public preRender() {

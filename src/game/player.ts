@@ -108,7 +108,7 @@ export class Player extends GameObject {
         // this.body.collideWorldBounds = true;
     }
 
-    public update(): void {
+    public update(delta: number): void {
         let velocity = new PIXI.Point();
         if (this.canMove) {
             let direction = this.findFreeDirection();
@@ -134,8 +134,7 @@ export class Player extends GameObject {
         let sprite = <AnimatedSprite> this.sprite;
         let body = <Matter.Body> this.body;
         Matter.Body.setVelocity(body, velocity);
-        sprite.position.set(body.position.x,
-                            body.position.y);
+        super.update(delta);
     }
 
     private registerAnimation(direction: Direction, name: string, dico: any) {

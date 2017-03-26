@@ -35,11 +35,6 @@ export abstract class Pnj extends GameObject {
         return <AnimatedSprite> this.sprite;
     }
 
-    public update() {
-        this.getSprite().position.set(this.getBody().position.x,
-                                      this.getBody().position.y);
-    }
-
     public getPlayer() {
         return this.player;
     }

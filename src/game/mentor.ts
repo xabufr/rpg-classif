@@ -46,8 +46,8 @@ export class Mentor extends Pnj {
         }
     }
 
-    public update() {
-        super.update();
+    public update(delta: number) {
+        super.update(delta);
         let dist = this.distanceToPlayer(this.player);
         if (dist > MAX_DIST) {
             this.getSprite().visible = false;
