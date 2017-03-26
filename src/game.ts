@@ -94,9 +94,10 @@ export class Game {
             stats.begin();
         }
 
+        this.world.updatePhysics();
         this.player.update();
-        this.world.update();
         this.pnjs.forEach(p => p.update());
+        this.world.preRender();
         this.world.render();
 
         if (stats) {

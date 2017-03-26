@@ -72,8 +72,10 @@ export class World {
         this.camera = new BasicCamera(this.renderer, this.map, target);
     }
 
-    public update() {
+    public updatePhysics() {
         Matter.Engine.update(this.engine, 1000 / 60);
+    }
+    public preRender() {
         this.updateCamera();
     }
 
