@@ -17,9 +17,10 @@ interface Rectange {
     width: number;
     height: number;
 }
-export function rectToBody(rec: Rectange) {
+export function rectToBody(rec: Rectange, options?: Matter.IChamferableBodyDefinition) {
     return Matter.Bodies.rectangle(rec.x + rec.width * 0.5,
                                    rec.y + rec.height * 0.5,
                                    rec.width,
-                                   rec.height);
+                                   rec.height,
+                                   options);
 }

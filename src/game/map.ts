@@ -2,6 +2,7 @@ import { WorldObject } from "./worldObject";
 import { World } from "../world";
 import { createPnj } from "./pnjFactory";
 import { Player } from "./player";
+import * as Utils from "../utils";
 import Matter = require("matter-js");
 
 interface TiledMapData {
@@ -147,7 +148,27 @@ export class Map {
     }
 
     private createMapBody(tiles: Tile[], mapData: TiledMapData) {
-        let bodies: Matter.Body[] = [];
+        let bounds = [
+            new PIXI.Rectangle(0,
+                               -25,
+                               mapData.width * mapData.tilewidth,
+                               25),
+            new PIXI.Rectangle(0,
+                               mapData.height * mapData.tileheight,
+                               mapData.width * mapData.tilewidth,
+                               25),
+            new PIXI.Rectangle(-25,
+                               0,
+                               25,
+                               mapData.height * mapData.tileheight),
+            new PIXI.Rectangle(mapData.width * mapData.tilewidth,
+                               0,
+                               25,
+                               mapData.height * mapData.tileheight)
+        ];
+        let bodies: Matter.Body[] = bounds.map(r => Utils.rectToBody(r, {
+            isStatic: true
+        }));
         mapData.layers.filter(l =>  l.type === "tilelayer").forEach((layer: ITilesetLayer) => {
             layer.data.forEach((v, i) => {
                 if (v === 0) {
@@ -168,7 +189,6 @@ export class Map {
                 }
             });
         });
-        console.log(bodies[0].bounds);
         return bodies;
     }
 

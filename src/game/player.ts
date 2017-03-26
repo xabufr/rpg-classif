@@ -113,8 +113,8 @@ export class Player extends GameObject {
         if (this.canMove) {
             let direction = this.findFreeDirection();
             if (direction !== null) {
-                velocity.x = Math.cos(direction) * SPEED / 100;
-                velocity.y = Math.sin(direction) * SPEED / 100;
+                velocity.x = Math.cos(direction) * SPEED / 50;
+                velocity.y = Math.sin(direction) * SPEED / 50;
 
                 if (direction !== this.lastDirection) {
                     this.lastDirection = direction;
