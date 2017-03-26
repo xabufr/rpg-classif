@@ -9,6 +9,7 @@ import Matter = require("matter-js");
 export abstract class Pnj extends GameObject {
     protected worldObject: WorldObject;
     protected readonly player: Player;
+    public readonly name: string;
 
     constructor(worldObject: WorldObject, world: World, player: Player, texture: PIXI.Texture, spriteDef: SpritesheetDefinition, animationDefs: AnimationDefinition[]) {
         let sprite = new AnimatedSprite(texture, spriteDef, animationDefs);
@@ -23,6 +24,7 @@ export abstract class Pnj extends GameObject {
 
         this.worldObject = worldObject;
         this.player = player;
+        this.name = worldObject.name;
     }
 
     public getBody() {

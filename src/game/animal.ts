@@ -44,6 +44,8 @@ const frames = [{
 
 export class Animal extends Pnj {
     private behaviour: Behaviour;
+    public readonly talk: string;
+
     constructor(o: WorldObject, world: World, player: Player) {
         if (!o.properties || !o.properties.textureName) {
             throw `Missing textureName in animal ${o.name}`;
@@ -52,7 +54,22 @@ export class Animal extends Pnj {
             frameWidth: o.properties.frameWidth || 32,
             frameHeight: o.properties.frameHeight || 32
         };
-        super(o, world, player, PIXI.loader.resources[o.properties.textureName].texture, spriteDef, frames);
+        let resources = PIXI.loader.resources;
+        super(o,
+              world,
+              player,
+              resources[o.properties.textureName].texture,
+              spriteDef,
+              frames);
+        if (!o.properties || !o.properties.talk) {
+            throw `Missing talk property in animal ${o.name}`;
+        }
+        let dialogKey: string = o.properties.talk;
+        let dialogData = resources["dialogs"].data[dialogKey];
+        if (!dialogData || !dialogData.text) {
+            throw `Missing dialog ${dialogKey} for animal ${this.name}`;
+        }
+        this.talk = dialogData.text;
         this.behaviour = this.createBehaviour();
     }
 
@@ -83,12 +100,40 @@ export class Animal extends Pnj {
     }
 }
 
+const TALK_COOLDOWN = 1000;
 abstract class Behaviour {
+    protected canTalk: boolean;
+    protected isTalking: boolean;
+    protected lastTalkMs: number;
+
     constructor(protected animal: Animal, protected worldObject: WorldObject) {
+        this.canTalk = true;
+        this.isTalking = false;
+        this.lastTalkMs = -TALK_COOLDOWN;
     }
 
     public abstract update(): void;
+
+    public canTalkNow() {
+        let time = window.performance.now();
+        return !this.isTalking && this.canTalk && time >= this.lastTalkMs + TALK_COOLDOWN;
+    }
+
     public onCollisionStart(other: GameObject) {
+        if (other.type === "player" && this.canTalkNow()) {
+            this.isTalking = true;
+            let player = <Player> other;
+            player.canMove = false;
+            this.animal
+                .getWorld()
+                .getHud()
+                .getMonologDialog()
+                .showTextToPlayer(this.animal.talk, () => {
+                    player.canMove = true;
+                    this.isTalking = false;
+                    this.lastTalkMs = performance.now();
+                });
+        }
     }
 }
 
@@ -107,7 +152,7 @@ const ANIMAL_WALL_TYPE = "animal-wall";
 class AnimalZoneWall extends GameObject {
     constructor(public readonly animal: Animal, rec: PIXI.Rectangle) {
         super("animal-wall", animal.getWorld(), rectToBody(rec), null);
-        if(this.body) {
+        if (this.body) {
             this.body.isStatic = true;
             this.body.collisionFilter.group = 0x2;
             this.body.collisionFilter.category = 0x2;
@@ -118,7 +163,7 @@ class AnimalZoneWall extends GameObject {
 class RandomBehaviour extends Behaviour {
     private zone: PIXI.Rectangle;
     private walls: AnimalZoneWall[];
-    private currentDirection: Direction | null;
+    private currentDirection: Direction;
     private lastDecitionMs: number;
     private directionDuration: number;
     private currentAnimation: Animation;
@@ -130,7 +175,8 @@ class RandomBehaviour extends Behaviour {
         }
         let zoneName = this.worldObject.properties.zone;
         let zone = this.animal.getWorld().getMap().getZoneNamed(zoneName);
-        this.currentDirection = null;
+        this.chooseRandomDirection();
+        this.lastDecitionMs = 0;
         this.zone = new PIXI.Rectangle(zone.x,
                                        zone.y,
                                        zone.width,
@@ -156,6 +202,7 @@ class RandomBehaviour extends Behaviour {
     }
 
     public onCollisionStart(other: GameObject) {
+        super.onCollisionStart(other);
         if (other.type === ANIMAL_WALL_TYPE) {
             let wall = <AnimalZoneWall> other;
             if (wall.animal === this.animal) {
@@ -163,22 +210,30 @@ class RandomBehaviour extends Behaviour {
             }
         }
     }
+
     public update() {
         let time = window.performance.now();
-        if (this.currentDirection === null ||
-            this.lastDecitionMs + this.directionDuration <= time) {
-            let dirIndex = Math.floor(Math.random() * 1000) % 4;
-            this.currentDirection = Directions[dirIndex];
+        if (!this.isTalking && this.lastDecitionMs + this.directionDuration <= time) {
             this.lastDecitionMs = time;
-            this.directionDuration = 1000;
-
-            let animation = this.animal.getSprite()
-                .getAnimation(Direction[this.currentDirection].toLocaleLowerCase());
-            this.currentAnimation = animation;
+            this.chooseRandomDirection();
             this.currentAnimation.play();
         }
         // Nothing todo ?
-        let vel = getDirectionVector(this.currentDirection, 1);
-        Matter.Body.setVelocity(this.animal.getBody(), vel);
+        if (!this.isTalking) {
+            let vel = getDirectionVector(this.currentDirection, 1);
+            Matter.Body.setVelocity(this.animal.getBody(), vel);
+        } else {
+            Matter.Body.setVelocity(this.animal.getBody(), {x: 0, y: 0});
+        }
+    }
+
+    private chooseRandomDirection() {
+        let dirIndex = Math.floor(Math.random() * 1000) % 4;
+        this.currentDirection = Directions[dirIndex];
+        this.directionDuration = Math.random() * 500 + 500;
+
+        let animation = this.animal.getSprite()
+            .getAnimation(Direction[this.currentDirection].toLocaleLowerCase());
+        this.currentAnimation = animation;
     }
 }
