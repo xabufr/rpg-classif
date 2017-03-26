@@ -20,6 +20,7 @@ export class Game {
     private pnjs: Pnj[];
     private hud: GameHud;
     private lastUpdate: number;
+    private gameLoopFn: FrameRequestCallback;
 
     constructor() {
         if (DEBUGGING) {
@@ -36,6 +37,8 @@ export class Game {
             stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
             document.body.appendChild( stats.dom );
         }
+        this.gameLoopFn = this.gameLoop.bind(this);
+
         this.world = new World(this.renderer);
         this.hud = new GameHud(this.world);
 
@@ -99,7 +102,7 @@ export class Game {
 
     private start() {
         this.lastUpdate = performance.now();
-        requestAnimationFrame(() => this.gameLoop());
+        requestAnimationFrame(this.gameLoopFn);
     }
 
     public computeDelta(): number {
@@ -109,8 +112,8 @@ export class Game {
         return delta;
     }
 
-    public gameLoop() {
-        requestAnimationFrame(() => this.gameLoop());
+    public gameLoop(now: number) {
+        requestAnimationFrame(this.gameLoopFn);
 
         if (stats) {
             stats.begin();
