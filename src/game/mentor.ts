@@ -70,13 +70,15 @@ export class Mentor extends Pnj {
 
     private talk() {
         if (!this.isTalking) {
-            this.isTalking = true;
-            this.hasTalk = true;
-            this.player.canMove = false;
-            this.world.getHud().getMonologDialog().showTextToPlayer(this.talkText, () => {
+            let isTalking = this.world.getHud().getMonologDialog().showTextToPlayer(this.talkText, () => {
                 this.player.canMove = true;
                 this.isTalking = false;
             });
+            if (isTalking) {
+                this.isTalking = true;
+                this.hasTalk = true;
+                this.player.canMove = false;
+            }
         }
     }
 

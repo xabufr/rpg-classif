@@ -121,10 +121,8 @@ abstract class Behaviour {
 
     public onCollisionStart(other: GameObject) {
         if (other.type === "player" && this.canTalkNow()) {
-            this.isTalking = true;
             let player = <Player> other;
-            player.canMove = false;
-            this.animal
+            let isTalking = this.animal
                 .getWorld()
                 .getHud()
                 .getMonologDialog()
@@ -133,6 +131,10 @@ abstract class Behaviour {
                     this.isTalking = false;
                     this.lastTalkMs = performance.now();
                 });
+            if (isTalking) {
+                this.isTalking = true;
+                player.canMove = false;
+            }
         }
     }
 }

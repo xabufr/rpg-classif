@@ -97,6 +97,9 @@ export class MonologDialog {
     }
 
     public showTextToPlayer(text: string, cb: () => void) {
+        if (this.group.visible === true) {
+            return false;
+        }
         this.readPosition = 0;
         this.text.text = text;
         //Force texture refresh
@@ -106,6 +109,7 @@ export class MonologDialog {
         this.group.visible = true;
         let hasNext = this.hasNext(this.readPosition);
         this.dialogBtn.visible = hasNext;
+        return true;
     }
 
     public update(): void {
