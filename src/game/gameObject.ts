@@ -30,4 +30,14 @@ export class GameObject {
 
     public onCollisionStart(other: GameObject) {
     }
+
+    public getPosition(): {x: number, y: number} {
+        if (this.body) {
+            return this.body.position;
+        }
+        if (this.sprite) {
+            return this.sprite.position;
+        }
+        throw `Cannot find position for gameobject ${this.type}`;
+    }
 }

@@ -59,7 +59,7 @@ export class Player extends GameObject {
 
         this.directions = [];
         world.stage.addChild(sprite);
-        world.cameraFollow(sprite);
+        world.cameraFollow(this);
 
         this.animations = this.initAnimations();
 

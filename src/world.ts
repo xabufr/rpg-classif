@@ -11,7 +11,7 @@ export class World {
 
     private root: PIXI.Container;
 
-    private cameraTarget: PIXI.DisplayObject;
+    private camera: Camera;
     private matterRenderer: Matter.Render;
     private map: Map;
     private hud: GameHud;
@@ -68,8 +68,8 @@ export class World {
         this.renderer.render(this.root);
     }
 
-    public cameraFollow(target: PIXI.DisplayObject) {
-        this.cameraTarget = target;
+    public cameraFollow(target: GameObject) {
+        this.camera = new BasicCamera(this.renderer, this.map, target);
     }
 
     public update() {
@@ -78,25 +78,19 @@ export class World {
     }
 
     private updateCamera() {
-        if (this.cameraTarget && this.map) {
-            let mapBounds = this.map.getBounds();
-            let x = this.cameraTarget.x - this.renderer.width / 2;
-            let y = this.cameraTarget.y - this.renderer.height / 2;
-            x = Math.min(Math.max(x, 0),
-                         mapBounds.width - this.renderer.width);
-            y = Math.min(Math.max(y, 0),
-                         mapBounds.height - this.renderer.height);
-            this.stage.x = -x;
-            this.stage.y = -y;
+        if (this.camera) {
+            let pos = this.camera.getPosition();
+            this.stage.x = -pos.x + this.renderer.width / 2;
+            this.stage.y = -pos.y + this.renderer.height / 2;
             if (DEBUGGING) {
                 this.matterRenderer.bounds = {
                     min: {
-                        x: this.cameraTarget.x - this.renderer.width / 2,
-                        y: this.cameraTarget.y - this.renderer.height / 2
+                        x: pos.x - this.renderer.width / 2,
+                        y: pos.y - this.renderer.height / 2
                     },
                     max: {
-                        x: this.cameraTarget.x + this.renderer.width / 2,
-                        y: this.cameraTarget.y + this.renderer.height / 2
+                        x: pos.x + this.renderer.width / 2,
+                        y: pos.y + this.renderer.height / 2
                     }
                 };
             }
@@ -121,5 +115,28 @@ export class World {
 
     public getHud() {
         return this.hud;
+    }
+}
+
+abstract class Camera {
+    constructor(
+        protected renderer: PIXI.SystemRenderer,
+        protected map: Map,
+        protected target: GameObject) {
+    }
+    public abstract getPosition(): {x: number, y: number};
+}
+
+class BasicCamera extends Camera {
+    public getPosition() {
+        let mapBounds = this.map.getBounds();
+        let position = this.target.getPosition();
+        let x = position.x;
+        let y = position.y;
+        x = Math.min(Math.max(x, this.renderer.width / 2),
+                     mapBounds.width - this.renderer.width / 2);
+        y = Math.min(Math.max(y, this.renderer.height / 2),
+                     mapBounds.height - this.renderer.height / 2);
+        return {x, y};
     }
 }
