@@ -50,10 +50,24 @@ export class Game {
 
         this.hud.preload();
 
+        // LOADING : sprites player & mentor + dialogs.json
         PIXI.loader.add("images/player_f.png");
         PIXI.loader.add("mentor", "images/mentor_ghost.png");
         PIXI.loader.add("dialogs", "dialogs.json");
-        PIXI.loader.add("creature1", "images/creatures/grey_wolf.png");
+        // LOADING : creatures
+        PIXI.loader.add("grey_wolf", "images/creatures/grey_wolf.png"); // Grey wolf
+        PIXI.loader.add("ostrich", "images/creatures/chocobo.png"); // Ostrich
+        PIXI.loader.add("bee", "images/creatures/bee.png"); // Bee
+        PIXI.loader.add("fish", "images/creatures/fish.png"); // Fish
+        PIXI.loader.add("wild_rabbit", "images/creatures/wild_rabbit.png"); // Wild rabbit
+        PIXI.loader.add("mouse", "images/creatures/mouse.png"); // Mouse
+        PIXI.loader.add("rabbit", "images/creatures/rabbit.png"); // Rabbit (white one)
+        PIXI.loader.add("snake", "images/creatures/snake.png"); // Snake
+        PIXI.loader.add("butterfly", "images/creatures/butterfly.png"); // Butterfly
+        PIXI.loader.add("chicken", "images/creatures/chicken.png"); // Chicken
+        PIXI.loader.add("white_wolf", "images/creatures/white_wolf.png"); // White wolf
+        PIXI.loader.add("frog", "images/creatures/frog.png"); // Frog
+
         return new Promise(r => {
             PIXI.loader.load(r);
         }).then(() => this.loadMap("./map.json"))

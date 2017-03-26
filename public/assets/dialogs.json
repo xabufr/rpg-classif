@@ -1,7 +1,52 @@
 {
-    "intro": {
+    "grey_wolf": {
         "text": "Coucou, je suis une créature !!!\nComment que ça va ?"
     },
+
+    "ostrich": {
+        "text": "Salut toi, je suis aussi une créature ! Bisou keurkeur."
+    },
+
+    "bee": {
+        "text": "Je suis la troisième créature que tu peux rencontrer, youhou !"
+    },
+
+    "fish": {
+        "text": "Mes créateurs ont oublié de me donner une image... :("
+    },
+
+    "wild_rabbit": {
+        "text": "..."
+    },
+
+     "rabbit": {
+        "text": "..."
+    },
+
+     "mouse": {
+        "text": "..."
+    },
+
+    "snake": {
+        "text": "(faire apparaître la notion de 4 pattes embryonnaires perdues DONC tétrapodes)"
+    },
+
+    "butterfly": {
+        "text": "..."
+    },
+
+    "chicken": {
+        "text": "..."
+    },
+
+    "white_wolf": {
+        "text": "..."
+    },
+
+    "frog": {
+        "text": "..."
+    },
+
     "mentor_speech_1": {
         "text": ".... OH !!! Te voilà enfin ! Je n'y croyais plus !\n\n\nOui tu te demandes sûrement ce que tu fais ici... Je t'ai appelé pour que tu viennes m'aider. Vois-tu, je suis Wengins, le gardien de cette terre.. ou plutôt une projection de lui. Mon rôle est de garder un oeil sur le tableau qui classifie cette terre. Mais mon apprenti Toris m'a fait prisonnier et a tout chamboulé..... :(\n\nTu n'as pas l'air expert dans le domaine mais je vais t'apprendre tout ce que tu as à savoir pour classer correctement ce monde.\nDéplace-toi avec les flèches de ton clavier et rejoins moins un peu plus loin sur le chemin."
     },
@@ -15,7 +60,7 @@
     },
 
     "mentor_speech_4": {
-    	"text": "Désolé je ne pouvais pas trop parler, Toris me surveille ! Ah, je vois que tu as déjà rencontré 2 espèces différentes. T'ont-elles donné leurs attributs ?\n QUOIIIII ????!!!! Tu ne sais pas ce qu'est un attribut ?!! Mais enfin... ce sont les caractères visibles des êtres vivants, ils te permettent de les classer dans des groupes ! Ah et j'allais oublier. Tu peux retrouver toutes les créatures que tu as déjà croisé, ainsi que leurs attributs dans ton bestiaire (le livre) !"
+    	"text": "Désolé je ne pouvais pas trop parler, Toris me surveille ! Ah, je vois que tu as déjà rencontré plusieurs espèces différentes. T'ont-elles donné leurs attributs ?\n QUOIIIII ????!!!! Tu ne sais pas ce qu'est un attribut ?!! Mais enfin... ce sont les caractères visibles des êtres vivants, ils te permettent de les classer dans des groupes ! Ah et j'allais oublier. Tu peux retrouver toutes les créatures que tu as déjà croisé, ainsi que leurs attributs dans ton bestiaire (le livre) !"
     },
 
     "mentor_speech_5": {
