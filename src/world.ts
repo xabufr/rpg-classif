@@ -11,7 +11,7 @@ export class World {
 
     private root: PIXI.Container;
 
-    private cameraTarget: PIXI.DisplayObject;
+    private camera: Camera;
     private matterRenderer: Matter.Render;
     private map: Map;
     private hud: GameHud;
@@ -68,35 +68,32 @@ export class World {
         this.renderer.render(this.root);
     }
 
-    public cameraFollow(target: PIXI.DisplayObject) {
-        this.cameraTarget = target;
+    public cameraFollow(target: GameObject) {
+        this.camera = new AdvancedCamera(this, target);
     }
 
-    public update() {
+    public updatePhysics() {
         Matter.Engine.update(this.engine, 1000 / 60);
+    }
+
+    public preRender() {
         this.updateCamera();
     }
 
     private updateCamera() {
-        if (this.cameraTarget && this.map) {
-            let mapBounds = this.map.getBounds();
-            let x = this.cameraTarget.x - this.renderer.width / 2;
-            let y = this.cameraTarget.y - this.renderer.height / 2;
-            x = Math.min(Math.max(x, 0),
-                         mapBounds.width - this.renderer.width);
-            y = Math.min(Math.max(y, 0),
-                         mapBounds.height - this.renderer.height);
-            this.stage.x = -x;
-            this.stage.y = -y;
+        if (this.camera) {
+            let pos = this.camera.getPosition();
+            this.stage.x = -pos.x + this.renderer.width / 2;
+            this.stage.y = -pos.y + this.renderer.height / 2;
             if (DEBUGGING) {
                 this.matterRenderer.bounds = {
                     min: {
-                        x: this.cameraTarget.x - this.renderer.width / 2,
-                        y: this.cameraTarget.y - this.renderer.height / 2
+                        x: pos.x - this.renderer.width / 2,
+                        y: pos.y - this.renderer.height / 2
                     },
                     max: {
-                        x: this.cameraTarget.x + this.renderer.width / 2,
-                        y: this.cameraTarget.y + this.renderer.height / 2
+                        x: pos.x + this.renderer.width / 2,
+                        y: pos.y + this.renderer.height / 2
                     }
                 };
             }
@@ -121,5 +118,68 @@ export class World {
 
     public getHud() {
         return this.hud;
+    }
+}
+
+abstract class Camera {
+    constructor(
+        protected world: World,
+        protected target: GameObject) {
+    }
+    public abstract getPosition(): {x: number, y: number};
+}
+
+class BasicCamera extends Camera {
+    private pCache: {x: number, y: number};
+    constructor(
+        world: World,
+        target: GameObject) {
+        super(world, target);
+        this.pCache = {x: 0, y: 0};
+    }
+    public getPosition() {
+        let mapBounds = this.world.getMap().getBounds();
+        let position = this.target.getPosition();
+        let x = position.x;
+        let y = position.y;
+        this.pCache.x = Math.min(Math.max(x, this.world.renderer.width / 2),
+                     mapBounds.width - this.world.renderer.width / 2);
+        this.pCache.y = Math.min(Math.max(y, this.world.renderer.height / 2),
+                     mapBounds.height - this.world.renderer.height / 2);
+        return this.pCache;
+    }
+}
+
+const MAX_DIST = 50;
+class AdvancedCamera extends BasicCamera {
+    private currentPosition: {x: number, y: number};
+    constructor(
+        world: World,
+        target: GameObject) {
+        super(world, target);
+        let bounds = world.getMap().getBounds();
+        this.currentPosition = {
+            x: bounds.width / 2,
+            y: bounds.height / 2
+        };
+    }
+
+    public getPosition() {
+        let idealPosition = super.getPosition();
+        if (Math.abs(idealPosition.x - this.currentPosition.x) > MAX_DIST) {
+            if (this.currentPosition.x < idealPosition.x) {
+                this.currentPosition.x = idealPosition.x - MAX_DIST;
+            } else {
+                this.currentPosition.x = idealPosition.x + MAX_DIST;
+            }
+        }
+        if (Math.abs(idealPosition.y - this.currentPosition.y) > MAX_DIST) {
+            if (this.currentPosition.y < idealPosition.y) {
+                this.currentPosition.y = idealPosition.y - MAX_DIST;
+            } else {
+                this.currentPosition.y = idealPosition.y + MAX_DIST;
+            }
+        }
+        return this.currentPosition;
     }
 }
