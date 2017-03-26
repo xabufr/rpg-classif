@@ -58,6 +58,7 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite {
         });
         super([frames[0][0]]);
         this.animations = _animations;
+        this.animationSpeed = 0.1;
     }
 
     public setCurrentAnimation(anim: string | Animation) {

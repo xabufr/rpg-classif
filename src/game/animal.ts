@@ -160,6 +160,7 @@ class AnimalZoneWall extends GameObject {
         }
     }
 }
+const WALL_WIDTH = 50;
 class RandomBehaviour extends Behaviour {
     private zone: PIXI.Rectangle;
     private walls: AnimalZoneWall[];
@@ -182,20 +183,20 @@ class RandomBehaviour extends Behaviour {
                                        zone.width,
                                        zone.height);
         this.walls = [new PIXI.Rectangle(this.zone.x,
-                                         this.zone.y - 25,
+                                         this.zone.y - WALL_WIDTH,
                                          this.zone.width,
-                                         25),
+                                         WALL_WIDTH),
                      new PIXI.Rectangle(this.zone.x,
                                          this.zone.y + this.zone.height,
                                          this.zone.width,
-                                         25),
-                      new PIXI.Rectangle(this.zone.x - 25,
+                                         WALL_WIDTH),
+                      new PIXI.Rectangle(this.zone.x - WALL_WIDTH,
                                          this.zone.y,
-                                         25,
+                                         WALL_WIDTH,
                                          this.zone.height),
                       new PIXI.Rectangle(this.zone.x + this.zone.width,
                                          this.zone.y,
-                                         25,
+                                         WALL_WIDTH,
                                          this.zone.height),
                      ].map(r => new AnimalZoneWall(this.animal, r));
         this.animal.getBody().collisionFilter.group = 0x2;

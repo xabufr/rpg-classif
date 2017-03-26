@@ -71,12 +71,15 @@ export class World {
     }
 
     public cameraFollow(target: GameObject) {
-        this.camera = new AdvancedCamera(this, target);
+        this.camera = new TimedCamera(this, target);
     }
 
     public updatePhysics(delta: number) {
         Matter.Engine.update(this.engine, delta, delta / this.lastDelta);
         this.lastDelta = delta;
+        if (this.camera) {
+            this.camera.update(delta);
+        }
     }
 
     public preRender() {
@@ -129,6 +132,10 @@ abstract class Camera {
         protected world: World,
         protected target: GameObject) {
     }
+
+    public update(delta: number) {
+    }
+
     public abstract getPosition(): {x: number, y: number};
 }
 
@@ -140,21 +147,25 @@ class BasicCamera extends Camera {
         super(world, target);
         this.pCache = {x: 0, y: 0};
     }
-    public getPosition() {
+
+    public update(delta: number) {
         let mapBounds = this.world.getMap().getBounds();
         let position = this.target.getPosition();
         let x = position.x;
         let y = position.y;
         this.pCache.x = Math.min(Math.max(x, this.world.renderer.width / 2),
-                     mapBounds.width - this.world.renderer.width / 2);
+                                 mapBounds.width - this.world.renderer.width / 2);
         this.pCache.y = Math.min(Math.max(y, this.world.renderer.height / 2),
                      mapBounds.height - this.world.renderer.height / 2);
+    }
+
+    public getPosition() {
         return this.pCache;
     }
 }
 
-const MAX_DIST = 50;
-class AdvancedCamera extends BasicCamera {
+const CAM_VEL = 5;
+class TimedCamera extends BasicCamera {
     private currentPosition: {x: number, y: number};
     constructor(
         world: World,
@@ -167,22 +178,32 @@ class AdvancedCamera extends BasicCamera {
         };
     }
 
-    public getPosition() {
+    public update(delta: number) {
+        super.update(delta);
         let idealPosition = super.getPosition();
-        if (Math.abs(idealPosition.x - this.currentPosition.x) > MAX_DIST) {
-            if (this.currentPosition.x < idealPosition.x) {
-                this.currentPosition.x = idealPosition.x - MAX_DIST;
-            } else {
-                this.currentPosition.x = idealPosition.x + MAX_DIST;
-            }
-        }
-        if (Math.abs(idealPosition.y - this.currentPosition.y) > MAX_DIST) {
-            if (this.currentPosition.y < idealPosition.y) {
-                this.currentPosition.y = idealPosition.y - MAX_DIST;
-            } else {
-                this.currentPosition.y = idealPosition.y + MAX_DIST;
-            }
-        }
+        let diff = {
+            x: idealPosition.x - this.currentPosition.x,
+            y: idealPosition.y - this.currentPosition.y
+        };
+        this.currentPosition.x += diff.x * (delta / 1000) * CAM_VEL;
+        this.currentPosition.y += diff.y * (delta / 1000) * CAM_VEL;
+        // if (Math.abs(idealPosition.x - this.currentPosition.x) > MAX_DIST) {
+        //     if (this.currentPosition.x < idealPosition.x) {
+        //         this.currentPosition.x = idealPosition.x - MAX_DIST;
+        //     } else {
+        //         this.currentPosition.x = idealPosition.x + MAX_DIST;
+        //     }
+        // }
+        // if (Math.abs(idealPosition.y - this.currentPosition.y) > MAX_DIST) {
+        //     if (this.currentPosition.y < idealPosition.y) {
+        //         this.currentPosition.y = idealPosition.y - MAX_DIST;
+        //     } else {
+        //         this.currentPosition.y = idealPosition.y + MAX_DIST;
+        //     }
+        // }
+    }
+
+    public getPosition() {
         return this.currentPosition;
     }
 }
