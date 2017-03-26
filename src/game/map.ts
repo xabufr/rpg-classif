@@ -79,6 +79,7 @@ interface Tile {
 }
 
 const MAP_SPLIT_SIZE = 1024;
+const MAP_BOUNDS_WIDTH = 250;
 
 export class Map {
     private mapContainer: PIXI.Container;
@@ -163,22 +164,22 @@ export class Map {
 
     private createMapBody(tiles: Tile[], mapData: TiledMapData) {
         let bounds = [
-            new PIXI.Rectangle(0,
-                               -25,
-                               mapData.width * mapData.tilewidth,
-                               25),
-            new PIXI.Rectangle(0,
+            new PIXI.Rectangle(-MAP_BOUNDS_WIDTH,
+                               -MAP_BOUNDS_WIDTH,
+                               mapData.width * mapData.tilewidth + MAP_BOUNDS_WIDTH * 2,
+                               MAP_BOUNDS_WIDTH),
+            new PIXI.Rectangle(-MAP_BOUNDS_WIDTH,
                                mapData.height * mapData.tileheight,
-                               mapData.width * mapData.tilewidth,
-                               25),
-            new PIXI.Rectangle(-25,
-                               0,
-                               25,
-                               mapData.height * mapData.tileheight),
+                               mapData.width * mapData.tilewidth + MAP_BOUNDS_WIDTH * 2,
+                               MAP_BOUNDS_WIDTH),
+            new PIXI.Rectangle(-MAP_BOUNDS_WIDTH,
+                               -MAP_BOUNDS_WIDTH,
+                               MAP_BOUNDS_WIDTH,
+                               mapData.height * mapData.tileheight + MAP_BOUNDS_WIDTH * 2),
             new PIXI.Rectangle(mapData.width * mapData.tilewidth,
-                               0,
-                               25,
-                               mapData.height * mapData.tileheight)
+                               -MAP_BOUNDS_WIDTH,
+                               MAP_BOUNDS_WIDTH,
+                               mapData.height * mapData.tileheight + MAP_BOUNDS_WIDTH * 2)
         ];
         let bodies: Matter.Body[] = bounds.map(r => Utils.rectToBody(r, {
             isStatic: true

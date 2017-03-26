@@ -71,7 +71,11 @@ export class World {
     }
 
     public cameraFollow(target: GameObject) {
-        this.camera = new TimedCamera(this, target);
+        if (DEBUGGING) {
+            this.camera = new DebugCamera(this, target);
+        } else {
+            this.camera = new TimedCamera(this, target);
+        }
     }
 
     public updatePhysics(delta: number) {
@@ -137,6 +141,12 @@ abstract class Camera {
     }
 
     public abstract getPosition(): {x: number, y: number};
+}
+
+class DebugCamera extends Camera {
+    public getPosition() {
+        return this.target.getPosition();
+    }
 }
 
 class BasicCamera extends Camera {
