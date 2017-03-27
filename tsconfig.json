@@ -1,22 +1,17 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "outFile": "app.js",
-        "module": "system",
+        "outDir": "./dist/",
+        "module": "commonjs",
         "sourceMap": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "noImplicitReturns": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
-        "inlineSourceMap": true,
         "lib": ["DOM",
                 "ES5",
                 "ScriptHost",
                 "ES2015.Promise"]
-    },
-    "include": [
-        "./src/**/*.ts",
-        "./typings/index.d.ts"
-    ]
+    }
 }

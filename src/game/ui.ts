@@ -1,5 +1,5 @@
 import { World } from "../world";
-import keyboardJS from "keyboardjs";
+import keyboardJS = require("keyboardjs");
 
 const FONT_SIZE = 24;
 

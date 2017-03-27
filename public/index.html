@@ -3,24 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <script src="./lib/stats.js/build/stats.js"></script>
-    <script src="./lib/system.js/dist/system.js"></script>
-    <script src="./lib/es6-promise/es6-promise.auto.js"></script>
-    <!-- <script src="./lib/keyboardjs/dist/keyboard.min.js"></script> -->
-    <!-- <script src="./lib/Matter/build/matter.min.js"></script> -->
-    <script src="./lib/pixi.js/dist/pixi.js"></script>
-    <script src="./app/app.js"></script>
-    <script>
-     SystemJS.config({
-         map: {
-             "matter-js": "./lib/Matter/build/matter.js",
-             "keyboardjs": "./lib/keyboardjs/dist/keyboard.js"
-         },
-     });
-     System.import("app");
-    </script>
     <style>
-
      canvas, img { /* makes a change, noticeable [28/05/16] */
 	       image-rendering: optimizeSpeed;
 	       image-rendering: -moz-crisp-edges;
@@ -44,6 +27,7 @@
 </head>
 
 <body>
+    <script src="./app.js"></script>
     <div style="font-family: Perfect;">.</div>
     <div id="game"></div>
 </body>

@@ -1,3 +1,2 @@
-node_modules
-public/lib
-public/app
+node_modules/
+public/app.js

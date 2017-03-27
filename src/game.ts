@@ -5,6 +5,7 @@ import { Map } from "./game/map";
 import { GameHud } from "./game/ui";
 import { AnimatedSprite } from "./engine/animatedSprite";
 import { DEBUGGING } from "./debug";
+import Stats = require("stats.js");
 
 let stats: Stats | null = null;
 

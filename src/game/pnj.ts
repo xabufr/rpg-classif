@@ -27,6 +27,10 @@ export abstract class Pnj extends GameObject {
         this.name = worldObject.name;
     }
 
+    public update(deltaTime: number) {
+        super.update(deltaTime);
+    }
+
     public getBody() {
         return <Matter.Body> this.body;
     }

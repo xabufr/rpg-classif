@@ -3,7 +3,7 @@ import { AnimatedSprite, Animation } from "../engine/animatedSprite";
 import { World } from "../world";
 import { Direction } from "./direction";
 import Matter = require("matter-js");
-import keyboardJS from "keyboardjs";
+import keyboardJS = require("keyboardjs");
 
 const SPEED = 300.0;
 

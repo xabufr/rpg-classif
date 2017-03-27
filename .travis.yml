@@ -2,9 +2,8 @@ language: node_js
 node_js:
   - stable
 before_script:
-  - npm install -g gulp bower
-  - bower install
-script: gulp
+  - npm install
+script: npm run build
 deploy:
   provider: pages
   skip_cleanup: true
