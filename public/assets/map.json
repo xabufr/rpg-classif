@@ -645,14 +645,14 @@
                  "y":760
                 }, 
                 {
-                 "height":53,
+                 "height":263,
                  "id":52,
                  "name":"wild_rabbit_zone",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":219,
-                 "x":1090,
+                 "width":379,
+                 "x":1026,
                  "y":1356
                 }, 
                 {
