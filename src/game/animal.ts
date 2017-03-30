@@ -146,8 +146,9 @@ class PassiveBehaviour extends Behaviour {
     }
 
     public update(delta: number) {
-        // Nothing todo ?
+        // Nothing to do ?
     }
+
 }
 
 const ANIMAL_WALL_TYPE = "animal-wall";
@@ -201,13 +202,13 @@ class RandomBehaviour extends Behaviour {
                                          WALL_WIDTH,
                                          this.zone.height),
                      ].map(r => new AnimalZoneWall(this.animal, r));
-        this.animal.getBody().collisionFilter.group = 0x2;
+        this.animal.getBody().collisionFilter.group = 0x1; // Was 0x2
     }
 
     public onCollisionStart(other: GameObject) {
         super.onCollisionStart(other);
         if (other.type === ANIMAL_WALL_TYPE) {
-            let wall = <AnimalZoneWall> other;
+            let wall = <AnimalZoneWall> other5
             if (wall.animal === this.animal) {
                 this.currentAnimation.stop();
             }
@@ -240,3 +241,15 @@ class RandomBehaviour extends Behaviour {
         this.currentAnimation = animation;
     }
 }
+
+/* class FugitiveBehaviour extends Behaviour {
+    private zone: PIXI.Rectangle;
+    private walls: AnimalZoneWall[];
+    private currentDirection: Direction;
+    private lastDecitionMs: number;
+    private directionDuration: number;
+    private currentAnimation: Animation;
+
+position -> player position + 5
+if wall -> change direction
+} */
