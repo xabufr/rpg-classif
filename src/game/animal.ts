@@ -202,7 +202,7 @@ class RandomBehaviour extends Behaviour {
                                          WALL_WIDTH,
                                          this.zone.height),
                      ].map(r => new AnimalZoneWall(this.animal, r));
-        this.animal.getBody().collisionFilter.group = 0x1; // Was 0x2
+        this.animal.getBody().collisionFilter.group = 0x2; // Was 0x2
     }
 
     public onCollisionStart(other: GameObject) {
