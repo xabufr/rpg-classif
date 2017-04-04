@@ -4,31 +4,31 @@
     },
 
     "ostrich": {
-        "text": "Salut toi, je suis aussi une créature ! Bisou keurkeur."
+        "text": "C'est toi le sauveur que Wengins a fait venir ? Je suis tellement contente !!! Tu as sûrement dû croiser mon frère un peu plus bas sur le chemin, le pauvre ne sait plus qui il est... J'imagine que tu veux savoir quels sont mes attributs ?\nQuoi ? Tu ne sais pas ce qu'est un attribut ? C'est un caractère visible d'un être vivant qui permet de le \"ranger\" dans une boîte, ce que tu feras plus tard. Par exemple mes plumes, c'est un attribut.\nTu as compris ? Aller on y va. Je possède un squelette interne composé d'os. Pour me déplacer j'utilise mes 2 membres inférieurs, j'ai aussi des 2 ailes qui correspondent à mes membres supérieurs mais je suis incapable de voler. Quoi d'autre... ah oui, j'ai un gésier mais ce n'est pas très intéressant... bien sûr je possède aussi une tête et une bouche comme tu peux le voir !"
     },
 
     "bee": {
-        "text": "Je suis la troisième créature que tu peux rencontrer, youhou !"
+        "text": "Bzzz, salut ! Je suis bzzz une abeille ! Je possède des bzzz ailes qui me permettent de voler. J'ai bzzz aussi une tête et une bouche. Sur ma tête se trouvent deux bzzz antennes et quand je ne vole pas, je peux bzzz me déplacer avec mes 6 pattes ! Tous ces éléments sont fixés sur un squelette externe ou exosquelette. Bzzz !"
     },
 
     "fish": {
-        "text": "Mes créateurs ont oublié de me donner une image... :("
+        "text": "Oh ! Je suis un thon rouge du Nord, Thunnus thynnus pour les intimes. Je possède des nageoires rayonnées pour me mouvoir dans l'eau, une tête et une bouche. Mais aussi un squelette interne composé d'arrêtes, ces arrêtes sont mes os, j'ai donc moi aussi un squelette osseux. Mon corps est également couvert d'écailles, bonne chance !"
     },
 
     "wild_rabbit": {
-        "text": "..."
+        "text": "Héhé ! Je suis Garen le lièvre. Je possède des poils, les femelles de mon espèce ont aussi des mammelles. Je cours sur 4 pattes, j'ai une bouche sur ma tête, dans laquelle se trouvent 2 paires d'incisives sur ma mâchoire supérieure. J'ai également un squelette interne osseux !"
     },
 
      "rabbit": {
-        "text": "..."
+        "text": "Vite ! Suis le lapin blanc ! Tu vas être en retard ! Je vais faire vite ! J'ai des poils, des mammelles, et 4 pattes positionnées sur un squelette interne osseux. Une tête, une bouche, 2 paires d'incisives supérieures. Allez ! Vite ! Sauve-nous !"
     },
 
      "mouse": {
-        "text": "..."
+        "text": "Ouh, tu m'as fait peur ! Je suis Mimi la souris, enchantée ! Je suis caractérisée par un pelage, des mammelles, un squelette interne d'os, 4 pattes et une tête avec une bouche. On me dit souvent que je dois être de la même famille que les lapins et les lièvre, mais c'est faux car je ne possède qu'une seule paire d'incisives supérieure !! Hihi !!"
     },
 
     "snake": {
-        "text": "(faire apparaître la notion de 4 pattes embryonnaires perdues DONC tétrapodes)"
+        "text": "Te voila enfin ! J'ai quelque chose à te raconter, ssss. Ecoute moi bien car ssssce que je vais te dire est très ssssimportant. Commençsssons par le commencssement. J'ai un sssquelette interne osssseux, une grande mâchoire et une tête. Mon corps est couvert d'écailles. Maintenant le plus sssssimportant : je posssssède 4 pattes. Enfin, je possssédais. Quand j'étais encore dans mon oeuf, sssssous la forme d'un embryon, j'avais 4 petites pattes. En me développant, je les ai perdues. Mais Wenginsssss considère toujours que j'ai 4 pattes pour me placer dans la classsssification, car je les ai eues un jour. Les 4 pattes font donc partie de mes attributs."
     },
 
     "butterfly": {
@@ -48,15 +48,15 @@
     },
 
     "mentor_speech_1": {
-        "text": ".... OH !!! Te voilà enfin ! Je n'y croyais plus !\n\n\nOui tu te demandes sûrement ce que tu fais ici... Je t'ai appelé pour que tu viennes m'aider. Vois-tu, je suis Wengins, le gardien de cette terre.. ou plutôt une projection de lui. Mon rôle est de garder un oeil sur le tableau qui classifie cette terre. Mais mon apprenti Toris m'a fait prisonnier et a tout chamboulé..... :(\n\nTu n'as pas l'air expert dans le domaine mais je vais t'apprendre tout ce que tu as à savoir pour classer correctement ce monde.\nDéplace-toi avec les flèches de ton clavier et rejoins moins un peu plus loin sur le chemin."
+        "text": "\n.... OH !!! Te voilà enfin ! Je n'y croyais plus !\n\n\nOui tu te demandes sûrement ce que tu fais ici... Je t'ai appelé(e) pour que tu viennes m'aider. Vois-tu, je suis Wengins, le gardien de cette terre.. ou plutôt une projection de lui. Mon rôle est de garder un oeil sur le tableau qui classifie cette terre. Mais mon apprenti Toris m'a fait prisonnier et a tout désordonné. Il ne cherche pas à classer comme je lui ai appris, il range avec des critères qui sont... dépassés.\n\nTu n'as pas l'air expert dans le domaine mais je vais t'apprendre tout ce que tu as à savoir pour classer correctement ce monde.\nDéplace-toi avec les flèches de ton clavier et rejoins moi un peu plus loin sur le chemin."
     },
 
     "mentor_speech_2": {
-    	"text": "Regarde ! C'est une créature aliénée. Avant que Toris ne mette le bazar, toutes les créatures qui peuplaient ce monde étaient pacifiques. Mais la majorité d'entre elles ont perdu la boule depuis... Tu DOIS les aider !\nComment ? Assez simple. Il te suffit d'aller rencontrer les quelques créatures qui ne sont pas encore complètement folles, elles te diront quels sont leurs attributs. Une fois que tu connaîtras tous les attributs, rends-toi au sommet du Mont Phylo. Là tu devras remettre chaque espèce à sa place dans la classification du vivant. Je serais là pour t'aider à approfondir tes connaissances et combattre les créatures folles.\nBonne chance, nous comptons sur toi !"
+    	"text": "Regarde ! C'est une créature aliénée. Avant que Toris fasse n'importe quoi, toutes les créatures qui peuplaient ce monde étaient pacifiques. Mais la majorité d'entre elles sont devenus méchantes depuis... Tu DOIS les aider !\nComment ? Assez simple. Il te suffit d'aller rencontrer les quelques créatures qui ne sont pas encore complètement folles, elles te diront quels sont leurs attributs. Une fois que tu connaîtras tous les attributs, rends-toi au sommet du Mont Phylo. Là tu devras remettre chaque espèce à sa place dans la classification du vivant. Je serais là pour t'aider à approfondir tes connaissances et combattre les créatures folles.\nBonne chance, nous comptons sur toi !"
     },
 
     "mentor_speech_3": {
-    	"text": "Voici notre première espèce. OH !! J'ai oublié de t'expliquer ce qu'est une espèce... D'après l'ensemble des scientifiques, une espèce est un groupe d'individus qui sont semblables et qui peuvent se reproduire entre eux avec une descendance féconde. Vas-y, parle-lui !"
+    	"text": "Voici notre première espèce, c'est une autruche. Mais... OH !! J'ai oublié de t'expliquer ce qu'est une espèce... D'après l'ensemble des scientifiques, une espèce est un groupe d'individus qui sont semblables et qui peuvent se reproduire entre eux avec une descendance féconde. Vas-y, parle-lui !"
     },
 
     "mentor_speech_4": {

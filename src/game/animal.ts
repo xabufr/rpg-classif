@@ -26,7 +26,7 @@ const frames = [{
         {x: 1, y: 1},
         {x: 2, y: 1}
     ]
-},{
+}, {
     name: "right",
     frames: [
         {x: 0, y: 2},
@@ -146,8 +146,9 @@ class PassiveBehaviour extends Behaviour {
     }
 
     public update(delta: number) {
-        // Nothing todo ?
+        // Nothing to do ?
     }
+
 }
 
 const ANIMAL_WALL_TYPE = "animal-wall";
@@ -201,7 +202,7 @@ class RandomBehaviour extends Behaviour {
                                          WALL_WIDTH,
                                          this.zone.height),
                      ].map(r => new AnimalZoneWall(this.animal, r));
-        this.animal.getBody().collisionFilter.group = 0x2;
+        this.animal.getBody().collisionFilter.group = 0x2; // Was 0x2
     }
 
     public onCollisionStart(other: GameObject) {
@@ -215,6 +216,10 @@ class RandomBehaviour extends Behaviour {
     }
 
     public update(delta: number) {
+        let body = this.animal.getBody();
+        if (! this.zone.contains(body.position.x, body.position.y)) {
+            Matter.Body.setPosition(body, Matter.Vector.create(this.worldObject.x, this.worldObject.y));
+        }
         let time = window.performance.now();
         if (!this.isTalking && this.lastDecitionMs + this.directionDuration <= time) {
             this.lastDecitionMs = time;
@@ -240,3 +245,33 @@ class RandomBehaviour extends Behaviour {
         this.currentAnimation = animation;
     }
 }
+
+
+// Player position
+/* export class Player extends GameObject {
+    private directions: Direction[];
+    private lastDirection: Direction;
+    public canMove: boolean;
+    private animations: {
+        [dir: number]: Animation;
+        current: Animation;
+    };
+
+constructor(world: World, texture: PIXI.Texture, position: PIXI.Point) {
+	let playerPosition = o.player.getPosition;
+} */
+
+// alert(playerPosition); <- doesn't work
+
+// FugitiveBehaviour
+/* class FugitiveBehaviour extends Behaviour {
+    private zone: PIXI.Rectangle;
+    private walls: AnimalZoneWall[];
+    private currentDirection: Direction;
+    private lastDecitionMs: number;
+    private directionDuration: number;
+    private currentAnimation: Animation;
+
+} */
+
+// JE COMPRENDS RIEN A TON CODE CHOUQUETTE
