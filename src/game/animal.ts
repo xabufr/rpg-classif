@@ -26,7 +26,7 @@ const frames = [{
         {x: 1, y: 1},
         {x: 2, y: 1}
     ]
-},{
+}, {
     name: "right",
     frames: [
         {x: 0, y: 2},
@@ -216,6 +216,10 @@ class RandomBehaviour extends Behaviour {
     }
 
     public update(delta: number) {
+        let body = this.animal.getBody();
+        if (! this.zone.contains(body.position.x, body.position.y)) {
+            Matter.Body.setPosition(body, Matter.Vector.create(this.worldObject.x, this.worldObject.y));
+        }
         let time = window.performance.now();
         if (!this.isTalking && this.lastDecitionMs + this.directionDuration <= time) {
             this.lastDecitionMs = time;
