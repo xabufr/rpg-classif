@@ -208,7 +208,7 @@ class RandomBehaviour extends Behaviour {
     public onCollisionStart(other: GameObject) {
         super.onCollisionStart(other);
         if (other.type === ANIMAL_WALL_TYPE) {
-            let wall = <AnimalZoneWall> other5
+            let wall = <AnimalZoneWall> other;
             if (wall.animal === this.animal) {
                 this.currentAnimation.stop();
             }
