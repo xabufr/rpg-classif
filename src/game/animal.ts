@@ -242,6 +242,24 @@ class RandomBehaviour extends Behaviour {
     }
 }
 
+
+// Player position
+/* export class Player extends GameObject {
+    private directions: Direction[];
+    private lastDirection: Direction;
+    public canMove: boolean;
+    private animations: {
+        [dir: number]: Animation;
+        current: Animation;
+    };
+
+constructor(world: World, texture: PIXI.Texture, position: PIXI.Point) {
+	let playerPosition = o.player.getPosition;
+} */
+
+// alert(playerPosition); <- doesn't work
+
+// FugitiveBehaviour
 /* class FugitiveBehaviour extends Behaviour {
     private zone: PIXI.Rectangle;
     private walls: AnimalZoneWall[];
@@ -250,6 +268,6 @@ class RandomBehaviour extends Behaviour {
     private directionDuration: number;
     private currentAnimation: Animation;
 
-position -> player position + 5
-if wall -> change direction
 } */
+
+// JE COMPRENDS RIEN A TON CODE CHOUQUETTE

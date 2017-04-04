@@ -8,27 +8,27 @@
     },
 
     "bee": {
-        "text": "Je suis la troisième créature que tu peux rencontrer, youhou !"
+        "text": "Bzzz, salut ! Je suis bzzz une abeille ! Je possède des bzzz ailes qui me permettent de voler. J'ai bzzz aussi une tête et une bouche. Sur ma tête se trouvent deux bzzz antennes et quand je ne vole pas, je peux bzzz me déplacer avec mes 6 pattes ! Tous ces éléments sont fixés sur un squelette externe ou exosquelette. Bzzz !"
     },
 
     "fish": {
-        "text": "Mes créateurs ont oublié de me donner une image... :("
+        "text": "Oh ! Je suis un thon rouge du Nord, Thunnus thynnus pour les intimes. Je possède des nageoires rayonnées pour me mouvoir dans l'eau, une tête et une bouche. Mais aussi un squelette interne composé d'arrêtes, ces arrêtes sont mes os, j'ai donc moi aussi un squelette osseux. Mon corps est également couvert d'écailles, bonne chance !"
     },
 
     "wild_rabbit": {
-        "text": "..."
+        "text": "Héhé ! Je suis Garen le lièvre. Je possède des poils, les femelles de mon espèce ont aussi des mammelles. Je cours sur 4 pattes, j'ai une bouche sur ma tête, dans laquelle se trouvent 2 paires d'incisives sur ma mâchoire supérieure. J'ai également un squelette interne osseux !"
     },
 
      "rabbit": {
-        "text": "..."
+        "text": "Vite ! Suis le lapin blanc ! Tu vas être en retard ! Je vais faire vite ! J'ai des poils, des mammelles, et 4 pattes positionnées sur un squelette interne osseux. Une tête, une bouche, 2 paires d'incisives supérieures. Allez ! Vite ! Sauve-nous !"
     },
 
      "mouse": {
-        "text": "..."
+        "text": "Ouh, tu m'as fait peur ! Je suis Mimi la souris, enchantée ! Je suis caractérisée par un pelage, des mammelles, un squelette interne d'os, 4 pattes et une tête avec une bouche. On me dit souvent que je dois être de la même famille que les lapins et les lièvre, mais c'est faux car je ne possède qu'une seule paire d'incisives supérieure !! Hihi !!"
     },
 
     "snake": {
-        "text": "(faire apparaître la notion de 4 pattes embryonnaires perdues DONC tétrapodes)"
+        "text": "Te voila enfin ! J'ai quelque chose à te raconter, ssss. Ecoute moi bien car ssssce que je vais te dire est très ssssimportant. Commençsssons par le commencssement. J'ai un sssquelette interne osssseux, une grande mâchoire et une tête. Mon corps est couvert d'écailles. Maintenant le plus sssssimportant : je posssssède 4 pattes. Enfin, je possssédais. Quand j'étais encore dans mon oeuf, sssssous la forme d'un embryon, j'avais 4 petites pattes. En me développant, je les ai perdues. Mais Wenginsssss considère toujours que j'ai 4 pattes pour me placer dans la classsssification, car je les ai eues un jour. Les 4 pattes font donc partie de mes attributs."
     },
 
     "butterfly": {
