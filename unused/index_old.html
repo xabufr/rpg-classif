@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <style>
+     canvas, img { /* makes a change, noticeable [28/05/16] */
+	       image-rendering: optimizeSpeed;
+	       image-rendering: -moz-crisp-edges;
+	       image-rendering: -webkit-optimize-contrast;
+	       image-rendering: optimize-contrast;
+	       image-rendering: pixelated;
+	       -ms-interpolation-mode: nearest-neighbor;
+     }
+     @font-face {
+            font-family: "Perfect";
+            src: url("./assets/fonts/Perfect DOS VGA 437 Win.ttf");
+        }
+     html, body {
+         background-color: black;
+         /* height: 100%; */
+         color: black
+         font-size: 12px;
+     };
+     body {
+         margin: 0;
+     };
+    </style>
+</head>
+
+<body>
+    <script src="./app.js"></script>
+    <div style="font-family: Perfect;">.</div>
+    <div id="game"></div>
+</body>
+
+</html>

@@ -1,37 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
+	<link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
-    <style>
-     canvas, img { /* makes a change, noticeable [28/05/16] */
-	       image-rendering: optimizeSpeed;
-	       image-rendering: -moz-crisp-edges;
-	       image-rendering: -webkit-optimize-contrast;
-	       image-rendering: optimize-contrast;
-	       image-rendering: pixelated;
-	       -ms-interpolation-mode: nearest-neighbor;
-     }
-     @font-face {
-            font-family: "Perfect";
-            src: url("./assets/fonts/Perfect DOS VGA 437 Win.ttf");
-        }
-     html, body {
-         background-color: black;
-         /* height: 100%; */
-         color: black
-         font-size: 12px;
-     };
-     body {
-         margin: 0;
-     };
-    </style>
+    <meta http-equiv="content-language" content="fr" />
+   	<title>Wengin's Journey | Un jeu éducatif</title>
 </head>
 
 <body>
-    <script src="./app.js"></script>
-    <div style="font-family: Perfect;">.</div>
-    <div id="game"></div>
+
+	<div id="main_wrapper">
+		<header>
+    		<div id="logo">
+    			<img src="assets/images/website/wengins_journey_logo.png" alt="Logo" />
+    		</div>
+
+    		<nav>
+	    		<ul>
+	    			<li><a href="#presentation"><img src="assets/images/website/presentation_projet.png" alt="Présentation du projet" /></a></li>
+	    			<li><a href="#avancement"><img src="assets/images/website/avancement.png" alt="Avancement actuel" /></a></li>
+	    			<li><a href="#usage"><img src="assets/images/website/usage.png" alt="Usage en classe" /></a></li>
+	    			<li><a href="#equipe"><img src="assets/images/website/equipe.png" alt="Equipe de développement" /></a></li>
+	    			<li><a href="game.html"><img src="assets/images/website/jeu.png" alt="Accès au jeu" /></a></li>
+	    		</ul>
+    		</nav>
+    	</header>
+
+    	<div id="wrap">
+
+    	<section id="presentation">
+			<div class="gauche">
+				<h1>Salut aventurier !</h1>
+				<p>Et bienvenue sur la page d'accueil du jeu éducatif <em>Wengin's Journey : comprendre la classification du vivant en 6eme</em>. Le jeu est encore en <strong>bêta</strong>, ce qui signifie qu'il n'est pas encore fini, il manque beaucoup d'éléments (voir la liste ci-contre). Mais tu peux quand même y jouer ! Pour cela il te suffit de te munir d'un peu de matériel supplémentaire :
+				<ul><li>Une feuille de papier et un crayon (à papier, bic, etc...)</li>
+				<li>Dans un nouvel onglet, ouvre le <a href="tableau-final.png">tableau final</a>, tu en auras besoin à la fin de ta quête</li>
+				<li>Un cerveau en activité, c'est quand même plus pratique pour réfléchir !</li>
+				<li>De la bonne foi, car pour combler au manque de développement, un lien vers la correction est directement donné, mais fini d'abord le jeu avant de la vérifier !</li>
+				</ul>
+				</p>
+				<p>Quand tu auras fini le jeu, n'oublie pas de revenir sur cette page et de compléter <a href="#">ce formulaire</a> pour nous donner ton opinion sur le jeu et son utilité dans l'enseignement des SVT !</p> 
+			</div>
+
+			<div class="droite">
+				<h1>Pourquoi ce jeu ?</h1>
+				L'observation a été faite que 68% des adolescents jouent aux jeux vidéos, dont 22% se considèrent comme de "gros joueurs" (<a href="http://www.tns-sofres.com/publications/les-adolescents-et-les-jeux-video">source TNS Sofres</a>). En outre, on a tendance à mieux retenir ce qui est présenté de manière ludique, ce qui nous semble intéressant.<br />
+				Au 21ème siècle, le numérique est présent partout, et de plus en plus de jeunes semblent mieux retenir le contenu des jeux auxquels ils jouent que le contenu de leurs cours. Alors pourquoi exclure le jeux vidéo de l'enseignement ? C'est le pari de ce projet, démarré en décembre 2016 dans le cadre d'un projet pédagogique numérique à l'ESPE d'Aquitaine.<br />
+				Le concept est simple : c'est un RPG (RolePlay Game), où le joueur incarne un personnage qui a été amené dans un monde régit par le classification du vivant. Il est accueilli par un mentor, qui va lui expliquer les grandes lignes de l'histoire. Le but est de faire le tour de la carte afin de parler à toutes les créatures présentes et, au final, reconstituer la classification du vivant avec les principes scientifiques qui sont actuellement admis dans ce domaine.
+			</div>
+		</section>
+
+		<section id="avancement">
+			<div class="gauche">
+				<h1>Développement actuel :</h1>
+				<p class="progress-bar">Avancement du code du jeu<br />
+				<progress value="60" max="100"></progress><br />
+				Construction des éléments graphiques <br />
+				<progress value="90" max="100"></progress><br />
+				Gamedesign - Conception du jeu (règles, fonctionnement,...)<br />
+				<progress value="100" max="100"></progress><br />
+				Level Design - Conception des différents niveaux du jeu<br />
+				<progress value="80" max="100"></progress><br />
+				Storyline - Ecriture de l'histoire, de l'univers<br />
+				<progress value="90" max="100"></progress><br />
+				Ecriture des dialogues<br />
+				<progress value ="100" max="100"></progress><br /></p>
+			</div>
+
+			<div class="droite">
+				<h1>En développement :</h1>
+				<ul><li>Implémenter des ennemis</li>
+				<li>Système de combat (sous forme de QCM) = contrôle des connaissances</li>
+				<li>Implémenter des objets en réponse aux combats</li>
+				<li>Le bestiaire, avec les attributs qui s'enregistrent automatiquement au fur et à mesure des rencontres</li>
+				<li>Implémenter des objets pour des mini-quêtes</li>
+				<li>Apparition du tableau final (celui de Toris) dans la grotte quand les 12 créatures ont été rencontrées</li>
+				<li>Tableau de classification à faire, sous forme de drag'n'drop</li>
+				<li>Scène dans le dojo</li>
+				<li>Accès au manoir, et boss final suite à la complétion du tableau</li>
+				</ul>
+			</div>
+		</section>
+
+		<section id="usage">
+			<div class="gauche">
+			<h1>Un jeu au service de l'enseignement</h1>
+			<p>Le jeu a été conçu avec un soucis de respecter les programmes en vigueur dans le cycle 3. Notamment pour ce qui est traditionnellement traité en 6ème concernant la classification du vivant. Il peut également faire office de rappels en 3ème ou encore en 2nde sur ce même thème. Pour aller plus loin, il est fait cas dans le jeu de la biodiversité associée aux écosystèmes, sans pour autant la traiter entièrement, ce qui permet de faire une passerelle vers le programme de cycle 4.<br />
+			Ce jeu a été conçu de manière à pouvoir, dans la finalité, correspondre à une séance d'apprentissage complète avec d'un côté les connaissances, et d'un autre leur contrôle en auto-évaluation des élèves. Bien entendu cela ne dispense pas l'enseignant d'être à côté afin de donner des informations complémentaires, également de réaliser une évaluation sommative en fin de chapitre.</p>
+			</div>
+
+			<div class="droite">
+			<h1>Plus qu'un jeu : un outil</h1>
+			<p>On peut imaginer utiliser ce jeu en classe, sur des postes informatiques. Les élèves sont seuls ou en groupe, en autonomie. A la fin de la séance, une mise en commun peut être faite sur ce que les élèves ont retenu, la trace écrite est alors construire avec l'ensemble de la classe.<br />
+			Ajoutons que dans la finalité, un compteur d'erreurs aux QCM, mais également un autre sur la création des groupes emboîtés, seront proposés à la fin de la partie. Ces compteurs peuvent d'une part permettre aux élèves de se comparer les uns aux autres, mais d'autre part sont un outil intéressant pour l'enseignant afin de savoir quels élèves ont eu du mal sur ce chapitre avant le devoir terminal.<br />
+			Bien sûr, le jeu étant accessible depuis n'importe quel ordinateur connecté à internet, les élèves peuvent également y jouer chez eux afin de s'entraîner à répondre à des questions, ou bien d'approfondir leurs connaissances dans le cadre d'une séance en pédagogie inversée.</p>
+			</div>
+		</section>
+
+		<section id="equipe">
+			<div class="gauche">
+				<h1>Equipe de développement</h1>
+
+				<h2>Cassandra Courjaud <em>(Kalavecy)</em></h2>
+				<h3>Gamedesign - Level design - Graphiste</h3>
+				Etudiante en master MEEF 2nd degré SVT<br />
+		    	Université de Bordeaux - ESPE d'Aquitaine<br />
+		    	<em>cassandra.courjaud@etu.u-bordeaux.fr</em>
+		    	<br /><br />
+				<h2>Thomas Loubiou <em>(Xabufr)</em></h2>
+				<h3>Gamedesign - Développeur</h3>
+				Développeur JAVA - Directeur R&amp;D<br />
+				KeepAlert/Systonic
+			</div>
+
+			<div class="droite">
+				<h1>Crédits</h1>
+				Merci à toutes les personnes qui ont contribué de près ou de loin à l'élaboration de ce jeu. Que ce soit sur le gamedesign, la correction des dialogues, le débug,... Egalement merci à :
+				<ul><li><a href="zehfernando.com">Zeh Fernando</a> pour la typo du jeu (Perfect DOS VGA 437 Win).</li>
+				<li><a href="www.pixijs.com">Pixi.js</a> qui a été utilisé pour coder le jeu.</li>
+				<li><a href="rmvx.pinedacr.com">Pineda</a>, <a href="chrisx698.deviantart.com">Chrisx698</a> et <a href="s444.photobucket.com/user/grandmadeb_rmvx/library">Grandmadeb_rmvx</a> pour certains de leurs sprites qui ont été utilisés et retouchés.</li>
+				</ul>
+				Le jeu est fortement inspiré de <em>Pokémon</em> (Pokémon/Nintendo) et de <em>The Legend of Zelda : Link's Awakening</em> (Nintendo).
+		</section>
+
+	</div>
+
+	</div>
 </body>
 
 </html>
