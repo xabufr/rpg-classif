@@ -1,10 +1,10 @@
 {
     "grey_wolf": {
-        "text": "Coucou, je suis une créature !!!\nComment que ça va ?"
+        "text": "Grrrrr... Qu'est-ce que tu fais là toi ? Mmmmh, t'es là pour nous sauver ? Pffff, c'est sans espoir.... Tu veux savoir à quoi je ressemble ? Bah regarde-moi !\nQuoi ? Faut que t'écrives tous mes attributs ? Comme si ça allait changer quelque chose.... Bon si ça peut te faire plaisir.... Je suis un loup, j'ai des poils et des mammelles. Enfin... les femelles qui sont comme moi en ont hein, moi j'en ai pas oh ! Quoi d'autre ? AH oui, 4 pattes, une tête de beau gosse avec un petite bouche dans laquelle se trouvent des canines bien pointues qui font craquer les louves. *sourit* A part ça le truc banal, un squelette interne osseux et voila. Allez bouge maintenant ! Grrrr !"
     },
 
     "ostrich": {
-        "text": "C'est toi le sauveur que Wengins a fait venir ? Je suis tellement contente !!! Tu as sûrement dû croiser mon frère un peu plus bas sur le chemin, le pauvre ne sait plus qui il est... J'imagine que tu veux savoir quels sont mes attributs ?\nQuoi ? Tu ne sais pas ce qu'est un attribut ? C'est un caractère visible d'un être vivant qui permet de le \"ranger\" dans une boîte, ce que tu feras plus tard. Par exemple mes plumes, c'est un attribut.\nTu as compris ? Aller on y va. Je possède un squelette interne composé d'os. Pour me déplacer j'utilise mes 2 membres inférieurs, j'ai aussi des 2 ailes qui correspondent à mes membres supérieurs mais je suis incapable de voler. Quoi d'autre... ah oui, j'ai un gésier mais ce n'est pas très intéressant... bien sûr je possède aussi une tête et une bouche comme tu peux le voir !"
+        "text": "C'est toi le sauveur que Wengins a fait venir ? Je suis tellement contente !!! Tu n'as pas croisé mon frère un peu plus bas sur le chemin ? Il a disparu depuis que Toris s'est rebellé... c'est un oiseau, une autruche comme moi ! J'imagine que tu veux savoir quels sont mes attributs ?\nQuoi ? Tu ne sais pas ce qu'est un attribut ? C'est un caractère visible d'un être vivant qui permet de le \"ranger\" dans une boîte, ce que tu feras plus tard. Par exemple mes plumes, c'est un attribut.\nTu as compris ? Aller on y va. Je possède un squelette interne composé d'os. Pour me déplacer j'utilise mes 2 membres inférieurs, j'ai aussi des 2 ailes qui correspondent à mes membres supérieurs mais je suis incapable de voler. Quoi d'autre... ah oui, j'ai un gésier mais ce n'est pas très intéressant... bien sûr je possède aussi une tête et une bouche comme tu peux le voir !"
     },
 
     "bee": {
@@ -12,7 +12,7 @@
     },
 
     "fish": {
-        "text": "Oh ! Je suis un thon rouge du Nord, Thunnus thynnus pour les intimes. Je possède des nageoires rayonnées pour me mouvoir dans l'eau, une tête et une bouche. Mais aussi un squelette interne composé d'arrêtes, ces arrêtes sont mes os, j'ai donc moi aussi un squelette osseux. Mon corps est également couvert d'écailles, bonne chance !"
+        "text": "Oh ! Je suis un thon rouge du Nord, Thunnus thynnus pour les intimes. Je possède des nageoires rayonnées pour me mouvoir dans l'eau, comme tous les poissons, une tête et une bouche. Mais aussi un squelette interne composé d'arrêtes, ces arrêtes sont mes os, j'ai donc moi aussi un squelette osseux. Je suis donc un poisson osseux ! Ce que vous appelez vous les scientifiques les ACTINOPTERYGIENS, ce que vous êtes compliqués... Mon corps est également couvert d'écailles, bonne chance !"
     },
 
     "wild_rabbit": {
@@ -20,7 +20,7 @@
     },
 
      "rabbit": {
-        "text": "Vite ! Suis le lapin blanc ! Tu vas être en retard ! Je vais faire vite ! J'ai des poils, des mammelles, et 4 pattes positionnées sur un squelette interne osseux. Une tête, une bouche, 2 paires d'incisives supérieures. Allez ! Vite ! Sauve-nous !"
+        "text": "As-tu croisé le loup blanc un peu plus à l'ouest ? Il se croit malin car l'évolution lui a donné un pelage blanc pour mieux traquer ses proies mais hé, regarde-moi, j'ai évolué moi aussi en même temps que mon prédateur ! Quoi ?! Tu t'en fiches ?! Pfff, t'es là pour le vieux Wengins je suis sûr ? Ok... Je suis un mammifère, alors j'ai des poils et des mammelles. J'ai aussi 4 pattes positionnées sur un squelette interne osseux. Une tête, une bouche, 2 paires d'incisives supérieures. Allez ! Vite ! Sauve-nous !"
     },
 
      "mouse": {
@@ -28,23 +28,23 @@
     },
 
     "snake": {
-        "text": "Te voila enfin ! J'ai quelque chose à te raconter, ssss. Ecoute moi bien car ssssce que je vais te dire est très ssssimportant. Commençsssons par le commencssement. J'ai un sssquelette interne osssseux, une grande mâchoire et une tête. Mon corps est couvert d'écailles. Maintenant le plus sssssimportant : je posssssède 4 pattes. Enfin, je possssédais. Quand j'étais encore dans mon oeuf, sssssous la forme d'un embryon, j'avais 4 petites pattes. En me développant, je les ai perdues. Mais Wenginsssss considère toujours que j'ai 4 pattes pour me placer dans la classsssification, car je les ai eues un jour. Les 4 pattes font donc partie de mes attributs."
+        "text": "Te voila enfin ! J'ai quelque chose à te raconter, ssss. Ecoute moi bien car ssssce que je vais te dire est très ssssimportant. Commençsssons par le commencssement. J'ai un sssquelette interne osssseux, une grande mâchoire et une tête. Mon corps est couvert d'écailles, comme tous les squamates. Maintenant le plus sssssimportant : je posssssède 4 pattes. Enfin, je possssédais. Quand j'étais encore dans mon oeuf, sssssous la forme d'un embryon, j'avais 4 petites pattes. En me développant, je les ai perdues. Mais Wenginsssss considère toujours que j'ai 4 pattes pour me placer dans la classsssification, car je les ai eues un jour. Les 4 pattes font donc partie de mes attributs, je suis moi aussi un tétrapode !"
     },
 
     "butterfly": {
-        "text": "..."
+        "text": "Coucou, je suis papillon-sion. Je fais partie du groupe des insectes, c'est-à-dire que je possède 6 pattes articulées, ainsi que deux antennes et 2 paires d'ailes. Mon squelette est externe, comme l'abeille ! Et pour te parler, j'utilise ma tête et ma bouche !"
     },
 
     "chicken": {
-        "text": "..."
+        "text": "Côôôôôt ! Côôôôôt ! Je suis coincée dans ce petit carré, côôôôôt ! Même si je ne suis pas l'animal le plus intelligent, j'ai quand même une tête ! Côt ! Egalement un squelette interne osseux, 4 membres puisque je marche sur deux pattes et que je vole avec 2 ailes, des plumes et un gésier. Et non je ne suis pas un côt côt canard !"
     },
 
     "white_wolf": {
-        "text": "..."
+        "text": "Salut, moi c'est croc blanc, je suis un loup.... blanc. Tu as déjà dû croisé quelqu'un qui me ressemble... on est pas de la même espèce puisque mon pelage est blanc, mais on est similaires en ce qui concerne nos attributs, débrouille-toi avec ça. D'ailleurs sais-tu à quoi me sert ce pelage blanc ? Non bien sûr... tsss. Je vis dans la neige, le froid. C'est blanc. Donc ça me permet de mieux me camoufler pour attraper mes proies, épatant ce que fait l'évolution hein ?"
     },
 
     "frog": {
-        "text": "..."
+        "text": "Croaaa, croaa. Je saute à l'aide de mes 4 membres fixés sur un squelette interne osseux. Je peux attraper de petits insectes avec la grande langue que j'ai dans la bouche. Ma particularité est que je ne possède que 4 doigts, comme tous les amphibiens... CROAAAA !"
     },
 
     "mentor_speech_1": {
