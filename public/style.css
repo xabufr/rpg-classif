@@ -1,0 +1,199 @@
+/* Typo, Mise en forme de la page entière (main wrapper) */
+
+body {
+	color: #eeeeee;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    background-color: #181818;
+    font-size: 14px;
+    text-align: justify;
+}
+
+
+#main_wrapper {
+    width: 100%;
+    margin: auto;
+}
+
+
+.section h1, nav a {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+@font-face {
+    font-family: "Perfect";
+    src: url("./assets/fonts/Perfect DOS VGA 437 Win.ttf");
+}
+
+/* Header */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 100px;
+    padding-bottom: 10px;
+ }
+
+#logo {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+	margin-top: 0px;
+}
+
+#logo img {
+	padding-left: 4%;
+	width: 300px;
+	height: 75px;
+}
+
+/* Navigation/Menu */
+
+nav {
+	padding-bottom: 5px;
+}
+
+nav ul {
+	list-style-type: none;
+	display: flex;
+	margin: -8px;
+	margin-right: 10px;
+}
+
+nav li {
+	margin-right: 15px;
+}
+
+nav a {
+	font-size: 14px;
+	color: #eeeeee;
+	text-decoration: none;
+}
+
+nav a:hover {
+	color: #85eadf;
+}
+
+/* Style des sections */
+
+#wrap {
+	align-items: flex-end;
+	width: 100%;
+	margin: auto;
+}
+
+#wrap a {
+	color: #a8d848;
+	text-decoration: none;
+}
+
+#wrap a:hover {
+	color: #d8f0c0;
+	text-decoration:none;
+}
+
+.gauche {
+	width: 45%;
+	margin: 2%;
+	display: inline-block;
+}
+
+.droite {
+	position: absolute;
+	width: 45%;
+	margin: 2%;
+	display: inline-block;
+}
+
+#equipe strong {
+	color: #a8d848;
+}
+
+.full {
+	width: 90%;
+	margin: 2%;
+	display: inline-bock;
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
+
+section h1 {
+    font-family: 'Perfect', Arial, sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    border-bottom: 1px solid;
+    text-shadow: 1px 1px #000000;
+}
+
+section {
+	background-color: #181818;
+	transition: background-color 1s ease;
+}
+
+section:hover {
+	background-color: #242424;
+}
+
+h2 {
+	font-size: 16px;
+	color: #a8d848;
+	padding: 0px;
+	margin: 0px;
+}
+
+h3 {
+	font-size: 12px;
+	color: #d8f0c0;
+	padding: 0px;
+	margin: 0px;
+}
+
+/* progress */
+
+progress::-webkit-progress-bar {
+	width: 100%;
+	height: 10px;
+	background-color: #a8d848;
+	border: 0;
+	border-radius: 9px;
+}
+
+progress::-webkit-progress-value {
+	width: 100%;
+	height: 10px;
+	background-color: white;
+	border: 0;
+	border-radius: 9px;
+}
+
+progress::-moz-progress-bar {
+	width: 100%;
+	height: 10px;
+	background-color: #a8d848;
+	border: 0;
+	border-radius: 9px;
+}
+
+progress::-moz-progress-value {
+	width: 100%;
+	height: 10px;
+	background-color: white;
+	border: 0;
+	border-radius: 9px;
+}
+
+progress {
+	width: 100%;
+	height: 10px;
+	background-color: white;
+	border: 0;
+	border-radius: 9px;
+	margin-bottom: 5px;
+}
+
+.progress-bar {
+	font-size: 12px;
+	font-family: monospace;
+}
