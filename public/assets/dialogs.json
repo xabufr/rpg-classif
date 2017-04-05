@@ -52,31 +52,31 @@
     },
 
     "mentor_speech_2": {
-    	"text": "Regarde ! C'est une créature aliénée. Avant que Toris fasse n'importe quoi, toutes les créatures qui peuplaient ce monde étaient pacifiques. Mais la majorité d'entre elles sont devenus méchantes depuis... Tu DOIS les aider !\nComment ? Assez simple. Il te suffit d'aller rencontrer les quelques créatures qui ne sont pas encore complètement folles, elles te diront quels sont leurs attributs. Une fois que tu connaîtras tous les attributs, rends-toi au sommet du Mont Phylo. Là tu devras remettre chaque espèce à sa place dans la classification du vivant. Je serais là pour t'aider à approfondir tes connaissances et combattre les créatures folles.\nBonne chance, nous comptons sur toi !"
+    	"text": "Avant que Toris fasse n'importe quoi, ce monde était peuplé de créatures. Mais maintenant elles sont toutes parties... Tu DOIS les aider !\nComment ? Assez simple. Il te suffit d'aller rencontrer les quelques créatures qui sont encore là, elles te diront quels sont leurs attributs, je te conseille de les écrire sur une feuille au fur et à mesure pour t'en souvenir. Une fois que tu connaîtras tous les attributs, rends-toi au sommet du Mont Phylo. Là tu devras remettre chaque espèce à sa place dans la classification du vivant. Je serais là pour t'aider à approfondir tes connaissances.\nBonne chance, nous comptons sur toi !"
     },
 
     "mentor_speech_3": {
-    	"text": "Voici notre première espèce, c'est une autruche. Mais... OH !! J'ai oublié de t'expliquer ce qu'est une espèce... D'après l'ensemble des scientifiques, une espèce est un groupe d'individus qui sont semblables et qui peuvent se reproduire entre eux avec une descendance féconde. Vas-y, parle-lui !"
+    	"text": "Voici une espèce, c'est une autruche. Mais... OH !! J'ai oublié de t'expliquer ce qu'est une espèce... D'après l'ensemble des scientifiques, une espèce est un groupe d'individus qui sont semblables et qui peuvent se reproduire entre eux avec une descendance féconde. Vas-y, parle-lui !"
     },
 
     "mentor_speech_4": {
-    	"text": "Désolé je ne pouvais pas trop parler, Toris me surveille ! Ah, je vois que tu as déjà rencontré plusieurs espèces différentes. T'ont-elles donné leurs attributs ?\n QUOIIIII ????!!!! Tu ne sais pas ce qu'est un attribut ?!! Mais enfin... ce sont les caractères visibles des êtres vivants, ils te permettent de les classer dans des groupes ! Ah et j'allais oublier. Tu peux retrouver toutes les créatures que tu as déjà croisé, ainsi que leurs attributs dans ton bestiaire (le livre) !"
+    	"text": "Désolé je ne pouvais pas trop parler, Toris me surveille ! Ah, je vois que tu as déjà rencontré plusieurs espèces différentes. T'ont-elles donné leurs attributs ?\n QUOIIIII ????!!!! Tu ne sais pas ce qu'est un attribut ?!! Mais enfin... ce sont les caractères visibles des êtres vivants, ils te permettent de les classer dans des groupes !"
     },
 
     "mentor_speech_5": {
-    	"text": "Te voici au pied du Mt. Phylo ! Toris y a installé une porte infranchissable, mais je suis sûre que tu peux trouver de quoi l'ouvrir quelque part... Va vers l'ouest, tu trouveras peut-être quelqu'un qui peut t'aider."
+    	"text": "Te voici au pied du Mt. Phylo ! Tu as bientôt fini ton voyage... As-tu été parler au serpent à l'ouest ?"
     },
 
     "mentor_speech_6": {
-    	"text": "Super je vois que tu as franchi la porte ! Toris n'a qu'à bien se tenir ! Tu remarqueras qu'il fait un peu plus froid ici... on a changé de climat. Et qui dit nouveau climat dit : nouvel écosystème. Tu trouveras ici des créatures qui sont mieux adaptées au froid et à la neige. Allez ne perds pas de temps !"
+    	"text": "Tu remarqueras qu'il fait un peu plus froid ici... on a changé de climat. Et qui dit nouveau climat dit : nouvel écosystème. Tu trouveras ici des créatures qui ont développé des adaptations au froid et à la neige. Allez ne perds pas de temps !"
     },
 
     "mentor_speech_7": {
-    	"text": "Regarde, celle-ci semble complètement appeurée... Je me demande si tu ne pourrais pas trouver quelque chose pour la calmer... Peut-être en tuant quelques bestioles."
+    	"text": "Regarde, une souris ! Ce sont normalement des animaux craintifs... essaie de t'approcher !"
     },
 
     "mentor_speech_8": {
-    	"text": "Nous y voila enfin ! La grotte du Mt. Phylo. Vite ! Rentre à l'intérieur et reconstitue les groupes emboîtés en regroupant les espèces que tu as rencontré en fonction de leurs attributs !"
+    	"text": "Nous y voila enfin ! La grotte du Mt. Phylo ! J'espère que tu as bien parlé à tous les animaux, il y en a 12, oui ? non ?\n\nBien, normalement tu devrais pouvoir entrer dans la grotte... mais les développeurs n'ont pas encore tout fini ! Alors je te conseille de cliquer sur le lien en haut de la page, c'est une photo de ce qu'a fait Toris... il a classé les animaux en fonction de leur mode de déplacement, mais ce n'est pas juste comme classification ! Les scientifiques, comme toi et moi, classent avec des attributs !\n\nAllez, écris sur ta feuille comment tu aurais classé toi ! Tu trouveras la correction sur la page d'acceuil.\n\nMerci !"
     },
 
     "mentor_speech_9": {
