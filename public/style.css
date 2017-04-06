@@ -70,10 +70,62 @@ nav a {
 	font-size: 14px;
 	color: #eeeeee;
 	text-decoration: none;
+	display: inline-block;
 }
 
 nav a:hover {
 	color: #85eadf;
+}
+
+/* Changer les couleurs d'image au survol */
+
+a.presentation-menu {
+	background: url("assets/images/website/presentation_projet.png");
+}
+
+a.presentation-menu:hover {
+	background: url("assets/images/website/presentation_projet_on.png");
+}
+
+a.avancement-menu {
+	background: url("assets/images/website/avancement.png");
+}
+
+a.avancement-menu:hover {
+	background: url("assets/images/website/avancement_on.png");
+}
+
+a.usage-menu {
+	background: url("assets/images/website/usage.png");
+}
+
+a.usage-menu:hover {
+	background: url("assets/images/website/usage_on.png");
+}
+
+a.equipe-menu {
+	background: url("assets/images/website/equipe.png");
+	transition: background-image 1s ease;
+}
+
+a.equipe-menu:hover {
+	background: url("assets/images/website/equipe_on.png");
+}
+
+a.statistiques-menu {
+	background: url("assets/images/website/statistiques.png") no-repeat;
+}
+
+a.statistiques-menu:hover {
+	background: url("assets/images/website/statistiques_on.png") no-repeat;
+}
+
+a.jeu-menu {
+	background: url("assets/images/website/jeu.png");
+}
+
+a.jeu-menu:hover {
+	background: url("assets/images/website/jeu_on.png");
 }
 
 /* Style des sections */
@@ -109,6 +161,14 @@ nav a:hover {
 
 #equipe strong {
 	color: #a8d848;
+}
+
+#statistiques strong {
+	color: #a8d848;
+}
+
+#statistiques li {
+	list-style-type: none;
 }
 
 .full {
@@ -149,6 +209,7 @@ h3 {
 	padding: 0px;
 	margin: 0px;
 }
+
 
 /* progress */
 
