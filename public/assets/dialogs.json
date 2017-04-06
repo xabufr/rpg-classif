@@ -1,6 +1,6 @@
 {
     "grey_wolf": {
-        "text": "Grrrrr... Qu'est-ce que tu fais là toi ? Mmmmh, t'es là pour nous sauver ? Pffff, c'est sans espoir.... Tu veux savoir à quoi je ressemble ? Bah regarde-moi !\nQuoi ? Faut que t'écrives tous mes attributs ? Comme si ça allait changer quelque chose.... Bon si ça peut te faire plaisir.... Je suis un loup, j'ai des poils et des mammelles. Enfin... les femelles qui sont comme moi en ont hein, moi j'en ai pas oh ! Quoi d'autre ? AH oui, 4 pattes, une tête de beau gosse avec un petite bouche dans laquelle se trouvent des canines bien pointues qui font craquer les louves. *sourit* A part ça le truc banal, un squelette interne osseux et voila. Allez bouge maintenant ! Grrrr !"
+        "text": "Grrrrr... Qu'est-ce que tu fais là toi ? Mmmmh, t'es là pour nous sauver ? Pffff, c'est sans espoir.... Tu veux savoir à quoi je ressemble ? Bah regarde-moi !\nQuoi ? Faut que t'écrives tous mes attributs ? Comme si ça allait changer quelque chose.... Bon si ça peut te faire plaisir.... Je suis un loup, j'ai des poils et des mammelles. Quoi d'autre ? AH oui, 4 pattes, une tête de beau gosse avec un petite bouche dans laquelle se trouvent des canines bien pointues qui font craquer les louves. *sourit* A part ça le truc banal, un squelette interne osseux et voila. Allez bouge maintenant ! Grrrr !"
     },
 
     "ostrich": {
@@ -16,11 +16,11 @@
     },
 
     "wild_rabbit": {
-        "text": "Héhé ! Je suis Garen le lièvre. Je possède des poils, les femelles de mon espèce ont aussi des mammelles. Je cours sur 4 pattes, j'ai une bouche sur ma tête, dans laquelle se trouvent 2 paires d'incisives sur ma mâchoire supérieure. J'ai également un squelette interne osseux !"
+        "text": "Héhé ! Je suis Garen le lièvre. Je possède des poils mais aussi des mammelles. Je cours sur 4 pattes, j'ai une bouche sur ma tête, dans laquelle se trouvent 2 paires d'incisives sur ma mâchoire supérieure. J'ai également un squelette interne osseux !"
     },
 
      "rabbit": {
-        "text": "As-tu croisé le loup blanc un peu plus à l'ouest ? Il se croit malin car l'évolution lui a donné un pelage blanc pour mieux traquer ses proies mais hé, regarde-moi, j'ai évolué moi aussi en même temps que mon prédateur ! Quoi ?! Tu t'en fiches ?! Pfff, t'es là pour le vieux Wengins je suis sûr ? Ok... Je suis un mammifère, alors j'ai des poils et des mammelles. J'ai aussi 4 pattes positionnées sur un squelette interne osseux. Une tête, une bouche, 2 paires d'incisives supérieures. Allez ! Vite ! Sauve-nous !"
+        "text": "As-tu croisé le loup blanc un peu plus à l'ouest ? Il se croit malin car le pelage blanc lui donne un avantage pour mieux traquer ses proies mais hé, regarde-moi, moi aussi je suis avantagé dans la neige ! Quoi ?! Tu t'en fiches ?! Pfff, t'es là pour le vieux Wengins je suis sûr ? Ok... Je suis un mammifère, alors j'ai des poils et des mammelles. J'ai aussi 4 pattes positionnées sur un squelette interne osseux. Une tête, une bouche, 2 paires d'incisives supérieures. Allez ! Vite ! Sauve-nous !"
     },
 
      "mouse": {
@@ -68,7 +68,7 @@
     },
 
     "mentor_speech_6": {
-    	"text": "Tu remarqueras qu'il fait un peu plus froid ici... on a changé de climat. Et qui dit nouveau climat dit : nouvel écosystème. Tu trouveras ici des créatures qui ont développé des adaptations au froid et à la neige. Allez ne perds pas de temps !"
+    	"text": "Tu remarqueras qu'il fait un peu plus froid ici... on a changé de climat. Et qui dit nouveau climat dit : nouvel écosystème. Tu trouveras ici des créatures qui sont aptes à survivre dans le froid et la neige. Allez ne perds pas de temps !"
     },
 
     "mentor_speech_7": {
