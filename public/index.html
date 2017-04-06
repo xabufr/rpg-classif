@@ -23,7 +23,8 @@
 	    			<li><a class="usage-menu" href="#usage"><img src="assets/images/website/menu-fond.png" alt="Usage en classe"/></a></li>
 	    			<li><a class="equipe-menu" href="#equipe"><img src="assets/images/website/menu-fond.png" alt="Equipe de développement" /></a></li>
 	    			<li><a class="statistiques-menu" href="#statistiques"><img src="assets/images/website/menu-fond.png" alt="Statistiques et chiffres" /></a></li>
-	    			<li><a class="jeu-menu" href="game.html"><img src="assets/images/website/menu-fond.png" alt="Accès au jeu" /></a></li>
+                    <li><a class="github-menu" href="https://github.com/xabufr/rpg-classif" onclick="window.open(this.href); return false;" ><img src="assets/images/website/menu-fond.png" alt="Voir sur Github" /></a></li>
+	    			<li><a class="jeu-menu" href="game.html" onclick="window.open(this.href); return false;" ><img src="assets/images/website/menu-fond.png" alt="Accès au jeu" /></a></li>
 	    		</ul>
     		</nav>
     	</header>
@@ -35,12 +36,11 @@
 				<h1>Salut aventurier !</h1>
 				<p>Et bienvenue sur la page d'accueil du jeu éducatif <em>Wengin's Journey : comprendre la classification du vivant en 6eme</em>. Le jeu est encore en <strong>bêta</strong>, ce qui signifie qu'il n'est pas encore fini, il manque beaucoup d'éléments (voir la liste ci-contre). Mais tu peux quand même y jouer ! Pour cela il te suffit de te munir d'un peu de matériel supplémentaire :
 				<ul><li>Une feuille de papier et un crayon (à papier, bic, etc...)</li>
-				<li>Dans un nouvel onglet, ouvre le <a href="assets/images/tableau-final.png">tableau final</a>, tu en auras besoin à la fin de ta quête</li>
 				<li>Un cerveau en activité, c'est quand même plus pratique pour réfléchir !</li>
 				<li>De la bonne foi, car pour combler au manque de développement, un lien vers la correction est directement donné, mais fini d'abord le jeu avant de la vérifier !</li>
 				</ul>
 				</p>
-				<p>Quand tu auras fini le jeu, n'oublie pas de revenir sur cette page et de compléter <a href="#">ce formulaire</a> pour nous donner ton opinion sur le jeu et son utilité dans l'enseignement des SVT !</p> 
+				<p>Quand tu auras fini le jeu, n'oublie pas de compléter <a href="https://docs.google.com/forms/d/e/1FAIpQLScxoh0JaS7VHEdtGoa4001__FM1g_2S-PhN11MWu7wY1RYg5Q/viewform?usp=sf_link" onclick="window.open(this.href); return false;">ce formulaire</a> pour nous donner ton opinion sur le jeu et son utilité dans l'enseignement des SVT !</p> 
 			</div>
 
 			<div class="droite">
@@ -139,7 +139,44 @@
 
 				<h1>Quelques graphiques...</h1>
 				Résultats des formulaire, analyse, à venir...
-			</div>
+
+               <!-- <div style="width: 300px; height: 300px;">
+                <canvas id="myChart" width="300" height="300" style="width: 300px; height: 300px;"></canvas>
+                </div>
+
+                <script src="../chart.js"></script>
+               
+                <script>
+                var canvas = document.getElementById("myChart");
+                canvas.width = 300;
+                var ctx = document.getElementById("myChart").getContext("2d");
+                var pieChart1 = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ["Red", "Blue", "Yellow"],
+                        datasets: [
+                            {
+                                data: [300, 50, 100],
+                                backgroundColor: ["#FF6384","#36A2EB","#FFCE56"],
+                                hoverBackgroundColor: ["#FF6384","#36A2EB","#FFCE56"],
+                                borderColor: ["rgba(255, 0, 0, 0)", "rgba(0, 0, 200, 0)", "rgba(0, 0, 200, 0)"],
+                            }]
+                    },
+                    options: {
+                        animation: {
+                            responsive: false,
+                            maintainRatio: true,
+                            animateScale:true,
+                        }
+                    }
+                });
+                //canvas.style.width = "300px";
+                //canvas.style.height = "300px";
+
+
+                </script>
+
+			</div> !-->
 		</section>
 
 	</div>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css" />
+        <meta charset="UTF-8" />
+        <title>Mon projet canvas</title>
+        <script src="canvas.js"></script>
+    </head>
+    <body>
+
+    <div id="google-form">
+        <p style="width:200px; text-align:justify;">Lorsque vous aurez terminé et vérifié vos réponses, merci de remplir le formulaire de retour sur expérience en cliquant sur l'image ci-dessous ! :)<br />
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScxoh0JaS7VHEdtGoa4001__FM1g_2S-PhN11MWu7wY1RYg5Q/viewform?usp=sf_link" onclick="window.open(this.href); return false;"><img src="assets/images/website/formulaire.png" title="Formulaire" /></a><br />
+        Pour retourner à l'accueil du site, <a href="index.html" style="color:#a8d848; text-decoration: none;">cliquez ici</a>.</p>
+    </div>
+
+    <div align="center">
+    <p style= "width:800px; font-family:Arial; font-size: 16px; text-align: justify;">
+    Tu franchis le seuil de la grotte et tu aperçois au loin un immense tableau, où sont écris les noms des espèces que tu as croisées. Wengin apparaît à côté de toi et s'exclame :<br />
+    <em>"Nom d'une pipe ! Toris a rangé les créatures par leur façon de se déplacer ! Par exemple la poule... Y'en a qui te diront que ça vole pas vraiment, alors est-ce qu'on peut vraiment la mettre dans ceux qui volent ? C'est comme le lapin... ça se déplace pas toujours en sautant, ça peut marcher aussi... Enfin bref, ce genre de classification c'est trop subjectif ! Nous nous sommes des scientifiques, nous voulons classer de manière objectives, avec des attributs, des choses sur lesquelles tout le monde est d'accord !<br />
+    Tu peux m'aider à réparer ça ? Ecris sur ta feuille de papier ce que tu penses être la classification scientifiquement correcte de ce monde, remet les créatures dans des groupes emboîtés. Tu ne sais pas comment faire ? Tu dois les mettre dans des boîtes, la plus grosse boîte correspond à un attribut qu'ils ont tous, et puis ensuite il y a des boîtes plus petites dans ces boîtes et ainsi de suite...<br />
+    Aller je t'aide un peu, la première boîte est la boîte des ANIMAUX. Ce sont tout ceux qui ont une bouche et une tête. Tu as ensuite dans ces boîtes, la boîte des insectes qui ont 3 paires de pattes et 1 paire d'antenne, et à côté, la boîte des vertébrés qui ont un squelette iterne osseux... Bon aller je vais pas tout te faire non plus ! Juste un petit indice, le serpent a des écailles, comme le poisson, mais si tu réfléchis bien tu verras qu'ils ne sont pas dans la même boîte ! Il faut toujours bien faire attention aux attributs que l'on utilise pour classer... Si tu as un problème, je suis sûr que tu trouveras quelqu'un pour t'aider autour de toi !</em></p>
+     <div align="center"> <img src="assets/images/tableau-final.png" /> </div>
+    <a onClick="this.nextSibling.style.display=((this.nextSibling.style.display=='none')?'':'none');" href="javascript:;" style="color:#a8d848; text-decoration: none;">Lorsque vous aurez terminé, cliquez ici pour faire apparaître la solution !</a><span style="display: none;">
+        <p>
+        <canvas id="solution" width="800" height="600">
+            Votre navigateur ne supporte pas canvas, utilisez-en un plus récent !
+        </canvas>
+
+</p></font></span></div></p>
+      
+        
+
+
+        <script type="text/javascript">
+        	window.onload = function() {
+    var canvas = document.getElementById('solution');
+      if(!canvas)
+        {
+            alert("Impossible de récupérer le canvas");
+            return;
+        }
+
+    var context = canvas.getContext('2d');
+        if(!context)
+        {
+            alert("Impossible de récupérer le context du canvas");
+            return;
+        }
+
+    var groupe = ['Animaux', 'Insectes', 'Vertebres', 'Actinopterygiens', 'Tetrapodes', 'Squamates', 'Amphibiens', 'Oiseaux', 'Mammiferes'];
+    var attributs = ['Tete et bouche', 'Squelette externe, 3 paires de pattes, 1 paire d\'antennes', 'Squelette interne', 'Nageoires rayonnees', '4 membres/pattes', 'Ecailles', '4 doigts', 'Gesier et plumes', 'Poils et mammelles'];
+    var especes = ['Papillon', 'Abeille', 'Thon rouge', 'Serpent', 'Grenouille', 'Poule', 'Autruche', 'Loup gris', 'Loup blanc', 'Lievre', 'Lapin blanc', 'Souris'];
+
+    var FONT_ATTRIBUTS = "italic 14pt 'Alagard'",
+        FONT_ATTRIBUTS_COLOR = "#ffe87b",
+        FONT_GROUPE = "14pt 'Alagard'",
+        FONT_GROUPE_COLOR = "#ffd200",
+        FONT_ESPECE = "14pt 'Alagard'",
+        FONT_ESPECE_COLOR = "#ffffff";
+
+    var RECT_BORDER = "#c18218",
+        RECT_GROUPE1 = "#422002",
+        RECT_GROUPE2 = "#301701",
+        RECT_GROUPE3 = "#241100";
+
+    // bloc animaux
+
+    context.beginPath();
+    context.strokeStyle = "#ffd200";
+    context.lineWidth = "2";
+    context.rect(0,30,798,568);
+    context.fillStyle = "#592b03";
+    context.fill();
+    context.stroke();
+
+    context.font = FONT_ATTRIBUTS;
+    context.fillStyle = FONT_ATTRIBUTS_COLOR;
+    context.textAlign="start";
+    context.fillText(attributs[0], 5, 25);
+
+    context.font = FONT_GROUPE;
+    context.fillStyle = FONT_GROUPE_COLOR;
+    context.textAlign="end";
+    context.fillText(groupe[0], 795, 25);
+
+    // bloc insectes  
+
+    context.beginPath();
+    context.strokeStyle = RECT_BORDER;
+    context.lineWidth = "2";
+    context.rect(10,70,780,50);
+    context.fillStyle = RECT_GROUPE1;
+    context.fill();
+    context.stroke(); 
+
+    context.font = FONT_ATTRIBUTS;
+    context.fillStyle = FONT_ATTRIBUTS_COLOR;
+    context.textAlign="start";
+    context.fillText(attributs[1], 15, 65);
+
+    context.font = FONT_GROUPE;
+    context.fillStyle = FONT_GROUPE_COLOR;
+    context.textAlign="end";
+    context.fillText(groupe[1], 785, 65);
+
+    context.font = FONT_ESPECE;
+    context.fillStyle = FONT_ESPECE_COLOR;
+    context.textAlign="center";
+    context.fillText(especes[0] + ", " + especes[1], 400, 105);
+
+    // bloc vertebres 
+
+    context.beginPath();
+    context.strokeStyle = RECT_BORDER;
+    context.lineWidth = "2";
+    context.rect(10,160,780,430);
+    context.fillStyle = RECT_GROUPE1;
+    context.fill();
+    context.stroke(); 
+
+    context.font = FONT_ATTRIBUTS;
+    context.fillStyle = FONT_ATTRIBUTS_COLOR;
+    context.textAlign="start";
+    context.fillText(attributs[2], 15, 155);
+
+    context.font = FONT_GROUPE;
+    context.fillStyle = FONT_GROUPE_COLOR;
+    context.textAlign="end";
+    context.fillText(groupe[2], 785, 155);
+
+    // bloc actinopterygiens
+
+    context.beginPath();
+    context.strokeStyle = RECT_BORDER;
+    context.lineWidth = "2";
+    context.rect(20,200,760,50);
+    context.fillStyle = RECT_GROUPE2;
+    context.fill();
+    context.stroke(); 
+
+    context.font = FONT_ATTRIBUTS;
+    context.fillStyle = FONT_ATTRIBUTS_COLOR;
+    context.textAlign="start";
+    context.fillText(attributs[3], 25, 195);
+
+    context.font = FONT_GROUPE;
+    context.fillStyle = FONT_GROUPE_COLOR;
+    context.textAlign="end";
+    context.fillText(groupe[3], 775, 195);
+    
+    context.font = FONT_ESPECE;
+    context.fillStyle = FONT_ESPECE_COLOR;
+    context.textAlign="center";
+    context.fillText(especes[2], 400, 235);
+
+    // tetrapodes
+
+    context.beginPath();
+    context.strokeStyle = RECT_BORDER;
+    context.lineWidth = "2";
+    context.rect(20,290,760,290);
+    context.fillStyle = RECT_GROUPE2;
+    context.fill();
+    context.stroke(); 
+
+    context.font = FONT_ATTRIBUTS;
+    context.fillStyle = FONT_ATTRIBUTS_COLOR;
+    context.textAlign="start";
+    context.fillText(attributs[4], 25, 285);
+
+    context.font = FONT_GROUPE;
+    context.fillStyle = FONT_GROUPE_COLOR;
+    context.textAlign="end";
+    context.fillText(groupe[4], 775, 285);
+
+    // squamates
+
+    context.beginPath();
+    context.strokeStyle = RECT_BORDER;
+    context.lineWidth = "2";
+    context.rect(30,320,360,50);
+    context.fillStyle = RECT_GROUPE3;
+    context.fill();
+    context.stroke(); 
+
+    context.font = FONT_ATTRIBUTS;
+    context.fillStyle = FONT_ATTRIBUTS_COLOR;
+    context.textAlign="start";
+    context.fillText(attributs[5], 35, 315);
+
+    context.font = FONT_GROUPE;
+    context.fillStyle = FONT_GROUPE_COLOR;
+    context.textAlign="end";
+    context.fillText(groupe[5], 385, 315);
+
+    context.font = FONT_ESPECE;
+    context.fillStyle = FONT_ESPECE_COLOR;
+    context.textAlign="center";
+    context.fillText(especes[3], 200, 355);
+
+    // amphibiens
+
+    context.beginPath();
+    context.strokeStyle = RECT_BORDER;
+    context.lineWidth = "2";
+    context.rect(410,320,360,50);
+    context.fillStyle = RECT_GROUPE3;
+    context.fill();
+    context.stroke(); 
+
+    context.font = FONT_ATTRIBUTS;
+    context.fillStyle = FONT_ATTRIBUTS_COLOR;
+    context.textAlign="start";
+    context.fillText(attributs[6], 415, 315);
+
+    context.font = FONT_GROUPE;
+    context.fillStyle = FONT_GROUPE_COLOR;
+    context.textAlign="end";
+    context.fillText(groupe[6], 765, 315);
+
+    context.font = FONT_ESPECE;
+    context.fillStyle = FONT_ESPECE_COLOR;
+    context.textAlign="center";
+    context.fillText(especes[4], 600, 355);
+
+    // mammiferes
+
+    context.beginPath();
+    context.strokeStyle = RECT_BORDER;
+    context.lineWidth = "2";
+    context.rect(30,400,740,80);
+    context.fillStyle = RECT_GROUPE3;
+    context.fill();
+    context.stroke(); 
+
+    context.font = FONT_ATTRIBUTS;
+    context.fillStyle = FONT_ATTRIBUTS_COLOR;
+    context.textAlign="start";
+    context.fillText(attributs[8], 35, 395);
+
+    context.font = FONT_GROUPE;
+    context.fillStyle = FONT_GROUPE_COLOR;
+    context.textAlign="end";
+    context.fillText(groupe[8], 765, 395);
+
+    context.font = FONT_ESPECE;
+    context.fillStyle = FONT_ESPECE_COLOR;
+    context.textAlign="center";
+    context.fillText(especes[7] + ", " + especes[8] + ", " + especes[9] + ", " + especes[10] + ", " + especes[11], 400, 450);
+
+    // oiseaux
+
+    context.beginPath();
+    context.strokeStyle = RECT_BORDER;
+    context.lineWidth = "2";
+    context.rect(30,510,740,55);
+    context.fillStyle = RECT_GROUPE3;
+    context.fill();
+    context.stroke(); 
+
+    context.font = FONT_ATTRIBUTS;
+    context.fillStyle = FONT_ATTRIBUTS_COLOR;
+    context.textAlign="start";
+    context.fillText(attributs[7], 35, 505);
+
+    context.font = FONT_GROUPE;
+    context.fillStyle = FONT_GROUPE_COLOR;
+    context.textAlign="end";
+    context.fillText(groupe[7], 765, 505);
+
+    context.font = FONT_ESPECE;
+    context.fillStyle = FONT_ESPECE_COLOR;
+    context.textAlign="center";
+    context.fillText(especes[5] + ", " + especes[6], 400, 545);
+}
+        </script>
+    </body>
+</html>

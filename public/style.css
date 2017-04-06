@@ -26,6 +26,11 @@ body {
     src: url("./assets/fonts/Perfect DOS VGA 437 Win.ttf");
 }
 
+@font-face {
+    font-family: "Alagard";
+    src: url("./assets/fonts/alagard.ttf");
+}
+
 /* Header */
 
 header {
@@ -80,36 +85,35 @@ nav a:hover {
 /* Changer les couleurs d'image au survol */
 
 a.presentation-menu {
-	background: url("assets/images/website/presentation_projet.png");
+	background: url("assets/images/website/presentation_projet.png") no-repeat;
 }
 
 a.presentation-menu:hover {
-	background: url("assets/images/website/presentation_projet_on.png");
+	background: url("assets/images/website/presentation_projet_on.png") no-repeat;
 }
 
 a.avancement-menu {
-	background: url("assets/images/website/avancement.png");
+	background: url("assets/images/website/avancement.png") no-repeat;
 }
 
 a.avancement-menu:hover {
-	background: url("assets/images/website/avancement_on.png");
+	background: url("assets/images/website/avancement_on.png") no-repeat;
 }
 
 a.usage-menu {
-	background: url("assets/images/website/usage.png");
+	background: url("assets/images/website/usage.png") no-repeat;
 }
 
 a.usage-menu:hover {
-	background: url("assets/images/website/usage_on.png");
+	background: url("assets/images/website/usage_on.png") no-repeat;
 }
 
 a.equipe-menu {
-	background: url("assets/images/website/equipe.png");
-	transition: background-image 1s ease;
+	background: url("assets/images/website/equipe.png") no-repeat;
 }
 
 a.equipe-menu:hover {
-	background: url("assets/images/website/equipe_on.png");
+	background: url("assets/images/website/equipe_on.png") no-repeat;
 }
 
 a.statistiques-menu {
@@ -120,12 +124,20 @@ a.statistiques-menu:hover {
 	background: url("assets/images/website/statistiques_on.png") no-repeat;
 }
 
+a.github-menu {
+	background: url(assets/images/website/github.png) no-repeat;
+}
+
+a.github-menu:hover {
+	background: url(assets/images/website/github_on.png) no-repeat;
+}
+
 a.jeu-menu {
-	background: url("assets/images/website/jeu.png");
+	background: url("assets/images/website/jeu.png") no-repeat;
 }
 
 a.jeu-menu:hover {
-	background: url("assets/images/website/jeu_on.png");
+	background: url("assets/images/website/jeu_on.png") no-repeat;
 }
 
 /* Style des sections */
@@ -257,4 +269,16 @@ progress {
 .progress-bar {
 	font-size: 12px;
 	font-family: monospace;
+}
+
+#google-form {
+	float: left;
+	display: inline-block;
+	margin-left: 3%;
+}
+
+#google-form img {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	margin-left: 70px;
 }
