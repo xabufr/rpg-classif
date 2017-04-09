@@ -687,6 +687,27 @@
                  "width":219,
                  "x":3,
                  "y":2059
+                }, 
+                {
+                 "height":32,
+                 "id":64,
+                 "name":"grotte",
+                 "properties":
+                    {
+                     "confirm":"Avez-vous parl\u00e9 \u00e0 tous les animaux ?",
+                     "goto":".\/fin.html"
+                    },
+                 "propertytypes":
+                    {
+                     "confirm":"string",
+                     "goto":"string"
+                    },
+                 "rotation":0,
+                 "type":"call_function",
+                 "visible":true,
+                 "width":32,
+                 "x":2240,
+                 "y":416
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -695,7 +716,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":60,
+ "nextobjectid":65,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -857,7 +878,7 @@
                 },
              "93":
                 {
-                 "collide":true
+                 "collide":false
                 },
              "94":
                 {

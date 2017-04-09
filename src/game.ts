@@ -1,7 +1,7 @@
 import { Pnj } from "./game/pnj";
 import { Player } from "./game/player";
 import { World } from "./world";
-import { Map } from "./game/map";
+import { Map, MapZone } from "./game/map";
 import { GameHud } from "./game/ui";
 import { AnimatedSprite } from "./engine/animatedSprite";
 import { DEBUGGING } from "./debug";
@@ -21,6 +21,7 @@ export class Game {
     private pnjs: Pnj[];
     private hud: GameHud;
     private lastUpdate: number;
+    private zones: MapZone[];
     private gameLoopFn: FrameRequestCallback;
 
     constructor() {
@@ -84,7 +85,9 @@ export class Game {
     private loadMap(mapName: string) {
         let map = new Map(this.world, mapName);
         this.map = map;
-        return map.load();
+        return map.load().then(() => {
+            this.zones = this.map.createMapZones();
+        });
     }
 
     private loadPlayer() {
@@ -124,6 +127,7 @@ export class Game {
         this.world.updatePhysics(delta);
         this.player.update(delta);
         this.pnjs.forEach(p => p.update(delta));
+        this.zones.forEach(z => z.update(this.player));
         this.world.preRender();
         this.world.render();
 
