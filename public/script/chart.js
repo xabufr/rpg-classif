@@ -2613,7 +2613,7 @@ module.exports = function(Chart) {
 				},
 				label: function(tooltipItem, data) {
 					var dataLabel = data.labels[tooltipItem.index];
-					var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+					var value = ' ' ;
 
 					if (helpers.isArray(dataLabel)) {
 						// show value on first line of multiline label
@@ -6707,7 +6707,7 @@ module.exports = function(Chart) {
 
 	Chart.defaults.global.legend = {
 
-		display: true,
+		display: false,
 		position: 'top',
 		fullWidth: true, // marks that this box should take the full width of the canvas (pushing down other boxes)
 		reverse: false,
@@ -8587,7 +8587,8 @@ module.exports = function(Chart) {
 		display: false,
 		position: 'top',
 		fullWidth: true, // marks that this box should take the full width of the canvas (pushing down other boxes)
-
+		fontColor: "#ffffff",
+		fontSize: 16,
 		fontStyle: 'bold',
 		padding: 10,
 
@@ -9690,7 +9691,7 @@ module.exports = function(Chart) {
 
 	globalOpts.elements.arc = {
 		backgroundColor: globalOpts.defaultColor,
-		borderColor: '#fff',
+		borderColor: 'rgba(0,0,0,0)',
 		borderWidth: 2
 	};
 
@@ -9796,15 +9797,15 @@ module.exports = function(Chart) {
 
 	Chart.defaults.global.elements.line = {
 		tension: 0.4,
-		backgroundColor: globalDefaults.defaultColor,
-		borderWidth: 3,
-		borderColor: globalDefaults.defaultColor,
+		backgroundColor: "rgba(255, 0, 0, 0)",
+		borderWidth: 1,
+		borderColor: "rgba(255, 0, 0, 0)",
 		borderCapStyle: 'butt',
 		borderDash: [],
 		borderDashOffset: 0.0,
 		borderJoinStyle: 'miter',
 		capBezierPoints: true,
-		fill: true, // do we fill in the area between the line and its base axis
+		fill: false, // do we fill in the area between the line and its base axis
 	};
 
 	Chart.elements.Line = Chart.Element.extend({

@@ -272,9 +272,7 @@ progress {
 }
 
 #google-form {
-	float: left;
 	display: inline-block;
-	margin-left: 3%;
 }
 
 #google-form img {
