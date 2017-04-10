@@ -78,6 +78,27 @@ interface Tile {
     collide: boolean;
 }
 
+export interface MapZone {
+    update(player: Player): void;
+}
+
+class GotoZone implements MapZone {
+    private area: PIXI.Rectangle;
+    constructor(private object: WorldObject)  {
+        this.area = new PIXI.Rectangle(object.x, object.y, object.width, object.height);
+    }
+
+    public update(player: Player) {
+        let pos = player.getPosition();
+        if (this.area.contains(pos.x, pos.y)) {
+            let props = this.object.properties;
+            if (props && confirm(props.confirm)) {
+                window.location.href = window.location.href + "/../" + props.goto;
+            }
+        }
+    }
+}
+
 const MAP_SPLIT_SIZE = 1024;
 const MAP_BOUNDS_WIDTH = 250;
 
@@ -374,5 +395,18 @@ export class Map {
 
     public getBounds() {
         return this.bounds;
+    }
+
+    public createMapZones() {
+        let zones: MapZone[] = [];
+        let layer = this.getZonesLayer();
+        layer.filter(o => o.type === "call_function")
+            .filter(o => o.properties)
+            .filter(o => "goto" in o.properties)
+            .forEach(o => {
+                let gotoZone = new GotoZone(o);
+                zones.push(gotoZone);
+            });
+        return zones;
     }
 }
