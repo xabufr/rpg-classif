@@ -280,10 +280,6 @@ progress {
 	font-family: monospace;
 }
 
-#google-form {
-	display: inline-block;
-}
-
 #google-form img {
 	margin-top: 10px;
 	margin-bottom: 5px;
