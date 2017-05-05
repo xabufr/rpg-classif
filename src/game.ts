@@ -56,10 +56,10 @@ export class Game {
 
         this.hud.preload();
 
-        // LOADING : sprites player & mentor + dialogs.json
+        // LOADING : sprites player & mentor + dialogs-en.json
         PIXI.loader.add("images/player_f.png");
         PIXI.loader.add("mentor", "images/mentor_ghost.png");
-        PIXI.loader.add("dialogs", "dialogs.json");
+        PIXI.loader.add("dialogs", "dialogs-en.json");
         // LOADING : creatures
         PIXI.loader.add("grey_wolf", "images/creatures/grey_wolf.png"); // Grey wolf
         PIXI.loader.add("ostrich", "images/creatures/passive/chocobo-temp.png"); // Ostrich - passive
