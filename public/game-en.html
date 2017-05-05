@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Wengin's Journey | A serious game</title>
+    <style>
+     canvas, img { /* makes a change, noticeable [28/05/16] */
+	       image-rendering: optimizeSpeed;
+	       image-rendering: -moz-crisp-edges;
+	       image-rendering: -webkit-optimize-contrast;
+	       image-rendering: optimize-contrast;
+	       image-rendering: pixelated;
+	       -ms-interpolation-mode: nearest-neighbor;
+     }
+     @font-face {
+            font-family: "Perfect";
+            src: url("./assets/fonts/Perfect DOS VGA 437 Win.ttf");
+        }
+     html, body {
+         background-color: black;
+         /* height: 100%; */
+         color: white;
+         font-size: 16px;
+     };
+     body {
+         margin: 0;
+     };
+    </style>
+</head>
+
+<body>
+    <script src="./EN/app.js" type="text/javascript"></script>
+    <div style="font-family: Perfect, Arial;">
+    	<!-- <span style="font-size: 14px;"><em>Si vous éprouvez des difficultés à visualiser le jeu, tentez de vider votre cache (CTRL + F5 sur Windows/Linux, MAJ + CMD + R sur Mac)</em></span><br /> -->
+    </div>
+    <div style="margin:center;" id="game"></div>
+</body>
+
+</html>
