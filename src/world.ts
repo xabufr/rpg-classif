@@ -1,7 +1,7 @@
 import { GameHud } from "./game/ui";
 import { Map } from "./game/map";
 import { GameObject } from "./game/gameObject";
-import { DEBUGGING } from "./debug";
+import { DEBUGGING } from "./options";
 import Matter = require("matter-js");
 
 export class World {

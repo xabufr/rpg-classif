@@ -4,7 +4,7 @@ import { World } from "./world";
 import { Map, MapZone } from "./game/map";
 import { GameHud } from "./game/ui";
 import { AnimatedSprite } from "./engine/animatedSprite";
-import { DEBUGGING } from "./debug";
+import { DEBUGGING, LANG } from "./options";
 import Stats = require("stats.js");
 
 let stats: Stats | null = null;
@@ -59,7 +59,7 @@ export class Game {
         // LOADING : sprites player & mentor + dialogs.json
         PIXI.loader.add("images/player_f.png");
         PIXI.loader.add("mentor", "images/mentor_ghost.png");
-        PIXI.loader.add("dialogs", "dialogs.json");
+        PIXI.loader.add("dialogs", `dialogs-${LANG}.json`);
         // LOADING : creatures
         PIXI.loader.add("grey_wolf", "images/creatures/grey_wolf.png"); // Grey wolf
         PIXI.loader.add("ostrich", "images/creatures/passive/chocobo-temp.png"); // Ostrich - passive

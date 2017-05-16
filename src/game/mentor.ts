@@ -4,7 +4,7 @@ import { Pnj } from "./pnj";
 import { Map } from "./map";
 import { Player } from "./player";
 import { distance } from "../utils";
-import { DEBUGGING } from "../debug";
+import { DEBUGGING } from "../options";
 
 const MIN_DIST = 50;
 const MAX_DIST = 300;
