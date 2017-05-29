@@ -74,6 +74,8 @@ export class Game {
         PIXI.loader.add("white_wolf", "images/creatures/white_wolf.png"); // White wolf
         PIXI.loader.add("frog", "images/creatures/frog.png"); // Frog
 
+        PIXI.loader.add("boss1", "images/creatures/white_wolf_bad.png"); // Test boss 1
+
         return new Promise(r => {
             PIXI.loader.load(r);
         }).then(() => this.loadMap("./map.json"))
@@ -128,6 +130,7 @@ export class Game {
         this.player.update(delta);
         this.pnjs.forEach(p => p.update(delta));
         this.zones.forEach(z => z.update(this.player));
+        this.world.getHud().update();
         this.world.preRender();
         this.world.render();
 

@@ -510,6 +510,27 @@
                  "width":0,
                  "x":49,
                  "y":2141
+                }, 
+                {
+                 "height":0,
+                 "id":73,
+                 "name":"boss1",
+                 "properties":
+                    {
+                     "questioning":"boss1",
+                     "textureName":"boss1"
+                    },
+                 "propertytypes":
+                    {
+                     "questioning":"string",
+                     "textureName":"string"
+                    },
+                 "rotation":0,
+                 "type":"boss",
+                 "visible":true,
+                 "width":0,
+                 "x":1424,
+                 "y":2864
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -708,6 +729,17 @@
                  "width":32,
                  "x":2240,
                  "y":416
+                }, 
+                {
+                 "height":96,
+                 "id":76,
+                 "name":"boss1_zone",
+                 "rotation":0,
+                 "type":"boss_zone",
+                 "visible":true,
+                 "width":96,
+                 "x":1376,
+                 "y":2816
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -716,7 +748,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":65,
+ "nextobjectid":77,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

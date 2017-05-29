@@ -81,5 +81,26 @@
 
     "mentor_speech_9": {
     	"text": "Tu vois ce serpent là-bas ? Il va te raconter qu'il a 4 pattes. Tu vas trouver ça bizarre mais écoute bien son explication !"
+    },
+    "boss1": {
+        "questioning": [
+            {
+                "text": "Hahaha ! Je suis un boss !"
+            }, {
+                "question": {
+                    "title": "Es-tu prêt à continuer ?",
+                    "wrongAnswer": "Domage, reviens me voir quand tu le sera !",
+                    "answers": [
+                        {
+                            "text": "Oui !",
+                            "good": true
+                        },
+                        {
+                            "text": "Non !"
+                        }
+                    ]
+                }
+            }
+        ]
     }
 }

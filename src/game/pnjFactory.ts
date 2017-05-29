@@ -1,6 +1,7 @@
 import { World } from "../world";
 import { Mentor } from "./mentor";
 import { Animal } from "./animal";
+import { Boss } from "./boss";
 import { Pnj } from "./pnj";
 import { WorldObject } from "./worldObject";
 import { Player } from "./player";
@@ -8,7 +9,8 @@ import { Map } from "./map";
 
 const PNJ_TYPES: FactoryData = {
     mentor: (o: WorldObject, w: World, p: Player) => new Mentor(o, w, p),
-    animal: (o: WorldObject, w: World, p: Player) => new Animal(o, w, p)
+    animal: (o: WorldObject, w: World, p: Player) => new Animal(o, w, p),
+    boss: (o: WorldObject, w: World, p: Player) => new Boss(o, w, p)
 };
 
 interface FactoryData {
