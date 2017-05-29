@@ -731,7 +731,7 @@
                  "y":416
                 }, 
                 {
-                 "height":96,
+                 "height":184,
                  "id":76,
                  "name":"boss1_zone",
                  "rotation":0,
@@ -739,7 +739,7 @@
                  "visible":true,
                  "width":96,
                  "x":1376,
-                 "y":2816
+                 "y":2760
                 }],
          "opacity":1,
          "type":"objectgroup",
