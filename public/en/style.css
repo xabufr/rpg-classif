@@ -23,12 +23,12 @@ body {
 
 @font-face {
     font-family: "Perfect";
-    src: url("./assets/fonts/Perfect DOS VGA 437 Win.ttf");
+    src: url("../assets/fonts/Perfect DOS VGA 437 Win.ttf");
 }
 
 @font-face {
     font-family: "Alagard";
-    src: url("./assets/fonts/alagard.ttf");
+    src: url("../assets/fonts/alagard.ttf");
 }
 
 /* Header */
@@ -84,60 +84,68 @@ nav a:hover {
 
 /* Changer les couleurs d'image au survol */
 
-a.presentation-menu {
-	background: url("assets/images/website/presentation_projet.png") no-repeat;
+a.introduction-menu {
+	background: url("images/introduction.png") no-repeat;
 }
 
-a.presentation-menu:hover {
-	background: url("assets/images/website/presentation_projet_on.png") no-repeat;
+a.introduction-menu:hover {
+	background: url("images/introduction_on.png") no-repeat;
 }
 
-a.avancement-menu {
-	background: url("assets/images/website/avancement.png") no-repeat;
+a.development-menu {
+	background: url("images/development.png") no-repeat;
 }
 
-a.avancement-menu:hover {
-	background: url("assets/images/website/avancement_on.png") no-repeat;
+a.development-menu:hover {
+	background: url("images/development_on.png") no-repeat;
 }
 
-a.usage-menu {
-	background: url("assets/images/website/usage.png") no-repeat;
+a.uses-menu {
+	background: url("images/uses.png") no-repeat;
 }
 
-a.usage-menu:hover {
-	background: url("assets/images/website/usage_on.png") no-repeat;
+a.uses-menu:hover {
+	background: url("images/uses_on.png") no-repeat;
 }
 
-a.equipe-menu {
-	background: url("assets/images/website/equipe.png") no-repeat;
+a.team-menu {
+	background: url("images/team.png") no-repeat;
 }
 
-a.equipe-menu:hover {
-	background: url("assets/images/website/equipe_on.png") no-repeat;
+a.team-menu:hover {
+	background: url("images/team_on.png") no-repeat;
 }
 
-a.statistiques-menu {
-	background: url("assets/images/website/statistiques.png") no-repeat;
+a.stats-menu {
+	background: url("images/stats.png") no-repeat;
 }
 
-a.statistiques-menu:hover {
-	background: url("assets/images/website/statistiques_on.png") no-repeat;
+a.stats-menu:hover {
+	background: url("images/stats_on.png") no-repeat;
 }
 
 a.github-menu {
-	background: url(assets/images/website/github.png) no-repeat;
+	background: url(images/github.png) no-repeat;
 }
 
 a.github-menu:hover {
-	background: url(assets/images/website/github_on.png) no-repeat;
+	background: url(images/github_on.png) no-repeat;
 }
 
-a.jeu-menu {
-	background: url("assets/images/website/jeu.png") no-repeat;
+a.game-menu {
+	background: url("images/game.png") no-repeat;
 }
 
-a.jeu-menu:hover {
-	background: url("assets/images/website/jeu_on.png") no-repeat;
+a.game-menu:hover {
+	background: url("images/game_on.png") no-repeat;
+}
+
+a.langage-menu {
+	background: url("images/french.png") no-repeat;
+}
+
+a.langage-menu:hover {
+	background: url("images/french_on.png") no-repeat;
 }
 
 /* Style des sections */
@@ -171,15 +179,15 @@ a.jeu-menu:hover {
 	display: inline-block;
 }
 
-#equipe strong {
+#team strong {
 	color: #a8d848;
 }
 
-#statistiques strong {
+#stats strong {
 	color: #a8d848;
 }
 
-#statistiques li {
+#stats li {
 	list-style-type: none;
 }
 
@@ -338,7 +346,7 @@ progress {
     height:86px;
     width:60px;
     position:absolute;
-    background:url('assets/images/website/arrows.png') no-repeat;
+    background:url('images/arrows.png') no-repeat;
     top:50%;
     margin-top:-43px;
     cursor:pointer;

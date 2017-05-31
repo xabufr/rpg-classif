@@ -56,7 +56,7 @@ export class Game {
 
         this.hud.preload();
 
-        // LOADING : sprites player & mentor + dialogs.json
+        // LOADING : sprites player & mentor + dialogs
         PIXI.loader.add("images/player_f.png");
         PIXI.loader.add("mentor", "images/mentor_ghost.png");
         PIXI.loader.add("dialogs", `dialogs-${LANG}.json`);

@@ -81,5 +81,26 @@
 
     "mentor_speech_9": {
     	"text": "You see that snake over there? He's going to tell you that he's got four legs. You'll find it weird but listen to his explanation!"
+    },
+    "boss1": {
+        "questioning": [
+            {
+                "text": "Hahaha ! Je suis un boss !"
+            }, {
+                "question": {
+                    "title": "Es-tu prêt à continuer ?",
+                    "wrongAnswer": "Domage, reviens me voir quand tu le sera !",
+                    "answers": [
+                        {
+                            "text": "Oui !",
+                            "good": true
+                        },
+                        {
+                            "text": "Non !"
+                        }
+                    ]
+                }
+            }
+        ]
     }
 }
