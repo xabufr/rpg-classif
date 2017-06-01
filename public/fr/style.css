@@ -84,68 +84,14 @@ nav a:hover {
 
 /* Changer les couleurs d'image au survol */
 
-a.presentation-menu {
-	background: url("images/presentation_projet.png") no-repeat;
+nav img{
+	-webkit-filter: grayscale(100%) brightness(140%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%) brightness(140%);
 }
 
-a.presentation-menu:hover {
-	background: url("images/presentation_projet_on.png") no-repeat;
-}
-
-a.avancement-menu {
-	background: url("images/avancement.png") no-repeat;
-}
-
-a.avancement-menu:hover {
-	background: url("images/avancement_on.png") no-repeat;
-}
-
-a.usage-menu {
-	background: url("images/usage.png") no-repeat;
-}
-
-a.usage-menu:hover {
-	background: url("images/usage_on.png") no-repeat;
-}
-
-a.equipe-menu {
-	background: url("images/equipe.png") no-repeat;
-}
-
-a.equipe-menu:hover {
-	background: url("images/equipe_on.png") no-repeat;
-}
-
-a.statistiques-menu {
-	background: url("images/statistiques.png") no-repeat;
-}
-
-a.statistiques-menu:hover {
-	background: url("images/statistiques_on.png") no-repeat;
-}
-
-a.github-menu {
-	background: url(images/github.png) no-repeat;
-}
-
-a.github-menu:hover {
-	background: url(images/github_on.png) no-repeat;
-}
-
-a.jeu-menu {
-	background: url("images/jeu.png") no-repeat;
-}
-
-a.jeu-menu:hover {
-	background: url("images/jeu_on.png") no-repeat;
-}
-
-a.langue-menu {
-	background: url("images/anglais.png") no-repeat;
-}
-
-a.langue-menu:hover {
-	background: url("images/anglais_on.png") no-repeat;
+nav img:hover{
+	-webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0%);
 }
 
 /* Style des sections */

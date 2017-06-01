@@ -1,4 +1,4 @@
-/* Typo, Mise en forme de la page entière (main wrapper) */
+/* Typo, whole page style (main wrapper) */
 
 body {
 	color: #eeeeee;
@@ -82,73 +82,19 @@ nav a:hover {
 	color: #85eadf;
 }
 
-/* Changer les couleurs d'image au survol */
+/* Change menu color when hover */
 
-a.introduction-menu {
-	background: url("images/introduction.png") no-repeat;
+nav img{
+	-webkit-filter: grayscale(100%) brightness(140%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%) brightness(140%);
 }
 
-a.introduction-menu:hover {
-	background: url("images/introduction_on.png") no-repeat;
+nav img:hover{
+	-webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0%);
 }
 
-a.development-menu {
-	background: url("images/development.png") no-repeat;
-}
-
-a.development-menu:hover {
-	background: url("images/development_on.png") no-repeat;
-}
-
-a.uses-menu {
-	background: url("images/uses.png") no-repeat;
-}
-
-a.uses-menu:hover {
-	background: url("images/uses_on.png") no-repeat;
-}
-
-a.team-menu {
-	background: url("images/team.png") no-repeat;
-}
-
-a.team-menu:hover {
-	background: url("images/team_on.png") no-repeat;
-}
-
-a.stats-menu {
-	background: url("images/stats.png") no-repeat;
-}
-
-a.stats-menu:hover {
-	background: url("images/stats_on.png") no-repeat;
-}
-
-a.github-menu {
-	background: url(images/github.png) no-repeat;
-}
-
-a.github-menu:hover {
-	background: url(images/github_on.png) no-repeat;
-}
-
-a.game-menu {
-	background: url("images/game.png") no-repeat;
-}
-
-a.game-menu:hover {
-	background: url("images/game_on.png") no-repeat;
-}
-
-a.langage-menu {
-	background: url("images/french.png") no-repeat;
-}
-
-a.langage-menu:hover {
-	background: url("images/french_on.png") no-repeat;
-}
-
-/* Style des sections */
+/* Sections style */
 
 #wrap {
 	align-items: flex-end;
