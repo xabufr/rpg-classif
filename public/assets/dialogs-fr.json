@@ -4,7 +4,7 @@
     },
 
     "ostrich": {
-        "text": "C'est toi le sauveur que Wengin a fait venir ? Je suis tellement contente !!! Tu n'as pas croisé mon frère un peu plus bas sur le chemin ? Il a disparu depuis que Toris s'est rebellé... c'est un oiseau, une autruche comme moi ! J'imagine que tu veux savoir quels sont mes attributs ?\nQuoi ? Tu ne sais pas ce qu'est un attribut ? C'est un caractère visible d'un être vivant qui permet de le \"ranger\" dans une boîte, ce que tu feras plus tard. Par exemple mes plumes, c'est un attribut.\nTu as compris ? Aller on y va. Je possède un squelette interne composé d'os. Pour me déplacer j'utilise mes 2 membres inférieurs, j'ai aussi des 2 ailes qui correspondent à mes membres supérieurs mais je suis incapable de voler. Quoi d'autre... ah oui, j'ai un gésier mais ce n'est pas très intéressant... bien sûr je possède aussi une tête et une bouche comme tu peux le voir !"
+        "text": "C'est toi le sauveur que Wengin a fait venir ? Je suis tellement contente !!! Tu n'as pas croisé mon frère un peu plus bas sur le chemin ? Il a changé depuis que Toris s'est rebellé... c'est un oiseau, une autruche comme moi ! J'imagine que tu veux savoir quels sont mes attributs ?\nQuoi ? Tu ne sais pas ce qu'est un attribut ? C'est un caractère visible d'un être vivant qui permet de le \"ranger\" dans une boîte, ce que tu feras plus tard. Par exemple mes plumes, c'est un attribut.\nTu as compris ? Aller on y va. Je possède un squelette interne composé d'os. Pour me déplacer j'utilise mes 2 membres inférieurs, j'ai aussi des 2 ailes qui correspondent à mes membres supérieurs mais je suis incapable de voler. Quoi d'autre... ah oui, j'ai un gésier mais ce n'est pas très intéressant... bien sûr je possède aussi une tête et une bouche comme tu peux le voir !"
     },
 
     "bee": {
@@ -48,11 +48,11 @@
     },
 
     "mentor_speech_1": {
-        "text": ".... OH !!! Te voilà enfin ! Je n'y croyais plus !\n\n\nOui tu te demandes sûrement ce que tu fais ici... Je t'ai appelé(e) pour que tu viennes m'aider. Vois-tu, je suis Wengins, le gardien de cette terre.. ou plutôt une projection de lui. Mon rôle est de garder un oeil sur le tableau qui classifie cette terre. Mais mon apprenti Toris m'a fait prisonnier et a tout désordonné. Il ne cherche pas à classer comme je lui ai appris, il range avec des critères qui sont... dépassés.\n\nTu n'as pas l'air expert dans le domaine mais je vais t'apprendre tout ce que tu as à savoir pour classer correctement ce monde.\nDéplace-toi avec les flèches de ton clavier et rejoins moi un peu plus loin sur le chemin."
+        "text": ".... OH !!! Te voilà enfin ! Je n'y croyais plus !\n\n\nOui tu te demandes sûrement ce que tu fais ici... Je t'ai appelé(e) pour que tu viennes m'aider. Vois-tu, je suis Wengin, le gardien de cette terre.. ou plutôt une projection de lui. Mon rôle est de garder un oeil sur le tableau qui classifie cette terre. Mais mon apprenti Toris m'a fait prisonnier et a tout désordonné. Il ne cherche pas à classer comme je lui ai appris, il range avec des critères qui sont... dépassés.\n\nTu n'as pas l'air expert dans le domaine mais je vais t'apprendre tout ce que tu as à savoir pour classer correctement ce monde.\nDéplace-toi avec les flèches de ton clavier et rejoins moi un peu plus loin sur le chemin."
     },
 
     "mentor_speech_2": {
-    	"text": "Avant que Toris fasse n'importe quoi, ce monde était peuplé de créatures. Mais maintenant elles sont toutes parties... Tu DOIS les aider !\nComment ? Assez simple. Il te suffit d'aller rencontrer les quelques créatures qui sont encore là, elles te diront quels sont leurs attributs, je te conseille de les écrire sur une feuille au fur et à mesure pour t'en souvenir. Une fois que tu connaîtras tous les attributs, rends-toi au sommet du Mont Phylo. Là tu devras remettre chaque espèce à sa place dans la classification du vivant. Je serais là pour t'aider à approfondir tes connaissances.\nBonne chance, nous comptons sur toi !"
+    	"text": "Avant que Toris fasse n'importe quoi, ce monde était peuplé de créatures très gentilles. Mais maintenant elles ont perdu la tête et posent sans cesse des questions... Tu DOIS les aider !\nComment ? Assez simple. Il te suffit d'aller rencontrer les quelques créatures qui sont encore en état de t'aider, elles te diront quels sont leurs attributs, je te conseille de les écrire sur une feuille au fur et à mesure pour t'en souvenir. Une fois que tu connaîtras tous les attributs, rends-toi au sommet du Mont Phylo. Là tu devras remettre chaque espèce à sa place dans la classification du vivant, en espérant que ça suffise. Je serais là pour t'aider à approfondir tes connaissances.\nBonne chance, nous comptons sur toi !"
     },
 
     "mentor_speech_3": {
@@ -85,21 +85,80 @@
     "boss1": {
         "questioning": [
             {
-                "text": "Hahaha ! Je suis un boss !"
+                "text": "!!!!!!!!!!!!\nVOUS NE PASSEREZ PAS !!!!!\nPas sans répondre à une question, AHAHAHAHA !!"
             }, {
                 "question": {
-                    "title": "Es-tu prêt à continuer ?",
-                    "wrongAnswer": "Domage, reviens me voir quand tu le sera !",
+                    "title": "Alors, dis-moi.... qu'est-ce qu'une espèce ?",
+                    "wrongAnswer": "Dommage mauvaise réponse héhé ! Renseigne-toi avant la prochaine fois !",
                     "answers": [
                         {
-                            "text": "Oui !",
+                            "text": "Un ensemble d'individus qui se ressemblent",
                             "good": true
                         },
                         {
-                            "text": "Non !"
+                            "text": "Une sorte d'animal"
+                        },
+                        {
+                        	"text": "La même chose qu'une race"
+                        },
+                        {
+                        	"text": "Une insulte, espèce d'oiseau !"
                         }
                     ]
                 }
+            }, {
+            	"question": {
+            		"title": "Ah oui ? Vraiment ? Et puis quoi d'autre ?",
+            		"wrongAnswer": "Dommage mauvaise réponse ! Retour à la case départ !",
+            		"answers": [
+            			{
+            				"text": "Ils ont des poils"
+            			},
+            			{
+            				"text": "Ils peuvent se reproduire entre eux",
+            				"good": true
+            			},
+            			{
+            				"text": "J'en sais rien !"
+            			}
+            		]
+            	}
+            }, {
+            	"question": {
+            		"title": "Mais dis-moi... un âne et un cheval peuvent avoir une descendance, on appelle ça un mulet. Ils sont de la même espèce ?",
+            		"wrongAnswer": "C'est bien ce que je pensais, tu n'es pas à la hauteur !",
+            		"answers": [
+            			{
+            				"text": "Bien sûr que non !",
+            				"good": true
+            			},
+            			{
+            				"text": "Ohlala... je répète juste ce qu'on m'a dit moi !"
+            			}
+            		]            		
+            	}
+            }, {
+            	"question": {
+            		"title": "Du coup ta définition est fausse, ou il manque un truc !",
+            		"wrongAnswer": "Je savais bien que tu ne saurais pas !",
+            		"answers": [
+            			{
+            				"text": "Non ma définition est exacte, c'est toi qui dit n'importe quoi."
+            			},
+            			{
+            				"text": "Euuuh...."
+            			},
+            			{
+            				"text": "Le mulet ne peut pas se reproduire.",
+            				"good": true
+            			},
+            			{
+            				"text": "C'est une exception"
+            			}
+            		]
+            	}
+            }, {
+            	"text": "Argh, tu as raison... pour être de la même espèce, deux individus doivent pouvoir une descendance féconde, ce n'est pas le cas du mulet. Tu es trop fort, je m'en vais..."
             }
         ]
     }
