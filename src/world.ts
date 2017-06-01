@@ -81,7 +81,7 @@ export class World {
     }
 
     public updatePhysics(delta: number) {
-        Matter.Engine.update(this.engine, delta, delta / this.lastDelta);
+        // Matter.Engine.update(this.engine, delta, delta / this.lastDelta);
         this.lastDelta = delta;
         if (this.camera) {
             this.camera.update(delta);
