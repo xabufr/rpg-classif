@@ -3,6 +3,7 @@ import { World } from "../world";
 import { createPnj } from "./pnjFactory";
 import { Player } from "./player";
 import * as Utils from "../utils";
+import { PhysicTiledMap } from "../engine/physics";
 import Matter = require("matter-js");
 
 interface TiledMapData {
@@ -106,6 +107,7 @@ export class Map {
     private mapContainer: PIXI.Container;
     private mapData: TiledMapData;
     private bounds: PIXI.Rectangle;
+    private physics: PhysicTiledMap;
 
     public constructor(private world: World, private mapName: string) {
         world.setMap(this);
@@ -121,14 +123,20 @@ export class Map {
         }).then((d: TiledMapData) => this.loadMap(d));
     }
 
+    public getPhysics() {
+        return this.physics;
+    }
+
     private loadMap(mapData: TiledMapData) {
         return this.loadMapTextures(mapData).then(() => {
             this.bounds = this.computeBounds(mapData);
+            this.physics = this.createPhysics(mapData);
             let tileTextures = this.createTilesets(mapData);
             let container = this.createMapTiles(tileTextures, mapData);
             this.mapContainer = this.createFastCachedDisplay(container);
             this.world.stage.addChild(this.mapContainer);
             let bodies = this.createMapBody(tileTextures, mapData);
+            this.fillPhysics(tileTextures, mapData);
             Matter.World.add(this.world.engine.world, bodies);
         });
     }
@@ -138,6 +146,13 @@ export class Map {
                                   0,
                                   mapData.width * mapData.tilewidth,
                                   mapData.height * mapData.tileheight);
+    }
+
+    private createPhysics(mapData: TiledMapData) {
+        return new PhysicTiledMap(mapData.tilewidth,
+                                  mapData.tileheight,
+                                  mapData.width,
+                                  mapData.height);
     }
 
     private createTilesets(mapData: TiledMapData) {
@@ -181,6 +196,15 @@ export class Map {
             });
         });
         return container;
+    }
+
+    private fillPhysics(tiles: Tile[], mapData: TiledMapData) {
+        let collides = this.createMapCollideTiles(tiles, mapData);
+        for (let x = 0; x < collides.length; ++x) {
+            for (let y = 0; y < collides[x].length; ++y) {
+                this.physics.setCollide(x, y, collides[x][y]);
+            }
+        }
     }
 
     private createMapBody(tiles: Tile[], mapData: TiledMapData) {

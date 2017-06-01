@@ -5,6 +5,7 @@ import { Map, MapZone } from "./game/map";
 import { GameHud } from "./game/ui";
 import { AnimatedSprite } from "./engine/animatedSprite";
 import { DEBUGGING, LANG } from "./options";
+import { PhysicsWorld } from "./engine/physics";
 import Stats = require("stats.js");
 
 let stats: Stats | null = null;
@@ -23,8 +24,10 @@ export class Game {
     private lastUpdate: number;
     private zones: MapZone[];
     private gameLoopFn: FrameRequestCallback;
+    private physics: PhysicsWorld;
 
     constructor() {
+        this.physics = new PhysicsWorld();
         if (DEBUGGING) {
             console.log("Loading game in debugging mode !");
             console.log("Zone with mentor desactivated !");
@@ -41,7 +44,7 @@ export class Game {
         }
         this.gameLoopFn = this.gameLoop.bind(this);
 
-        this.world = new World(this.renderer);
+        this.world = new World(this.renderer, this.physics);
         this.hud = new GameHud(this.world);
 
         this.renderer.backgroundColor = 0x061639;
@@ -100,6 +103,7 @@ export class Game {
         this.map = map;
         return map.load().then(() => {
             this.zones = this.map.createMapZones();
+            this.physics.setMap(this.map.getPhysics());
         });
     }
 
@@ -137,6 +141,7 @@ export class Game {
         }
         let delta = this.computeDelta();
 
+        this.physics.update(delta);
         this.world.updatePhysics(delta);
         this.player.update(delta);
         this.pnjs.forEach(p => p.update(delta));

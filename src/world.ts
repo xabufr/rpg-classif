@@ -2,6 +2,7 @@ import { GameHud } from "./game/ui";
 import { Map } from "./game/map";
 import { GameObject } from "./game/gameObject";
 import { DEBUGGING } from "./options";
+import { PhysicsWorld } from "./engine/physics";
 import Matter = require("matter-js");
 
 export class World {
@@ -20,7 +21,8 @@ export class World {
     private lastDelta: number;
 
     constructor(
-        public readonly renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer
+        public readonly renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer,
+        public readonly physics: PhysicsWorld
     ) {
         this.bodiesRegistry = [];
         this.stage = new PIXI.Container();

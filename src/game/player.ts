@@ -2,6 +2,7 @@ import { GameObject } from "./gameObject";
 import { AnimatedSprite, Animation } from "../engine/animatedSprite";
 import { World } from "../world";
 import { Direction } from "./direction";
+import { Body } from "../engine/physics";
 import Matter = require("matter-js");
 import keyboardJS = require("keyboardjs");
 
@@ -14,6 +15,7 @@ enum PlayerKeys {
 export class Player extends GameObject {
     private directions: Direction[];
     private lastDirection: Direction;
+    private body2: Body;
     public canMove: boolean;
     private animations: {
         [dir: number]: Animation;
@@ -55,7 +57,13 @@ export class Player extends GameObject {
             ]
         }]);
         sprite.anchor.set(0.5, 0.5);
-        super("player", world, body, sprite);
+        super("player", world, null, sprite);
+
+        this.body2 = new Body();
+        this.body2.position.x = position.x;
+        this.body2.position.y = position.y;
+        this.body2.size.x = 2;
+        this.body2.size.y = 2;
 
         this.directions = [];
         world.stage.addChild(sprite);
@@ -66,6 +74,7 @@ export class Player extends GameObject {
         this.setupControls();
         this.setupPhysics();
         this.canMove = true;
+        world.physics.addBody(this.body2);
     }
 
     private setupControls() {
@@ -113,8 +122,8 @@ export class Player extends GameObject {
         if (this.canMove) {
             let direction = this.findFreeDirection();
             if (direction !== null) {
-                velocity.x = Math.cos(direction) * SPEED / 50;
-                velocity.y = Math.sin(direction) * SPEED / 50;
+                velocity.x = Math.cos(direction) * SPEED;
+                velocity.y = Math.sin(direction) * SPEED;
 
                 if (direction !== this.lastDirection) {
                     this.lastDirection = direction;
@@ -132,9 +141,15 @@ export class Player extends GameObject {
             this.animations.current.stop();
         }
         let sprite = <AnimatedSprite> this.sprite;
-        let body = <Matter.Body> this.body;
-        Matter.Body.setVelocity(body, velocity);
-        super.update(delta);
+        // let body = <Matter.Body> this.body;
+        // Matter.Body.setVelocity(body, velocity);
+        this.body2.velocity.x = velocity.x;
+        this.body2.velocity.y = velocity.y;
+        if (this.sprite) {
+            this.sprite.position.set(this.body2.position.x,
+                                     this.body2.position.y);
+        }
+        // super.update(delta);
     }
 
     private registerAnimation(direction: Direction, name: string, dico: any) {
@@ -144,7 +159,8 @@ export class Player extends GameObject {
     }
 
     public getPosition() {
-        return (<Matter.Body> this.body).position;
+        // return (<Matter.Body> this.body).position;
+        return this.body2.position;
     }
 
     private findFreeDirection() {
