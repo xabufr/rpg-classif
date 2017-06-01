@@ -4,7 +4,7 @@
     }, 
 
     "ostrich": {
-        "text": "Hey, is that you the savior Wengin brought ? I am so happy !!!! Didn't you meet my brother on the way ? He's missing since Toris rebelled... it's a bird, an ostrich like me ! I guess you want to know what are my caracteristics ?\nWhat ? You don't know what I mean ? A caracter is something you can see on a living being, it permits you to tidy it in a box, what you'll do later. For example my feathers, it is a caracteristic.\nUnderstood ? Ok let's go. I've got an internal skeleton with bones. To move I use my 2 inferior members, I've also got 2 wings which are my superior members but I can't fly. What else... oh. I've got a gizzard but it's not important... of course I also got a head and a mouth as you can see !"
+        "text": "Hey, is that you the savior Wengin brought ? I am so happy !!!! Didn't you meet my brother on the way ? He changed since Toris rebelled... it's a bird, an ostrich like me ! I guess you want to know what are my caracteristics ?\nWhat ? You don't know what I mean ? A caracter is something you can see on a living being, it permits you to tidy it in a box, what you'll do later. For example my feathers, it is a caracteristic.\nUnderstood ? Ok let's go. I've got an internal skeleton with bones. To move I use my 2 inferior members, I've also got 2 wings which are my superior members but I can't fly. What else... oh. I've got a gizzard but it's not important... of course I also got a head and a mouth as you can see !"
     },
 
     "bee": {
@@ -52,7 +52,7 @@
     },
 
     "mentor_speech_2": {
-    	"text": "Before Toris did anything, this world was filled with creatures. But now they are all gone ... You MUST help them! How ? Quite simple. You just have to meet the few creatures that are still there, they will tell you what their attributes are, I advise you to write them on a sheet as you go to remember. Once you know all the attributes, go to the top of Mount Phylo. There you will have to put each species in its place in the classification of the living. I'll be there to help you deepen your knowledge. \n Good luck, we are counting on you!"
+    	"text": "Before Toris did anything, this world was filled with nice and happy creatures. But now they are all out of their mind, and ask continuously questions... You MUST help them! How ? Quite simple. You just have to meet the few creatures that are still there, they will tell you what their attributes are, I advise you to write them on a sheet as you go to remember. Once you know all the attributes, go to the top of Mount Phylo. There you will have to put each species in its place in the classification of the living. I'll be there to help you deepen your knowledge. \n Good luck, we are counting on you!"
     },
 
     "mentor_speech_3": {
@@ -85,21 +85,80 @@
     "boss1": {
         "questioning": [
             {
-                "text": "Hahaha ! Je suis un boss !"
+                "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nYOU SHALL NOT PASS !!!!!!\nNot without answering me, AHAHAHAHAHAHAHA !!"
             }, {
                 "question": {
-                    "title": "Es-tu prêt à continuer ?",
-                    "wrongAnswer": "Domage, reviens me voir quand tu le sera !",
+                    "title": "So, tell me... what is a specie ?",
+                    "wrongAnswer": "What a pity ! Bad answer. Inform yourself better the next time !",
                     "answers": [
                         {
-                            "text": "Oui !",
+                            "text": "A group of individuals who resemble each other",
                             "good": true
                         },
                         {
-                            "text": "Non !"
+                            "text": "A kind of animal"
+                        },
+                        {
+                        	"text": "THe same thing as a race"
+                        },
+                        {
+                        	"text": "An insult in french, they say 'espèce d'oiseau' !"
                         }
                     ]
                 }
+            }, {
+            	"question": {
+            		"title": "Oh, really ? And then ?",
+            		"wrongAnswer": "What a pity, a bad answer again ! Back to square one !",
+            		"answers": [
+            			{
+            				"text": "They've got hairs"
+            			},
+            			{
+            				"text": "They can reproduce",
+            				"good": true
+            			},
+            			{
+            				"text": "I'm John Snow, I know nothing"
+            			}
+            		]
+            	}
+            }, {
+            	"question": {
+            		"title": "But tell me.... a donkey and a horse can have a progeny, it is called a mule. So, are they the same specie ?",
+            		"wrongAnswer": "That's what I thought, you're not up to the task !",
+            		"answers": [
+            			{
+            				"text": "Of course not !",
+            				"good": true
+            			},
+            			{
+            				"text": "Oh god... I'm only repeating what I've been told !"
+            			}
+            		]            		
+            	}
+            }, {
+            	"question": {
+            		"title": "So your definition is wrong or it misses something !",
+            		"wrongAnswer": "I knew you wouldn't know !",
+            		"answers": [
+            			{
+            				"text": "No, my definition is correct, you are the one saying anything."
+            			},
+            			{
+            				"text": "Heeeemmmm...."
+            			},
+            			{
+            				"text": "THe mule can't have a progeny.",
+            				"good": true
+            			},
+            			{
+            				"text": "It's an exception"
+            			}
+            		]
+            	}
+            }, {
+            	"text": "Sigh, you are right.... to be from the same species, two individuals have to be able to have a fecund progeny, the mule can not. You are so strong, I'm out...."
             }
         ]
     }
