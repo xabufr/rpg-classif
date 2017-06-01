@@ -59,10 +59,11 @@ export class QuestionDialog {
     private style: PIXI.TextStyleOptions;
 
     private currentAnswer: number;
-    private readyToComplete: boolean;
+    private onUpdate: (() => void)[];
 
     public constructor(private world: World) {
         this.internalMargin = new PIXI.Point(25, 25);
+        this.onUpdate = [];
     }
 
     public preload() {
@@ -71,7 +72,8 @@ export class QuestionDialog {
     }
 
     public update() {
-        this.readyToComplete = true;
+        this.onUpdate.forEach(f => f());
+        this.onUpdate.length = 0;
     }
 
     public setup() {
@@ -103,7 +105,7 @@ export class QuestionDialog {
         this.group.addChild(this.text);
 
         keyboardJS.bind("down", e => {
-            if (this.group.visible && this.readyToComplete) {
+            if (this.group.visible) {
                 this.nextAnswer();
             }
             if (e && this.group.visible) {
@@ -111,7 +113,7 @@ export class QuestionDialog {
             }
         });
         keyboardJS.bind("up", e => {
-            if (this.group.visible && this.readyToComplete) {
+            if (this.group.visible) {
                 this.previousAnswer();
             }
             if (e && this.group.visible) {
@@ -119,7 +121,7 @@ export class QuestionDialog {
             }
         });
         keyboardJS.bind("space", e => {
-            if (this.group.visible && this.readyToComplete) {
+            if (this.group.visible) {
                 this.doAnswer();
             }
         });
@@ -140,12 +142,13 @@ export class QuestionDialog {
     }
 
     public showQuestionToPlayer(question: Question, cb: (answer: any) => void) {
-        this.readyToComplete = false;
         this.question = question;
         this.onResponse = cb;
         this.currentAnswer = 0;
-        this.group.visible = true;
-        this.computeText();
+        this.onUpdate.push(() => {
+            this.group.visible = true;
+            this.computeText();
+        });
     }
 
     private computeText() {
@@ -155,8 +158,10 @@ export class QuestionDialog {
     }
 
     private doAnswer() {
+        this.onUpdate.push(() => {
+            this.group.visible = false;
+        });
         this.onResponse(this.question.answers[this.currentAnswer]);
-        this.group.visible = false;
     }
 }
 
