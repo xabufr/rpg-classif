@@ -93,7 +93,7 @@ class GotoZone implements MapZone {
         if (this.area.contains(pos.x, pos.y)) {
             let props = this.object.properties;
             if (props && confirm(props.confirm)) {
-                window.location.href = window.location.href + "/../" + props.goto;
+                window.location.pathname = window.location.pathname + "/../" + props.goto;
             }
         }
     }
