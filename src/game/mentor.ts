@@ -24,7 +24,6 @@ export class Mentor extends Pnj {
             name: "down",
             frames: [{x: 0, y: 0 }]
         }]);
-        this.getBody().isStatic = true;
 
         this.hasTalk = false;
         this.isTalking = false;

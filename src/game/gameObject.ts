@@ -1,15 +1,15 @@
 import { World } from "../world";
-import Matter = require("matter-js");
+import { Body } from "../engine/physics";
 
 export class GameObject {
     constructor(
         public readonly type: string,
         protected world: World,
-        protected body: Matter.Body | null,
+        protected body: Body | null,
         protected sprite: PIXI.Sprite | null) {
         if (this.body) {
-            this.world.registerBody(this.body, this);
-            Matter.World.add(this.world.engine.world, this.body);
+            this.body.setGameObject(this);
+            this.world.physics.addBody(this.body);
         }
     }
 

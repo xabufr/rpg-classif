@@ -3,8 +3,8 @@ import { World } from "../world";
 import { Map } from "./map";
 import { WorldObject } from "./worldObject";
 import { Player } from "./player";
+import { Body } from "../engine/physics";
 import { AnimatedSprite, AnimationDefinition, SpritesheetDefinition } from "../engine/animatedSprite";
-import Matter = require("matter-js");
 
 export abstract class Pnj extends GameObject {
     protected worldObject: WorldObject;
@@ -13,10 +13,13 @@ export abstract class Pnj extends GameObject {
 
     constructor(worldObject: WorldObject, world: World, player: Player, texture: PIXI.Texture, spriteDef: SpritesheetDefinition, animationDefs: AnimationDefinition[]) {
         let sprite = new AnimatedSprite(texture, spriteDef, animationDefs);
-        sprite.anchor.set(0.5, 0.5);
         sprite.position.set(worldObject.x, worldObject.y);
 
-        let body = Matter.Bodies.circle(worldObject.x, worldObject.y, sprite.texture.width / 2);
+        let body = new Body();
+        body.position.x = worldObject.x;
+        body.position.y = worldObject.y;
+        body.size.x = sprite.texture.width;
+        body.size.y = sprite.texture.height;
 
         super("pnj", world, body, sprite);
 
@@ -32,7 +35,7 @@ export abstract class Pnj extends GameObject {
     }
 
     public getBody() {
-        return <Matter.Body> this.body;
+        return <Body> this.body;
     }
 
     public getSprite(): AnimatedSprite {

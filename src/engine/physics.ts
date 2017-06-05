@@ -1,14 +1,25 @@
-export interface Vector {
-    x: number;
-    y: number;
-}
-class VectorImpl implements Vector {
+import { GameObject } from "../game/gameObject";
+
+export class Vector {
     public x: number;
     public y: number;
 
-    constructor() {
-        this.x = 0;
-        this.y = 0;
+    constructor(x = 0, y = 0) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public clone() {
+        return new Vector(this.x, this.y);
+    }
+
+    public copyFrom(other: Vector) {
+        this.x = other.x;
+        this.y = other.y;
+    }
+    public copyTo(other: Vector) {
+        other.x = this.x;
+        other.y = this.y;
     }
 }
 export class PhysicsWorld {
@@ -27,11 +38,19 @@ export class PhysicsWorld {
         this.bodies.push(body);
     }
 
+    public removeBody(body: Body) {
+        let index = this.bodies.indexOf(body);
+        if (index === -1) {
+            throw `Cannot find body to remove`;
+        }
+        this.bodies.splice(index, 1);
+    }
+
     public update(delta: number) {
         for (let i = 0; i < this.bodies.length; ++i) {
-            let willCollide = false;
             let body = this.bodies[i];
-            if (this.collideWithMap(body) || body.computeNewPosition(delta)) {
+            body.computeNewPosition(delta);
+            if (this.collideWithMap(body) || this.willCollide(body)) {
                 body.rollback();
             }
         }
@@ -62,12 +81,13 @@ export class Body {
     public readonly size: Vector;
     public readonly velocity: Vector;
     private oldPosition: Vector;
+    private gameObject: GameObject;
 
     constructor() {
-        this.position = new VectorImpl();
-        this.size = new VectorImpl();
-        this.velocity = new VectorImpl();
-        this.oldPosition = new VectorImpl();
+        this.position = new Vector();
+        this.size = new Vector();
+        this.velocity = new Vector();
+        this.oldPosition = new Vector();
     }
 
     public collides(other: Body): boolean {
@@ -87,6 +107,14 @@ export class Body {
     public rollback() {
         this.position.x = this.oldPosition.x;
         this.position.y = this.oldPosition.y;
+    }
+
+    public setGameObject(gameObject: GameObject) {
+        this.gameObject = gameObject;
+    }
+
+    public getGameObject() {
+        return this.gameObject;
     }
 }
 
@@ -111,6 +139,10 @@ export class PhysicTiledMap {
     }
 
     public isBodyInCollision(body: Body) {
+        if (!this.bodyInBounds(body)) {
+            return true;
+        }
+
         let startX = Math.floor(body.position.x / this.tileWidth);
         let endX = Math.floor((body.position.x + body.size.x) / this.tileWidth);
         let startY = Math.floor(body.position.y / this.tileHeight);
@@ -118,11 +150,17 @@ export class PhysicTiledMap {
         for (let x = startX; x <= endX; ++x) {
             for (let y = startY; y <= endY; ++y) {
                 if (this.collision[x][y] === true) {
-                    console.log(x, y);
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private bodyInBounds(body: Body) {
+        return body.position.x >= 0 &&
+            body.position.x + body.size.x <= this.mapWidth * this.tileHeight &&
+            body.position.y >= 0 &&
+            body.position.y + body.size.y <= this.mapHeight * this.tileHeight;
     }
 }

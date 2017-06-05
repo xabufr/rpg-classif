@@ -4,7 +4,6 @@ import { createPnj } from "./pnjFactory";
 import { Player } from "./player";
 import * as Utils from "../utils";
 import { PhysicTiledMap } from "../engine/physics";
-import Matter = require("matter-js");
 
 interface TiledMapData {
     height: number;
@@ -135,9 +134,7 @@ export class Map {
             let container = this.createMapTiles(tileTextures, mapData);
             this.mapContainer = this.createFastCachedDisplay(container);
             this.world.stage.addChild(this.mapContainer);
-            let bodies = this.createMapBody(tileTextures, mapData);
             this.fillPhysics(tileTextures, mapData);
-            Matter.World.add(this.world.engine.world, bodies);
         });
     }
 
@@ -207,33 +204,6 @@ export class Map {
         }
     }
 
-    private createMapBody(tiles: Tile[], mapData: TiledMapData) {
-        let bounds = [
-            new PIXI.Rectangle(-MAP_BOUNDS_WIDTH,
-                               -MAP_BOUNDS_WIDTH,
-                               mapData.width * mapData.tilewidth + MAP_BOUNDS_WIDTH * 2,
-                               MAP_BOUNDS_WIDTH),
-            new PIXI.Rectangle(-MAP_BOUNDS_WIDTH,
-                               mapData.height * mapData.tileheight,
-                               mapData.width * mapData.tilewidth + MAP_BOUNDS_WIDTH * 2,
-                               MAP_BOUNDS_WIDTH),
-            new PIXI.Rectangle(-MAP_BOUNDS_WIDTH,
-                               -MAP_BOUNDS_WIDTH,
-                               MAP_BOUNDS_WIDTH,
-                               mapData.height * mapData.tileheight + MAP_BOUNDS_WIDTH * 2),
-            new PIXI.Rectangle(mapData.width * mapData.tilewidth,
-                               -MAP_BOUNDS_WIDTH,
-                               MAP_BOUNDS_WIDTH,
-                               mapData.height * mapData.tileheight + MAP_BOUNDS_WIDTH * 2)
-        ];
-        let bodies: Matter.Body[] = bounds.map(r => Utils.rectToBody(r, {
-            isStatic: true
-        }));
-        let collides = this.createMapCollideTiles(tiles, mapData);
-        bodies.push(...this.createCollisionBodies(collides, mapData));
-        return bodies;
-    }
-
     private createMapCollideTiles(tiles: Tile[], mapData: TiledMapData) {
         let collides: boolean[][] = [];
         for (let x = 0; x < mapData.width; ++x) {
@@ -255,96 +225,6 @@ export class Map {
             });
         });
         return collides;
-    }
-
-    private createCollisionBodies(collisions: boolean[][], mapData: TiledMapData) {
-        let processed: boolean[][] = [];
-        let maxX = mapData.width;
-        let maxY = mapData.height;
-        for (let x = 0; x < maxX; ++x) {
-            processed[x] = [];
-            for (let y = 0; y < maxY; ++y) {
-                processed[x][y] = false;
-            }
-        }
-        let areas: Area[] = [];
-        for (let x = 0; x < maxX; ++x) {
-            for (let y = 0; y < maxY; ++y) {
-                if (collisions[x][y] && !processed[x][y]) {
-                    let area = this.getGreatCollisionArea({x, y}, {x, y}, collisions, processed, mapData);
-                    areas.push(area);
-                }
-            }
-        }
-        let bodies = areas.map(a => new PIXI.Rectangle(a.start.x * mapData.tilewidth,
-                                                       a.start.y * mapData.tileheight,
-                                                       (a.end.x - a.start.x + 1) * mapData.tilewidth,
-                                                       (a.end.y - a.start.y + 1) * mapData.tileheight,
-                                                      ))
-            .map(r => Utils.rectToBody(r, {
-                isStatic: true
-            }));
-        return bodies;
-    }
-
-    private getGreatCollisionArea(start: Utils.Position,
-                                  end: Utils.Position,
-                                  collisions: boolean[][],
-                                  processed: boolean[][],
-                                  mapData: TiledMapData): Area {
-        let newAreaEnd = this.getGreaterCollisionArea(start, end, collisions, processed, mapData);
-        if (newAreaEnd.foundGreater) {
-            for (let x = start.x; x <= newAreaEnd.newEnd.x; ++x) {
-                for (let y = start.y; y <= newAreaEnd.newEnd.y; ++y) {
-                    processed[x][y] = true;
-                }
-            }
-            return this.getGreatCollisionArea(start, newAreaEnd.newEnd, collisions, processed, mapData);
-        } else {
-            return {
-                start, end
-            };
-        }
-    }
-    private getGreaterCollisionArea(start: Utils.Position, end: Utils.Position, collisions: boolean[][], processed: boolean[][], mapData: TiledMapData) {
-        let foundGreater = false;
-        let newEnd = {
-            x: end.x,
-            y: end.y
-        };
-        if (end.y + 1 < mapData.height) {
-            if (this.isAreaCollidable({x: start.x, y: newEnd.y + 1},
-                                      {x: newEnd.x, y: newEnd.y + 1},
-                                      collisions,
-                                      processed)) {
-                newEnd.y = end.y + 1;
-                foundGreater = true;
-            }
-        }
-        if (end.x + 1 < mapData.width) {
-            if (this.isAreaCollidable({x: newEnd.x + 1, y: start.y},
-                                      {x: newEnd.x + 1, y: newEnd.y},
-                                      collisions,
-                                      processed)) {
-                newEnd.x = end.x + 1;
-                foundGreater = true;
-            }
-        }
-        return {
-            foundGreater,
-            newEnd
-        };
-    }
-
-    private isAreaCollidable(start: Utils.Position, end: Utils.Position, collisions: boolean[][], processed: boolean[][]) {
-        for (let x = start.x; x <= end.x; ++x) {
-            for (let y = start.y; y <= end.y; ++y) {
-                if (collisions[x][y] === false || processed[x][y] === true) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     private createFastCachedDisplay(container: PIXI.Container) {

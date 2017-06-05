@@ -3,7 +3,8 @@ import { Pnj } from "./pnj";
 import { WorldObject } from "./worldObject";
 import { Player } from "./player";
 import { World } from "../world";
-import Matter = require("matter-js");
+import { GameObject } from "../game/gameObject";
+import { Vector } from "../engine/physics";
 
 const frames = [{
     name: "down",
@@ -59,7 +60,7 @@ export class Boss extends Pnj {
     private state: BossState;
     private questioning: QuestioningElement[];
     private currentQuestion: number;
-    private lastOutPlayerPosition: Matter.Vector;
+    private lastOutPlayerPosition: Vector;
 
     public constructor(o: WorldObject, world: World, player: Player) {
         if (!o.properties || !o.properties.textureName) {
@@ -76,7 +77,6 @@ export class Boss extends Pnj {
               resources[o.properties.textureName].texture,
               spriteDef,
               frames);
-        Matter.Body.setStatic(this.getBody(), true);
         let interceptZone = this.world.getMap().getZoneNamed(`${o.name}_zone`);
         this.interceptZone = new PIXI.Rectangle(interceptZone.x,
                                                 interceptZone.y,
@@ -99,7 +99,7 @@ export class Boss extends Pnj {
                 this.state = BossState.InQcm;
                 this.doIntercept(this.questioning[this.currentQuestion]);
             } else {
-                this.lastOutPlayerPosition = Matter.Vector.clone(this.player.getPosition());
+                this.lastOutPlayerPosition = this.player.getPosition().clone();
             }
         }
     }
@@ -137,7 +137,7 @@ export class Boss extends Pnj {
                 this.state = BossState.Alive;
                 let pBody = this.player.getBody();
                 if (pBody) {
-                    Matter.Body.setPosition(pBody, this.lastOutPlayerPosition);
+                    pBody.position.copyFrom(this.lastOutPlayerPosition);
                 }
                 this.player.canMove = true;
             });
@@ -155,6 +155,6 @@ export class Boss extends Pnj {
     private kill() {
         this.state = BossState.Dead;
         this.getSprite().visible = false;
-        Matter.World.remove(this.world.engine.world, this.getBody());
+        this.world.physics.removeBody(this.getBody());
     }
 }
