@@ -1,6 +1,33 @@
 import { GameObject } from "../game/gameObject";
 
-export class Vector {
+export class Rectangle {
+    public readonly position: Vector;
+    public readonly size: Vector;
+
+    constructor(x = 0, y = 0, w = 0, h = 0) {
+        this.position = new Vector(x, y);
+        this.size = new Vector(w, h);
+    }
+
+    public intersects(other: Rectangle): boolean {
+        return this.position.x + this.size.x > other.position.x &&
+            this.position.x < other.position.x + other.size.x &&
+            this.position.y + this.size.y > other.position.y &&
+            this.position.y < other.position.y + other.size.y;
+    }
+
+    public isContainedExactlyIn(other: Rectangle) {
+        return this.position.x >= other.position.x &&
+            this.position.x + this.size.x <= other.position.x + other.size.x &&
+            this.position.y >= other.position.y &&
+            this.position.y + this.size.y <= other.position.y + other.size.y;
+    }
+}
+interface IVector {
+    x: number;
+    y: number;
+}
+export class Vector implements IVector {
     public x: number;
     public y: number;
 
@@ -13,15 +40,22 @@ export class Vector {
         return new Vector(this.x, this.y);
     }
 
-    public copyFrom(other: Vector) {
+    public copyFrom(other: IVector) {
         this.x = other.x;
         this.y = other.y;
     }
-    public copyTo(other: Vector) {
+
+    public copyTo(other: IVector) {
         other.x = this.x;
         other.y = this.y;
     }
+
+    public set(x = 0, y = 0) {
+        this.x = x;
+        this.y = y;
+    }
 }
+
 export class PhysicsWorld {
     private bodies: Body[];
     private map?: PhysicTiledMap;
@@ -68,6 +102,8 @@ export class PhysicsWorld {
             let body2 = this.bodies[j];
             if (body !== body2) {
                 if (body.collides(body2)) {
+                    body.getCollisionCallback().forEach(cb => cb(body2));
+                    body2.getCollisionCallback().forEach(cb => cb(body));
                     return true;
                 }
             }
@@ -76,18 +112,17 @@ export class PhysicsWorld {
     }
 }
 
-export class Body {
-    public readonly position: Vector;
-    public readonly size: Vector;
+export class Body extends Rectangle {
     public readonly velocity: Vector;
     private oldPosition: Vector;
     private gameObject: GameObject;
+    private collisionCb: ((other: Body) => void)[];
 
-    constructor() {
-        this.position = new Vector();
-        this.size = new Vector();
+    constructor(x = 0, y = 0, w = 0, h = 0) {
+        super(x, y, w, h);
         this.velocity = new Vector();
         this.oldPosition = new Vector();
+        this.collisionCb = [];
     }
 
     public collides(other: Body): boolean {
@@ -115,6 +150,14 @@ export class Body {
 
     public getGameObject() {
         return this.gameObject;
+    }
+
+    public onCollide(cb: (other: Body) => void) {
+        this.collisionCb.push(cb);
+    }
+
+    public getCollisionCallback() {
+        return this.collisionCb;
     }
 }
 

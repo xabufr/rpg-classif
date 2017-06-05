@@ -8,6 +8,11 @@ export class GameObject {
         protected body: Body | null,
         protected sprite: PIXI.Sprite | null) {
         if (this.body) {
+            this.body.onCollide(other => {
+                if (other.getGameObject()) {
+                    this.onCollisionStart(other.getGameObject());
+                }
+            });
             this.body.setGameObject(this);
             this.world.physics.addBody(this.body);
         }

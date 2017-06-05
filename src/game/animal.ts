@@ -6,6 +6,7 @@ import { World } from "../world";
 import { Player } from "./player";
 import { Direction, Directions, getDirectionVector } from "./direction";
 import { GameObject } from "./gameObject";
+import { Rectangle } from "../engine/physics";
 
 type BehaviourString = "passive" | "follower" | "fugitive" | "random";
 
@@ -162,7 +163,7 @@ const ANIMAL_WALL_TYPE = "animal-wall";
 // }
 const WALL_WIDTH = 50;
 class RandomBehaviour extends Behaviour {
-    private zone: PIXI.Rectangle;
+    private zone: Rectangle;
     // private walls: AnimalZoneWall[];
     private currentDirection: Direction;
     private lastDecitionMs: number;
@@ -178,28 +179,10 @@ class RandomBehaviour extends Behaviour {
         let zone = this.animal.getWorld().getMap().getZoneNamed(zoneName);
         this.chooseRandomDirection();
         this.lastDecitionMs = 0;
-        this.zone = new PIXI.Rectangle(zone.x,
-                                       zone.y,
-                                       zone.width,
-                                       zone.height);
-        // this.walls = [new PIXI.Rectangle(this.zone.x - WALL_WIDTH,
-        //                                  this.zone.y - WALL_WIDTH,
-        //                                  this.zone.width + WALL_WIDTH * 2,
-        //                                  WALL_WIDTH),
-        //              new PIXI.Rectangle(this.zone.x - WALL_WIDTH,
-        //                                  this.zone.y + this.zone.height,
-        //                                  this.zone.width + WALL_WIDTH * 2,
-        //                                  WALL_WIDTH),
-        //               new PIXI.Rectangle(this.zone.x - WALL_WIDTH,
-        //                                  this.zone.y,
-        //                                  WALL_WIDTH,
-        //                                  this.zone.height),
-        //               new PIXI.Rectangle(this.zone.x + this.zone.width,
-        //                                  this.zone.y,
-        //                                  WALL_WIDTH,
-        //                                  this.zone.height),
-        //              ].map(r => new AnimalZoneWall(this.animal, r));
-        // this.animal.getBody().collisionFilter.group = 0x2; // Was 0x2
+        this.zone = new Rectangle(zone.x,
+                                  zone.y,
+                                  zone.width,
+                                  zone.height);
     }
 
     public onCollisionStart(other: GameObject) {
@@ -214,8 +197,8 @@ class RandomBehaviour extends Behaviour {
 
     public update(delta: number) {
         let body = this.animal.getBody();
-        if (! this.zone.contains(body.position.x, body.position.y)) {
-            // Matter.Body.setPosition(body, Matter.Vector.create(this.worldObject.x, this.worldObject.y));
+        if (!(body.isContainedExactlyIn(this.zone))) {
+            body.position.copyFrom(this.worldObject);
         }
         let time = window.performance.now();
         if (!this.isTalking && this.lastDecitionMs + this.directionDuration <= time) {
@@ -225,10 +208,10 @@ class RandomBehaviour extends Behaviour {
         }
         // Nothing todo ?
         if (!this.isTalking) {
-            let vel = getDirectionVector(this.currentDirection, 1);
-            // Matter.Body.setVelocity(this.animal.getBody(), vel);
+            let vel = getDirectionVector(this.currentDirection, 100);
+            body.velocity.copyFrom(vel);
         } else {
-            // Matter.Body.setVelocity(this.animal.getBody(), {x: 0, y: 0});
+            body.velocity.set(0, 0);
         }
     }
 

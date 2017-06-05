@@ -15,11 +15,10 @@ export abstract class Pnj extends GameObject {
         let sprite = new AnimatedSprite(texture, spriteDef, animationDefs);
         sprite.position.set(worldObject.x, worldObject.y);
 
-        let body = new Body();
-        body.position.x = worldObject.x;
-        body.position.y = worldObject.y;
-        body.size.x = sprite.texture.width;
-        body.size.y = sprite.texture.height;
+        let body = new Body(worldObject.x,
+                            worldObject.y,
+                            sprite.texture.width,
+                            sprite.texture.height);
 
         super("pnj", world, body, sprite);
 
