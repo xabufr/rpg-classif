@@ -13,10 +13,14 @@ export abstract class Pnj extends GameObject {
 
     constructor(worldObject: WorldObject, world: World, player: Player, texture: PIXI.Texture, spriteDef: SpritesheetDefinition, animationDefs: AnimationDefinition[]) {
         let sprite = new AnimatedSprite(texture, spriteDef, animationDefs);
-        sprite.position.set(worldObject.x, worldObject.y);
+        let position = {
+            x: worldObject.x - sprite.texture.width / 2,
+            y: worldObject.y - sprite.texture.height / 2
+        };
+        sprite.position.set(position.x, position.y);
 
-        let body = new Body(worldObject.x,
-                            worldObject.y,
+        let body = new Body(position.x,
+                            position.y,
                             sprite.texture.width,
                             sprite.texture.height);
 
