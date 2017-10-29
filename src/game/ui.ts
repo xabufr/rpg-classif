@@ -95,7 +95,14 @@ class GameOverScreen {
         this.group.scale.set(0, 0);
         new Tween(this.group.scale)
             .to({x: 1, y: 1}, 500)
-            .start();
+            .start()
+            .onComplete(() => {
+                const retry = () => {
+                    keyboardJS.unbind("enter", retry);
+                    this.world.getGame().restart();
+                };
+                keyboardJS.bind("enter", retry);
+            });
     }
 }
 

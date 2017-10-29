@@ -8,6 +8,7 @@ import { DEBUGGING, LANG } from "./options";
 import { PhysicsWorld } from "./engine/physics";
 import Stats = require("stats.js");
 import * as TWEEN from 'es6-tween/src/index.lite'
+import keyboardJS = require("keyboardjs");
 
 let stats: Stats | null = null;
 
@@ -17,6 +18,7 @@ if (DEBUGGING) {
 
 export class Game {
     private renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
+    private started: boolean;
     private world: World;
     private map: Map;
     private player: Player;
@@ -28,6 +30,7 @@ export class Game {
     private physics: PhysicsWorld;
 
     constructor() {
+        this.started = false;
         TWEEN.autoPlay(true);
         this.physics = new PhysicsWorld();
         if (DEBUGGING) {
@@ -45,18 +48,25 @@ export class Game {
             document.body.appendChild( stats.dom );
         }
         this.gameLoopFn = this.gameLoop.bind(this);
-
-        this.world = new World(this.renderer, this.physics);
-        this.hud = new GameHud(this.world);
-
         this.renderer.options.backgroundColor = 0x061639;
         this.renderer.view.style.border = "1px dashed red";
+        this.reset();
+    }
 
-        let stage = this.world.stage;
+    public restart() {
+        this.reset();
+    }
+
+    public reset() {
+        keyboardJS.reset();
+        this.world = new World(this, this.renderer, this.physics);
+        this.hud = new GameHud(this.world);
+
         this.load().then(() => this.start());
     }
 
     private load() {
+        PIXI.loader.reset();
         PIXI.loader.baseUrl = "./assets/";
 
         this.hud.preload();
@@ -125,7 +135,10 @@ export class Game {
 
     private start() {
         this.lastUpdate = performance.now();
-        requestAnimationFrame(this.gameLoopFn);
+        if (this.started === false) {
+            this.started = true;
+            requestAnimationFrame(this.gameLoopFn);
+        }
     }
 
     private computeDelta(): number {

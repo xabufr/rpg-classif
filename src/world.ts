@@ -1,3 +1,4 @@
+import { Game } from "./game";
 import { GameHud } from "./game/ui";
 import { Map } from "./game/map";
 import { GameObject } from "./game/gameObject";
@@ -18,6 +19,7 @@ export class World {
     private lastDelta: number;
 
     constructor(
+        public readonly game: Game,
         public readonly renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer,
         public readonly physics: PhysicsWorld
     ) {
@@ -80,6 +82,10 @@ export class World {
 
     public getHud() {
         return this.hud;
+    }
+
+    public getGame() {
+        return this.game;
     }
 }
 
