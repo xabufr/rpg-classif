@@ -47,7 +47,7 @@ export class Game {
         this.world = new World(this.renderer, this.physics);
         this.hud = new GameHud(this.world);
 
-        this.renderer.backgroundColor = 0x061639;
+        this.renderer.options.backgroundColor = 0x061639;
         this.renderer.view.style.border = "1px dashed red";
 
         let stage = this.world.stage;
