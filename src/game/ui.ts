@@ -4,6 +4,8 @@ import { Tween } from "es6-tween/src/index.lite";
 import { Player } from "./player";
 
 const FONT_SIZE = 24;
+const UP_ARROW = "↑";
+const DOWN_ARROW = "↓";
 
 export class GameUi {
     private monologDialog: MonologDialog;
@@ -261,9 +263,20 @@ export class QuestionDialog {
     }
 
     private computeText() {
-        this.text.text = this.question.title +
-            "\n" +
-            this.question.answers[this.currentAnswer].text;
+        let text = this.question.title + "\n";
+        const answers = this.question.answers;
+        if (this.currentAnswer < answers.length - 1) {
+            text += DOWN_ARROW;
+        } else {
+            text += " ";
+        }
+        if (this.currentAnswer > 0) {
+            text += UP_ARROW;
+        } else {
+            text += " ";
+        }
+        text += " "+ answers[this.currentAnswer].text;
+        this.text.text = text;
     }
 
     private doAnswer() {
