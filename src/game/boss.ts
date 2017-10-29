@@ -140,6 +140,7 @@ export class Boss extends Pnj {
                     pBody.position.copyFrom(this.lastOutPlayerPosition);
                 }
                 this.player.canMove = true;
+                this.player.removeLife();
             });
     }
 

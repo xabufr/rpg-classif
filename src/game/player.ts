@@ -13,6 +13,7 @@ enum PlayerKeys {
 export class Player extends GameObject {
     private directions: Direction[];
     private lastDirection: Direction;
+    private lives: number;
     public canMove: boolean;
     private animations: {
         [dir: number]: Animation;
@@ -59,7 +60,7 @@ export class Player extends GameObject {
         }]);
         super("player", world, body, sprite);
 
-
+        this.lives = 3;
         this.directions = [];
         world.stage.addChild(sprite);
         world.cameraFollow(this);
@@ -69,6 +70,10 @@ export class Player extends GameObject {
         this.setupControls();
         this.setupPhysics();
         this.canMove = true;
+    }
+
+    public removeLife() {
+        --this.lives;
     }
 
     private setupControls() {
