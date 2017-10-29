@@ -23,7 +23,7 @@ export class Rectangle {
             this.position.y + this.size.y <= other.position.y + other.size.y;
     }
 }
-interface IVector {
+export interface IVector {
     x: number;
     y: number;
 }

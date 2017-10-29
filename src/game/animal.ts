@@ -6,7 +6,7 @@ import { World } from "../world";
 import { Player } from "./player";
 import { Direction, Directions, getDirectionVector } from "./direction";
 import { GameObject } from "./gameObject";
-import { Rectangle } from "../engine/physics";
+import { Rectangle, IVector } from "../engine/physics";
 
 type BehaviourString = "passive" | "follower" | "fugitive" | "random";
 
@@ -43,6 +43,7 @@ const frames = [{
 export class Animal extends Pnj {
     private behaviour: Behaviour;
     public readonly talk: string;
+    public readonly bestiaryIndex: IVector;
 
     constructor(o: WorldObject, world: World, player: Player) {
         if (!o.properties || !o.properties.textureName) {
@@ -62,6 +63,13 @@ export class Animal extends Pnj {
         if (!o.properties || !o.properties.talk) {
             throw `Missing talk property in animal ${o.name}`;
         }
+        if (o.properties.bestiary_x === undefined || o.properties.bestiary_y === undefined) {
+            throw `Missing bestiary index for animal ${o.name} (${JSON.stringify(o.properties)})`;
+        }
+        this.bestiaryIndex = {
+            x: o.properties.bestiary_x,
+            y: o.properties.bestiary_y,
+        };
         let dialogKey: string = o.properties.talk;
         let dialogData = resources["dialogs"].data[dialogKey];
         if (!dialogData || !dialogData.text) {
@@ -74,6 +82,10 @@ export class Animal extends Pnj {
     public update(delta: number) {
         super.update(delta);
         this.behaviour.update(delta);
+    }
+
+    public getBestiaryIndex() {
+        return this.bestiaryIndex;
     }
 
     public onCollisionStart(other: GameObject) {
@@ -126,6 +138,7 @@ abstract class Behaviour {
                 .getMonologDialog()
                 .showTextToPlayer(this.animal.talk, () => {
                     player.canMove = true;
+                    player.animalMet(this.animal);
                     this.isTalking = false;
                     this.lastTalkMs = performance.now();
                 });

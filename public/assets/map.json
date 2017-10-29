@@ -43,7 +43,6 @@
         }, 
         {
          "draworder":"topdown",
-         "height":100,
          "name":"world-creatures",
          "objects":[
                 {
@@ -224,6 +223,8 @@
                  "properties":
                     {
                      "behaviour":"random",
+                     "bestiary_x":3,
+                     "bestiary_y":0,
                      "talk":"grey_wolf",
                      "textureName":"grey_wolf",
                      "zone":"grey_wolf_zone"
@@ -231,6 +232,8 @@
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string",
                      "zone":"string"
@@ -249,12 +252,16 @@
                  "properties":
                     {
                      "behaviour":"passive",
+                     "bestiary_x":1,
+                     "bestiary_y":0,
                      "talk":"ostrich",
                      "textureName":"ostrich"
                     },
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string"
                     },
@@ -272,6 +279,8 @@
                  "properties":
                     {
                      "behaviour":"random",
+                     "bestiary_x":0,
+                     "bestiary_y":0,
                      "talk":"bee",
                      "textureName":"bee",
                      "zone":"bee_zone"
@@ -279,6 +288,8 @@
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string",
                      "zone":"string"
@@ -297,12 +308,16 @@
                  "properties":
                     {
                      "behaviour":"passive",
+                     "bestiary_x":0,
+                     "bestiary_y":2,
                      "talk":"fish",
                      "textureName":"fish"
                     },
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string"
                     },
@@ -320,6 +335,8 @@
                  "properties":
                     {
                      "behaviour":"random",
+                     "bestiary_x":2,
+                     "bestiary_y":0,
                      "talk":"frog",
                      "textureName":"frog",
                      "zone":"frog_zone"
@@ -327,6 +344,8 @@
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string",
                      "zone":"string"
@@ -345,6 +364,8 @@
                  "properties":
                     {
                      "behaviour":"random",
+                     "bestiary_x":0,
+                     "bestiary_y":1,
                      "talk":"mouse",
                      "textureName":"mouse",
                      "zone":"mouse_zone"
@@ -352,6 +373,8 @@
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string",
                      "zone":"string"
@@ -370,6 +393,8 @@
                  "properties":
                     {
                      "behaviour":"random",
+                     "bestiary_x":1,
+                     "bestiary_y":1,
                      "talk":"rabbit",
                      "textureName":"rabbit",
                      "zone":"rabbit_zone"
@@ -377,6 +402,8 @@
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string",
                      "zone":"string"
@@ -395,12 +422,16 @@
                  "properties":
                     {
                      "behaviour":"passive",
+                     "bestiary_x":2,
+                     "bestiary_y":1,
                      "talk":"snake",
                      "textureName":"snake"
                     },
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string"
                     },
@@ -418,6 +449,8 @@
                  "properties":
                     {
                      "behaviour":"random",
+                     "bestiary_x":1,
+                     "bestiary_y":2,
                      "talk":"wild_rabbit",
                      "textureName":"wild_rabbit",
                      "zone":"wild_rabbit_zone"
@@ -425,6 +458,8 @@
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string",
                      "zone":"string"
@@ -443,6 +478,8 @@
                  "properties":
                     {
                      "behaviour":"random",
+                     "bestiary_x":3,
+                     "bestiary_y":2,
                      "talk":"chicken",
                      "textureName":"chicken",
                      "zone":"chicken_zone"
@@ -450,6 +487,8 @@
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string",
                      "zone":"string"
@@ -468,6 +507,8 @@
                  "properties":
                     {
                      "behaviour":"random",
+                     "bestiary_x":3,
+                     "bestiary_y":1,
                      "talk":"white_wolf",
                      "textureName":"white_wolf",
                      "zone":"white_wolf_zone"
@@ -475,6 +516,8 @@
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string",
                      "zone":"string"
@@ -493,6 +536,8 @@
                  "properties":
                     {
                      "behaviour":"random",
+                     "bestiary_x":2,
+                     "bestiary_y":2,
                      "talk":"butterfly",
                      "textureName":"butterfly",
                      "zone":"butterfly_zone"
@@ -500,6 +545,8 @@
                  "propertytypes":
                     {
                      "behaviour":"string",
+                     "bestiary_x":"int",
+                     "bestiary_y":"int",
                      "talk":"string",
                      "textureName":"string",
                      "zone":"string"
@@ -535,13 +582,11 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":100,
          "x":0,
          "y":0
         }, 
         {
          "draworder":"topdown",
-         "height":100,
          "name":"world-zones",
          "objects":[
                 {
@@ -744,13 +789,13 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":100,
          "x":0,
          "y":0
         }],
  "nextobjectid":77,
  "orientation":"orthogonal",
  "renderorder":"right-down",
+ "tiledversion":"1.0.3",
  "tileheight":32,
  "tilesets":[
         {
@@ -2142,6 +2187,7 @@
          "tilewidth":32
         }],
  "tilewidth":32,
+ "type":"map",
  "version":1,
  "width":100
 }

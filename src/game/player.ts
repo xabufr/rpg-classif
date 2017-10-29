@@ -4,6 +4,7 @@ import { World } from "../world";
 import { Direction } from "./direction";
 import { Body } from "../engine/physics";
 import { Tween } from "es6-tween/src/index.lite";
+import { Animal } from "./animal";
 import keyboardJS = require("keyboardjs");
 
 const SPEED = 300.0;
@@ -12,7 +13,7 @@ enum PlayerKeys {
     UP = 38, DOWN = 40, RIGHT = 39, LEFT = 37
 }
 
-export type PlayerEvents = "life-changed";
+export type PlayerEvents = "life-changed" | "animal-met";
 
 export class Player extends GameObject {
     private directions: Direction[];
@@ -23,6 +24,7 @@ export class Player extends GameObject {
     private listeners: {
         [eventName: string]: ((player: Player) => void)[];
     };
+    private metAnimals: Animal[];
     private animations: {
         [dir: number]: Animation;
         current: Animation;
@@ -69,11 +71,13 @@ export class Player extends GameObject {
         super("player", world, body, sprite);
 
         this.listeners = {
-            "life-changed": []
+            "life-changed": [],
+            "animal-met": [],
         };
         this.lives = lives;
         this.directions = [];
         this.maxLives = maxLives;
+        this.metAnimals = [];
         world.stage.addChild(sprite);
         world.cameraFollow(this);
 
@@ -198,5 +202,16 @@ export class Player extends GameObject {
             return this.directions[this.directions.length - 1];
         }
         return null;
+    }
+
+    public animalMet(animal: Animal) {
+        if (this.metAnimals.indexOf(animal) === -1) {
+            this.metAnimals.push(animal);
+            this.fire("animal-met");
+        }
+    }
+
+    public getMetAnimals() {
+        return this.metAnimals;
     }
 }

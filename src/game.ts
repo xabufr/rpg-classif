@@ -61,6 +61,7 @@ export class Game {
 
     public reset() {
         keyboardJS.reset();
+        keyboardJS.setContext("game");
         this.world = new World(this, this.renderer, this.physics);
         this.hud = new GameUi(this.world);
 

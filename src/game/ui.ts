@@ -12,18 +12,21 @@ export class GameUi {
     private monologDialog: MonologDialog;
     private questionDialog: QuestionDialog;
     private gameHud: GameHud;
+    private bestiary: Bestiary;
 
     public constructor(private world: World) {
         world.setHud(this);
         this.monologDialog = new MonologDialog(this.world);
         this.questionDialog = new QuestionDialog(this.world);
         this.gameHud = new GameHud(this.world);
+        this.bestiary = new Bestiary(this.world);
     }
 
     public setup() {
         this.gameHud.setup();
         this.monologDialog.setup();
         this.questionDialog.setup();
+        this.bestiary.setup();
     }
 
     public gameOver() {
@@ -31,6 +34,7 @@ export class GameUi {
     }
 
     public preload(): void {
+        this.bestiary.preload();
         this.gameHud.preload();
         this.monologDialog.preload();
         this.questionDialog.preload();
@@ -50,6 +54,127 @@ export class GameUi {
 
     public getQuesrtionDialog() {
         return this.questionDialog;
+    }
+}
+
+class BestiaryCard {
+    static readonly CARD_SIZE = {
+        x: 150,
+        y: 180,
+    };
+
+    private unknownSprite: PIXI.Sprite;
+    private discoveredSprite: PIXI.Sprite;
+
+    constructor(private x: number, private y: number, container: PIXI.Container, world: World) {
+        const baseTexture = PIXI.loader.resources[Bestiary.CARDS].texture.baseTexture;
+        let startX = BestiaryCard.CARD_SIZE.x * x * 2;
+        let startY = BestiaryCard.CARD_SIZE.y * y;
+        let discoveredTex = new PIXI.Texture(baseTexture,
+                                          new PIXI.Rectangle(startX,
+                                                             startY,
+                                                             BestiaryCard.CARD_SIZE.x,
+                                                             BestiaryCard.CARD_SIZE.y));
+        let unknownTex = new PIXI.Texture(baseTexture,
+                                          new PIXI.Rectangle(startX + BestiaryCard.CARD_SIZE.x,
+                                                             startY,
+                                                             BestiaryCard.CARD_SIZE.x,
+                                                             BestiaryCard.CARD_SIZE.y));
+
+        this.unknownSprite = new PIXI.Sprite(unknownTex);
+        this.discoveredSprite = new PIXI.Sprite(discoveredTex);
+
+        let cardContainer = new PIXI.Container();
+
+        let space = {
+            x: (world.renderer.width - BestiaryCard.CARD_SIZE.x * 4) / 5,
+            y: (world.renderer.height - BestiaryCard.CARD_SIZE.y * 3 - 30) / 4,
+        };
+        cardContainer.position.set((BestiaryCard.CARD_SIZE.x + space.x) * x + space.x,
+                                   (BestiaryCard.CARD_SIZE.y + space.y) * y + space.y + 30);
+
+        cardContainer.addChild(this.unknownSprite);
+        cardContainer.addChild(this.discoveredSprite);
+        container.addChild(cardContainer);
+        this.setDiscovered(false);
+    }
+
+    public setDiscovered(discovered: boolean) {
+        this.unknownSprite.visible = !discovered;
+        this.discoveredSprite.visible = discovered;
+    }
+}
+
+class Bestiary {
+    static readonly KEY = "a";
+    static readonly CONTEXT = "bestiary";
+    static readonly BACKGROUND = "bestiary_background";
+    static readonly CARDS = "bestiary_cards";
+
+    private layer: PIXI.Container;
+    private oldContext: string;
+    private animalsSprites: BestiaryCard[][];
+
+    constructor(private world: World) {
+    }
+
+    public preload() {
+        PIXI.loader.add(Bestiary.BACKGROUND, "images/bestiaire/background.png");
+        PIXI.loader.add(Bestiary.CARDS, "images/bestiaire/creatures.png");
+    }
+
+    public setup() {
+        this.bindKeys();
+        this.layer = new PIXI.Container();
+
+        let background = new PIXI.Sprite(PIXI.loader.resources[Bestiary.BACKGROUND].texture);
+        this.layer.addChild(background);
+        let player = this.world.getGame().getPlayer();
+        player.on("animal-met", () => this.updateBestiary());
+
+        this.animalsSprites = [];
+        for (let x = 0; x < 4; ++x) {
+            this.animalsSprites[x] = [];
+            for (let y = 0; y < 3; ++y) {
+                this.animalsSprites[x][y] = new BestiaryCard(x, y, this.layer, this.world);
+            }
+        }
+
+        this.world.uiStage.addChild(this.layer);
+    }
+
+    public show() {
+        this.oldContext = keyboardJS.getContext();
+        keyboardJS.setContext(Bestiary.CONTEXT);
+        this.layer.visible = true;
+    }
+
+    private updateBestiary() {
+        const player = this.world.getGame().getPlayer();
+        let metAnimals = player.getMetAnimals();
+
+        metAnimals.forEach(animal => {
+            const index = animal.getBestiaryIndex();
+            this.animalsSprites[index.x][index.y].setDiscovered(true);
+        });
+    }
+
+    private close() {
+        keyboardJS.setContext(this.oldContext);
+        this.layer.visible = false;
+    }
+
+    private bindKeys() {
+        keyboardJS.withContext("game", () => {
+            keyboardJS.bind(Bestiary.KEY, () => {
+                this.show();
+            });
+        });
+        keyboardJS.withContext(Bestiary.CONTEXT, () => {
+            keyboardJS.bind(Bestiary.KEY, () => {
+                this.close();
+            });
+        });
     }
 }
 
@@ -84,13 +209,16 @@ class GameHud {
         const missingHeartTexture = this.getHudIconTexture(3);
         this.livesSprite = new PIXI.extras.TilingSprite(fullHearthTexture, HUD_ICON_WIDTH * 0, HUD_ICON_HEIGHT);
         this.missingLivesSprite = new PIXI.extras.TilingSprite(missingHeartTexture, HUD_ICON_WIDTH * 0, HUD_ICON_HEIGHT);
+        let bookSprite = new PIXI.Sprite(this.getHudIconTexture(1));
+        bookSprite.position.set(4, 4);
 
         this.background = new PIXI.Sprite(PIXI.loader.resources[GAME_HUD_BACKGROUND].texture);
         let livesContainer = new PIXI.Container();
-        livesContainer.position.set(4,4);
+        livesContainer.position.set(4 + 1 + HUD_ICON_WIDTH,4);
         livesContainer.addChild(this.missingLivesSprite);
         livesContainer.addChild(this.livesSprite);
         this.layer.addChild(this.background);
+        this.layer.addChild(bookSprite);
         this.layer.addChild(livesContainer);
         this.layer.position.set(this.world.renderer.width - this.layer.width - 5, 5);
 
