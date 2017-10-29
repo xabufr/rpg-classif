@@ -54,6 +54,7 @@ export class GameUi {
 }
 
 const GAME_HUD_ICONS = "hud-icons";
+const GAME_HUD_BACKGROUND = "hud-background";
 const HEART_WIDTH = 15;
 const HEART_HEIGHT = 13;
 
@@ -61,6 +62,7 @@ class GameHud {
     private player: Player;
     private livesSprite: PIXI.Sprite;
     private missingLivesSprite: PIXI.Sprite;
+    private background: PIXI.Sprite;
     private layer: PIXI.Container;
 
     constructor(private world: World) {
@@ -68,6 +70,7 @@ class GameHud {
 
     public preload() {
         PIXI.loader.add(GAME_HUD_ICONS, "images/HUD-icons.png"); // HUD Icons
+        PIXI.loader.add(GAME_HUD_BACKGROUND, "images/HUD-background.png"); // HUD Background
     }
     public setup() {
         this.player = this.world.getGame().getPlayer();
@@ -81,10 +84,15 @@ class GameHud {
         const missingHeartTexture = new PIXI.Texture(baseTexture.baseTexture, new PIXI.Rectangle(HEART_WIDTH * 3, 0, HEART_WIDTH, HEART_HEIGHT));
         this.livesSprite = new PIXI.extras.TilingSprite(fullHearthTexture, HEART_WIDTH * 0, HEART_HEIGHT);
         this.missingLivesSprite = new PIXI.extras.TilingSprite(missingHeartTexture, HEART_WIDTH * 0, HEART_HEIGHT);
+
+        this.background = new PIXI.Sprite(PIXI.loader.resources[GAME_HUD_BACKGROUND].texture);
         let livesContainer = new PIXI.Container();
+        livesContainer.position.set(4,4);
         livesContainer.addChild(this.missingLivesSprite);
         livesContainer.addChild(this.livesSprite);
+        this.layer.addChild(this.background);
         this.layer.addChild(livesContainer);
+        this.layer.position.set(this.world.renderer.width - this.layer.width - 5, 5);
 
         this.updateLives();
     }
