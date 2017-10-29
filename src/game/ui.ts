@@ -1,5 +1,6 @@
 import { World } from "../world";
 import keyboardJS = require("keyboardjs");
+import { Tween } from "es6-tween/src/index.lite";
 
 const FONT_SIZE = 24;
 
@@ -16,6 +17,10 @@ export class GameHud {
     public setup() {
         this.monologDialog.setup();
         this.questionDialog.setup();
+    }
+
+    public gameOver() {
+        new GameOverScreen(this.world);
     }
 
     public preload(): void {
@@ -45,6 +50,53 @@ export class Question {
     answers: {
         text: string;
     }[];
+}
+
+class GameOverScreen {
+    private gameOverText: PIXI.Text;
+    private retryText: PIXI.Text;
+    private background: PIXI.Graphics;
+    private group: PIXI.Container;
+
+    constructor(private world: World) {
+        this.gameOverText = new PIXI.Text("Game Over", {
+            fontSize: FONT_SIZE * 3,
+            fontFamily: "Perfect",
+            // fontStyle: "justify",
+            fill: "#EEEEEE",
+        });
+        this.retryText = new PIXI.Text("Try again Looser !", {
+            fontSize: FONT_SIZE,
+            fontFamily: "Perfect",
+            // fontStyle: "justify",
+            fill: "#EEEEEE",
+        });
+        this.gameOverText.anchor.set(0.5, 0.5);
+        this.retryText.anchor.set(0.5, 0.5);
+
+        this.gameOverText.position.y = -this.retryText.height / 2;
+        this.retryText.position.y = this.gameOverText.height / 2;
+
+        this.background = new PIXI.Graphics();
+        this.background.beginFill(0x363636);
+        const bWidth = (this.gameOverText.width + this.retryText.width) * 1.2
+        const bHeight = (this.gameOverText.height + this.retryText.height) * 1.2;
+        this.background.drawRoundedRect(0, 0, bWidth, bHeight, 10);
+        this.background.position.set(-bWidth / 2, -bHeight / 2);
+
+        this.group = new PIXI.Container();
+        this.group.addChild(this.background);
+        this.group.addChild(this.gameOverText);
+        this.group.addChild(this.retryText);
+        this.group.position.set(this.world.renderer.width / 2,
+                                this.world.renderer.height / 2);
+
+        this.world.uiStage.addChild(this.group);
+        this.group.scale.set(0, 0);
+        new Tween(this.group.scale)
+            .to({x: 1, y: 1}, 500)
+            .start();
+    }
 }
 
 export class QuestionDialog {

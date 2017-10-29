@@ -7,6 +7,7 @@ import { AnimatedSprite } from "./engine/animatedSprite";
 import { DEBUGGING, LANG } from "./options";
 import { PhysicsWorld } from "./engine/physics";
 import Stats = require("stats.js");
+import * as TWEEN from 'es6-tween/src/index.lite'
 
 let stats: Stats | null = null;
 
@@ -27,6 +28,7 @@ export class Game {
     private physics: PhysicsWorld;
 
     constructor() {
+        TWEEN.autoPlay(true);
         this.physics = new PhysicsWorld();
         if (DEBUGGING) {
             console.log("Loading game in debugging mode !");
@@ -126,19 +128,28 @@ export class Game {
         requestAnimationFrame(this.gameLoopFn);
     }
 
-    public computeDelta(): number {
+    private computeDelta(): number {
         let now = performance.now();
         let delta = now - this.lastUpdate;
         this.lastUpdate = now;
         return delta;
     }
 
-    public gameLoop(now: number) {
+    private gameLoop(now: number) {
         requestAnimationFrame(this.gameLoopFn);
 
         if (stats) {
             stats.begin();
         }
+
+        this.doGameLoop();
+
+        if (stats) {
+            stats.end();
+        }
+    }
+
+    private doGameLoop() {
         let delta = this.computeDelta();
 
         this.physics.update(delta);
@@ -149,9 +160,5 @@ export class Game {
         this.world.getHud().update();
         this.world.preRender();
         this.world.render();
-
-        if (stats) {
-            stats.end();
-        }
     }
 }

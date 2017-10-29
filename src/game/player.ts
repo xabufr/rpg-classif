@@ -3,6 +3,7 @@ import { AnimatedSprite, Animation } from "../engine/animatedSprite";
 import { World } from "../world";
 import { Direction } from "./direction";
 import { Body } from "../engine/physics";
+import { Tween } from "es6-tween/src/index.lite";
 import keyboardJS = require("keyboardjs");
 
 const SPEED = 300.0;
@@ -68,12 +69,18 @@ export class Player extends GameObject {
         this.animations = this.initAnimations();
 
         this.setupControls();
-        this.setupPhysics();
         this.canMove = true;
     }
 
     public removeLife() {
-        --this.lives;
+        if (--this.lives == 0) {
+            this.canMove = false;
+            let sprite = <AnimatedSprite> this.sprite;
+            new Tween(sprite)
+                .to({alpha: 0}, 1000)
+                .start()
+                .onComplete(() => this.world.getHud().gameOver());
+        }
     }
 
     private setupControls() {
@@ -109,11 +116,6 @@ export class Player extends GameObject {
                 this.directions.splice(index, 1);
             }
         });
-    }
-
-    private setupPhysics() {
-        // this.game.physics.enable(this);
-        // this.body.collideWorldBounds = true;
     }
 
     public update(delta: number): void {
