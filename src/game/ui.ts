@@ -6,6 +6,7 @@ import { Player } from "./player";
 const FONT_SIZE = 24;
 const UP_ARROW = "↑";
 const DOWN_ARROW = "↓";
+const UP_DOWN_ARROW = "↕";
 
 export class GameUi {
     private monologDialog: MonologDialog;
@@ -265,15 +266,12 @@ export class QuestionDialog {
     private computeText() {
         let text = this.question.title + "\n";
         const answers = this.question.answers;
-        if (this.currentAnswer < answers.length - 1) {
+        if (this.currentAnswer == 0) {
             text += DOWN_ARROW;
-        } else {
-            text += " ";
-        }
-        if (this.currentAnswer > 0) {
+        } else if (this.currentAnswer == answers.length - 1) {
             text += UP_ARROW;
         } else {
-            text += " ";
+            text += UP_DOWN_ARROW;
         }
         text += " "+ answers[this.currentAnswer].text;
         this.text.text = text;
