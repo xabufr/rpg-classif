@@ -55,8 +55,8 @@ export class GameUi {
 
 const GAME_HUD_ICONS = "hud-icons";
 const GAME_HUD_BACKGROUND = "hud-background";
-const HEART_WIDTH = 15;
-const HEART_HEIGHT = 13;
+const HUD_ICON_WIDTH = 15;
+const HUD_ICON_HEIGHT = 13;
 
 class GameHud {
     private player: Player;
@@ -72,6 +72,7 @@ class GameHud {
         PIXI.loader.add(GAME_HUD_ICONS, "images/HUD-icons.png"); // HUD Icons
         PIXI.loader.add(GAME_HUD_BACKGROUND, "images/HUD-background.png"); // HUD Background
     }
+
     public setup() {
         this.player = this.world.getGame().getPlayer();
         this.player.on("life-changed", () => this.updateLives());
@@ -79,11 +80,10 @@ class GameHud {
         this.layer = new PIXI.Container();
         this.world.uiStage.addChild(this.layer);
 
-        const baseTexture = PIXI.loader.resources[GAME_HUD_ICONS].texture;
-        const fullHearthTexture = new PIXI.Texture(baseTexture.baseTexture, new PIXI.Rectangle(HEART_WIDTH * 2, 0, HEART_WIDTH, HEART_HEIGHT));
-        const missingHeartTexture = new PIXI.Texture(baseTexture.baseTexture, new PIXI.Rectangle(HEART_WIDTH * 3, 0, HEART_WIDTH, HEART_HEIGHT));
-        this.livesSprite = new PIXI.extras.TilingSprite(fullHearthTexture, HEART_WIDTH * 0, HEART_HEIGHT);
-        this.missingLivesSprite = new PIXI.extras.TilingSprite(missingHeartTexture, HEART_WIDTH * 0, HEART_HEIGHT);
+        const fullHearthTexture = this.getHudIconTexture(2);
+        const missingHeartTexture = this.getHudIconTexture(3);
+        this.livesSprite = new PIXI.extras.TilingSprite(fullHearthTexture, HUD_ICON_WIDTH * 0, HUD_ICON_HEIGHT);
+        this.missingLivesSprite = new PIXI.extras.TilingSprite(missingHeartTexture, HUD_ICON_WIDTH * 0, HUD_ICON_HEIGHT);
 
         this.background = new PIXI.Sprite(PIXI.loader.resources[GAME_HUD_BACKGROUND].texture);
         let livesContainer = new PIXI.Container();
@@ -97,12 +97,17 @@ class GameHud {
         this.updateLives();
     }
 
+    private getHudIconTexture(icon: number) {
+        const baseTexture = PIXI.loader.resources[GAME_HUD_ICONS].texture;
+        return new PIXI.Texture(baseTexture.baseTexture, new PIXI.Rectangle(HUD_ICON_WIDTH * icon, 0, HUD_ICON_WIDTH, HUD_ICON_HEIGHT));
+    }
+
     private updateLives() {
         const maxLives = this.player.getMaxLives();
         const lives = this.player.getLives();
 
-        this.missingLivesSprite.width = HEART_WIDTH * maxLives;
-        this.livesSprite.width = HEART_WIDTH * lives;
+        this.missingLivesSprite.width = HUD_ICON_WIDTH * maxLives;
+        this.livesSprite.width = HUD_ICON_WIDTH * lives;
     }
 }
 
