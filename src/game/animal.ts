@@ -149,18 +149,6 @@ class PassiveBehaviour extends Behaviour {
 
 }
 
-const ANIMAL_WALL_TYPE = "animal-wall";
-// class AnimalZoneWall extends GameObject {
-//     constructor(public readonly animal: Animal, rec: PIXI.Rectangle) {
-//         super("animal-wall", animal.getWorld(), rectToBody(rec), null);
-//         if (this.body) {
-//             // this.body.isStatic = true;
-//             // this.body.collisionFilter.group = 0x2;
-//             // this.body.collisionFilter.category = 0x2;
-//             // this.body.collisionFilter.mask = 0x2;
-//         }
-//     }
-// }
 const WALL_WIDTH = 50;
 class RandomBehaviour extends Behaviour {
     private zone: Rectangle;
@@ -177,34 +165,21 @@ class RandomBehaviour extends Behaviour {
         }
         let zoneName = this.worldObject.properties.zone;
         let zone = this.animal.getWorld().getMap().getZoneNamed(zoneName);
-        this.chooseRandomDirection();
         this.lastDecitionMs = 0;
         this.zone = new Rectangle(zone.x,
                                   zone.y,
                                   zone.width,
                                   zone.height);
-    }
-
-    public onCollisionStart(other: GameObject) {
-        super.onCollisionStart(other);
-        if (other.type === ANIMAL_WALL_TYPE) {
-            // let wall = <AnimalZoneWall> other;
-            // if (wall.animal === this.animal) {
-            //     this.currentAnimation.stop();
-            // }
-        }
+        this.animal.getBody().setWorldBounds(this.zone);
+        this.animal.getBody().onCollideWithBounds(() => this.collideWithBounds());
+        this.chooseRandomDirection();
     }
 
     public update(delta: number) {
         let body = this.animal.getBody();
-        if (!(body.isContainedExactlyIn(this.zone))) {
-            body.position.copyFrom(this.worldObject);
-        }
         let time = window.performance.now();
         if (!this.isTalking && this.lastDecitionMs + this.directionDuration <= time) {
-            this.lastDecitionMs = time;
-            this.chooseRandomDirection();
-            this.currentAnimation.play();
+            this.changeWalkDirection(time);
         }
         // Nothing todo ?
         if (!this.isTalking) {
@@ -215,14 +190,44 @@ class RandomBehaviour extends Behaviour {
         }
     }
 
+    private changeWalkDirection(now: number) {
+        this.lastDecitionMs = now;
+        this.chooseRandomDirection();
+        this.currentAnimation.play();
+    }
+
+    private collideWithBounds() {
+        this.changeWalkDirection(window.performance.now());
+    }
+
     private chooseRandomDirection() {
-        let dirIndex = Math.floor(Math.random() * 1000) % 4;
-        this.currentDirection = Directions[dirIndex];
+        const allowedDirections = this.getAllowedDirectionConsideringZoneBounds();
+        const dirIndex = Math.floor(Math.random() * 1000) % allowedDirections.length;
+
+        this.currentDirection = allowedDirections[dirIndex];
         this.directionDuration = Math.random() * 500 + 500;
 
-        let animation = this.animal.getSprite()
+        const animation = this.animal.getSprite()
             .getAnimation(Direction[this.currentDirection].toLocaleLowerCase());
         this.currentAnimation = animation;
+    }
+
+    private getAllowedDirectionConsideringZoneBounds() {
+        let allowedDirections = [];
+        let body = this.animal.getBody();
+        if (body.position.y - this.zone.position.y > 10) {
+            allowedDirections.push(Direction.UP);
+        }
+        if ((this.zone.position.y + this.zone.size.y) - (body.position.y + body.size.y) > 10) {
+            allowedDirections.push(Direction.DOWN);
+        }
+        if (body.position.x - this.zone.position.x > 10) {
+            allowedDirections.push(Direction.LEFT);
+        }
+        if ((this.zone.position.x + this.zone.size.x) - (body.position.x + body.size.x) > 10) {
+            allowedDirections.push(Direction.RIGHT);
+        }
+        return allowedDirections;
     }
 }
 

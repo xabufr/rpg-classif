@@ -84,10 +84,21 @@ export class PhysicsWorld {
         for (let i = 0; i < this.bodies.length; ++i) {
             let body = this.bodies[i];
             body.computeNewPosition(delta);
-            if (this.collideWithMap(body) || this.willCollide(body)) {
+            if (this.collideWithMap(body)
+                || this.collideWithBodyBounds(body)
+                || this.willCollide(body)) {
                 body.rollback();
             }
+
         }
+    }
+
+    public collideWithBodyBounds(body: Body) {
+        if (!body.isInBounds()) {
+            body.getCollisionWorldBoundsCb().forEach(cb => cb());
+            return !body.isInBounds();
+        }
+        return false;
     }
 
     public collideWithMap(body: Body) {
@@ -117,12 +128,19 @@ export class Body extends Rectangle {
     private oldPosition: Vector;
     private gameObject: GameObject;
     private collisionCb: ((other: Body) => void)[];
+    private worldBounds?: Rectangle;
+    private collisionWorldBoundsCb: (() => void)[];
 
     constructor(x = 0, y = 0, w = 0, h = 0) {
         super(x, y, w, h);
         this.velocity = new Vector();
         this.oldPosition = new Vector();
         this.collisionCb = [];
+        this.collisionWorldBoundsCb = [];
+    }
+
+    public setWorldBounds(worldBounds?: Rectangle) {
+        this.worldBounds = worldBounds;
     }
 
     public collides(other: Body): boolean {
@@ -130,6 +148,13 @@ export class Body extends Rectangle {
             this.position.x < other.position.x + other.size.x &&
             this.position.y + this.size.y > other.position.y &&
             this.position.y < other.position.y + other.size.y;
+    }
+
+    public isInBounds() {
+        if (this.worldBounds) {
+            return this.isContainedExactlyIn(this.worldBounds);
+        }
+        return true;
     }
 
     public computeNewPosition(delta: number) {
@@ -156,8 +181,16 @@ export class Body extends Rectangle {
         this.collisionCb.push(cb);
     }
 
+    public onCollideWithBounds(cb: () => void) {
+        this.collisionWorldBoundsCb.push(cb);
+    }
+
     public getCollisionCallback() {
         return this.collisionCb;
+    }
+
+    public getCollisionWorldBoundsCb() {
+        return this.collisionWorldBoundsCb;
     }
 }
 
