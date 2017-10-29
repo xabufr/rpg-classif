@@ -11,17 +11,24 @@ const SPEED = 300.0;
 enum PlayerKeys {
     UP = 38, DOWN = 40, RIGHT = 39, LEFT = 37
 }
+
+export type PlayerEvents = "life-changed";
+
 export class Player extends GameObject {
     private directions: Direction[];
     private lastDirection: Direction;
     private lives: number;
+    private maxLives: number;
     public canMove: boolean;
+    private listeners: {
+        [eventName: string]: ((player: Player) => void)[];
+    };
     private animations: {
         [dir: number]: Animation;
         current: Animation;
     };
 
-    constructor(world: World, texture: PIXI.Texture, position: PIXI.Point) {
+    constructor(world: World, texture: PIXI.Texture, position: PIXI.Point, lives: number, maxLives: number) {
         let body = new Body();
         body.position.x = position.x;
         body.position.y = position.y;
@@ -61,8 +68,12 @@ export class Player extends GameObject {
         }]);
         super("player", world, body, sprite);
 
-        this.lives = 3;
+        this.listeners = {
+            "life-changed": []
+        };
+        this.lives = lives;
         this.directions = [];
+        this.maxLives = maxLives;
         world.stage.addChild(sprite);
         world.cameraFollow(this);
 
@@ -73,13 +84,33 @@ export class Player extends GameObject {
     }
 
     public removeLife() {
-        if (--this.lives == 0) {
+        if (this.lives != 0 && --this.lives == 0) {
             this.canMove = false;
             let sprite = <AnimatedSprite> this.sprite;
             new Tween(sprite)
                 .to({alpha: 0}, 1000)
                 .start()
                 .onComplete(() => this.world.getHud().gameOver());
+        }
+        this.fire("life-changed");
+    }
+
+    public getLives() {
+        return this.lives;
+    }
+
+    public getMaxLives() {
+        return this.maxLives;
+    }
+
+    public on(event: PlayerEvents, cb: () => void) {
+        this.listeners[event].push(cb);
+    }
+
+    private fire(event: PlayerEvents) {
+        const listeners = this.listeners[event];
+        if (listeners) {
+            listeners.forEach(cb => cb(this));
         }
     }
 

@@ -1,20 +1,24 @@
 import { World } from "../world";
 import keyboardJS = require("keyboardjs");
 import { Tween } from "es6-tween/src/index.lite";
+import { Player } from "./player";
 
 const FONT_SIZE = 24;
 
-export class GameHud {
+export class GameUi {
     private monologDialog: MonologDialog;
     private questionDialog: QuestionDialog;
+    private gameHud: GameHud;
 
     public constructor(private world: World) {
         world.setHud(this);
         this.monologDialog = new MonologDialog(this.world);
         this.questionDialog = new QuestionDialog(this.world);
+        this.gameHud = new GameHud(this.world);
     }
 
     public setup() {
+        this.gameHud.setup();
         this.monologDialog.setup();
         this.questionDialog.setup();
     }
@@ -24,6 +28,7 @@ export class GameHud {
     }
 
     public preload(): void {
+        this.gameHud.preload();
         this.monologDialog.preload();
         this.questionDialog.preload();
     }
@@ -42,6 +47,51 @@ export class GameHud {
 
     public getQuesrtionDialog() {
         return this.questionDialog;
+    }
+}
+
+const GAME_HUD_ICONS = "hud-icons";
+const HEART_WIDTH = 15;
+const HEART_HEIGHT = 13;
+
+class GameHud {
+    private player: Player;
+    private livesSprite: PIXI.Sprite;
+    private missingLivesSprite: PIXI.Sprite;
+    private layer: PIXI.Container;
+
+    constructor(private world: World) {
+    }
+
+    public preload() {
+        PIXI.loader.add(GAME_HUD_ICONS, "images/HUD-icons.png"); // HUD Icons
+    }
+    public setup() {
+        this.player = this.world.getGame().getPlayer();
+        this.player.on("life-changed", () => this.updateLives());
+
+        this.layer = new PIXI.Container();
+        this.world.uiStage.addChild(this.layer);
+
+        const baseTexture = PIXI.loader.resources[GAME_HUD_ICONS].texture;
+        const fullHearthTexture = new PIXI.Texture(baseTexture.baseTexture, new PIXI.Rectangle(HEART_WIDTH * 2, 0, HEART_WIDTH, HEART_HEIGHT));
+        const missingHeartTexture = new PIXI.Texture(baseTexture.baseTexture, new PIXI.Rectangle(HEART_WIDTH * 3, 0, HEART_WIDTH, HEART_HEIGHT));
+        this.livesSprite = new PIXI.extras.TilingSprite(fullHearthTexture, HEART_WIDTH * 0, HEART_HEIGHT);
+        this.missingLivesSprite = new PIXI.extras.TilingSprite(missingHeartTexture, HEART_WIDTH * 0, HEART_HEIGHT);
+        let livesContainer = new PIXI.Container();
+        livesContainer.addChild(this.missingLivesSprite);
+        livesContainer.addChild(this.livesSprite);
+        this.layer.addChild(livesContainer);
+
+        this.updateLives();
+    }
+
+    private updateLives() {
+        const maxLives = this.player.getMaxLives();
+        const lives = this.player.getLives();
+
+        this.missingLivesSprite.width = HEART_WIDTH * maxLives;
+        this.livesSprite.width = HEART_WIDTH * lives;
     }
 }
 

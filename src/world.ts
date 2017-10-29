@@ -1,5 +1,5 @@
 import { Game } from "./game";
-import { GameHud } from "./game/ui";
+import { GameUi } from "./game/ui";
 import { Map } from "./game/map";
 import { GameObject } from "./game/gameObject";
 import { DEBUGGING } from "./options";
@@ -13,7 +13,7 @@ export class World {
 
     private camera: Camera;
     private map: Map;
-    private hud: GameHud;
+    private hud: GameUi;
 
     private bodiesRegistry: GameObject[];
     private lastDelta: number;
@@ -76,7 +76,7 @@ export class World {
         return this.map;
     }
 
-    public setHud(hud: GameHud) {
+    public setHud(hud: GameUi) {
         this.hud = hud;
     }
 

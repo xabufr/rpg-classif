@@ -2,13 +2,15 @@ import { Pnj } from "./game/pnj";
 import { Player } from "./game/player";
 import { World } from "./world";
 import { Map, MapZone } from "./game/map";
-import { GameHud } from "./game/ui";
+import { GameUi } from "./game/ui";
 import { AnimatedSprite } from "./engine/animatedSprite";
 import { DEBUGGING, LANG } from "./options";
 import { PhysicsWorld } from "./engine/physics";
 import Stats = require("stats.js");
 import * as TWEEN from 'es6-tween/src/index.lite'
 import keyboardJS = require("keyboardjs");
+
+const MAX_LIVES = 3;
 
 let stats: Stats | null = null;
 
@@ -23,7 +25,7 @@ export class Game {
     private map: Map;
     private player: Player;
     private pnjs: Pnj[];
-    private hud: GameHud;
+    private hud: GameUi;
     private lastUpdate: number;
     private zones: MapZone[];
     private gameLoopFn: FrameRequestCallback;
@@ -60,9 +62,13 @@ export class Game {
     public reset() {
         keyboardJS.reset();
         this.world = new World(this, this.renderer, this.physics);
-        this.hud = new GameHud(this.world);
+        this.hud = new GameUi(this.world);
 
         this.load().then(() => this.start());
+    }
+
+    public getPlayer() {
+        return this.player;
     }
 
     private load() {
@@ -88,8 +94,8 @@ export class Game {
         PIXI.loader.add("chicken", "images/creatures/chicken.png"); // Chicken
         PIXI.loader.add("white_wolf", "images/creatures/white_wolf.png"); // White wolf
         PIXI.loader.add("frog", "images/creatures/frog.png"); // Frog
-        // LOADING : enemies
-        //PIXI.loader.add("e_grey_wolf", "images/creatures/grey_wolf_bad.png");
+        // LOADING : ennemies
+        // PIXI.loader.add("e_grey_wolf", "images/creatures/grey_wolf_bad.png");
         PIXI.loader.add("boss1", "images/creatures/chocobo_bad.png");
         /*PIXI.loader.add("e_bee", "images/creatures/bee_bad.png");
         // PIXI.loader.add("e_fish", "images/creatures/fish_bad.png"); // Doesn't exist yet
@@ -101,7 +107,7 @@ export class Game {
         PIXI.loader.add("e_chicken", "images/creatures/chicken_bad.png");
         PIXI.loader.add("e_white_wolf", "images/creatures/white_wolf_bad.png");
         PIXI.loader.add("e_frog", "images/creatures/frog_bad.png");
-*/
+        */
         return new Promise(r => {
             PIXI.loader.load(r);
         }).then(() => this.loadMap("./map.json"))
@@ -122,7 +128,9 @@ export class Game {
     private loadPlayer() {
         this.player = new Player(this.world,
                                  PIXI.loader.resources["images/player_f.png"].texture,
-                                 this.map.findSpawnZone());
+                                 this.map.findSpawnZone(),
+                                 MAX_LIVES,
+                                 MAX_LIVES);
     }
 
     private loadCreatures() {
