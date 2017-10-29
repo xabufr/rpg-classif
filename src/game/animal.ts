@@ -140,7 +140,6 @@ abstract class Behaviour {
 class PassiveBehaviour extends Behaviour {
     constructor(animal: Animal, o: WorldObject) {
         super(animal, o);
-        // this.animal.getBody().isStatic = true;
     }
 
     public update(delta: number) {
@@ -230,23 +229,6 @@ class RandomBehaviour extends Behaviour {
         return allowedDirections;
     }
 }
-
-
-// Player position
-/* export class Player extends GameObject {
-    private directions: Direction[];
-    private lastDirection: Direction;
-    public canMove: boolean;
-    private animations: {
-        [dir: number]: Animation;
-        current: Animation;
-    };
-
-constructor(world: World, texture: PIXI.Texture, position: PIXI.Point) {
-	let playerPosition = o.player.getPosition;
-} */
-
-// alert(playerPosition); <- doesn't work
 
 // FugitiveBehaviour
 /* class FugitiveBehaviour extends Behaviour {
