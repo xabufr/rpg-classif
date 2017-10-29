@@ -140,6 +140,7 @@ class Bestiary {
             }
         }
 
+        this.layer.visible = false;
         this.world.uiStage.addChild(this.layer);
     }
 
