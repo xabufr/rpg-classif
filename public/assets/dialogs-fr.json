@@ -1,165 +1,300 @@
 {
-    "grey_wolf": {
-        "text": "Grrrrr... Qu'est-ce que tu fais là toi ? Mmmmh, t'es là pour nous sauver ? Pffff, c'est sans espoir.... Tu veux savoir à quoi je ressemble ? Bah regarde-moi !\nQuoi ? Faut que t'écrives tous mes attributs ? Comme si ça allait changer quelque chose.... Bon si ça peut te faire plaisir.... Je suis un loup, j'ai des poils et des mammelles. Quoi d'autre ? AH oui, 4 pattes, une tête de beau gosse avec un petite bouche dans laquelle se trouvent des canines bien pointues qui font craquer les louves. *sourit* A part ça le truc banal, un squelette interne osseux et voila. Allez bouge maintenant ! Grrrr !"
-    },
-
-    "ostrich": {
-        "text": "C'est toi le sauveur que Wengin a fait venir ? Je suis tellement contente !!! Tu n'as pas croisé mon frère un peu plus bas sur le chemin ? Il a changé depuis que Toris s'est rebellé... c'est un oiseau, une autruche comme moi ! J'imagine que tu veux savoir quels sont mes attributs ?\nQuoi ? Tu ne sais pas ce qu'est un attribut ? C'est un caractère visible d'un être vivant qui permet de le \"ranger\" dans une boîte, ce que tu feras plus tard. Par exemple mes plumes, c'est un attribut.\nTu as compris ? Aller on y va. Je possède un squelette interne composé d'os. Pour me déplacer j'utilise mes 2 membres inférieurs, j'ai aussi des 2 ailes qui correspondent à mes membres supérieurs mais je suis incapable de voler. Quoi d'autre... ah oui, j'ai un gésier mais ce n'est pas très intéressant... bien sûr je possède aussi une tête et une bouche comme tu peux le voir !"
-    },
-
-    "bee": {
-        "text": "Bzzz, salut ! Je suis bzzz une abeille ! Je possède des bzzz ailes qui me permettent de voler. J'ai bzzz aussi une tête et une bouche. Sur ma tête se trouvent deux bzzz antennes et quand je ne vole pas, je peux bzzz me déplacer avec mes 6 pattes ! Tous ces éléments sont fixés sur un squelette externe ou exosquelette. Bzzz !"
-    },
-
-    "fish": {
-        "text": "Oh ! Je suis un thon rouge du Nord, Thunnus thynnus pour les intimes. Je possède des nageoires rayonnées pour me mouvoir dans l'eau, comme tous les poissons, une tête et une bouche. Mais aussi un squelette interne composé d'arrêtes, ces arrêtes sont mes os, j'ai donc moi aussi un squelette osseux. Je suis donc un poisson osseux ! Ce que vous appelez vous les scientifiques les ACTINOPTERYGIENS, ce que vous êtes compliqués... Mon corps est également couvert d'écailles, bonne chance !"
-    },
-
-    "wild_rabbit": {
-        "text": "Héhé ! Je suis Garen le lièvre. Je possède des poils mais aussi des mammelles. Je cours sur 4 pattes, j'ai une bouche sur ma tête, dans laquelle se trouvent 2 paires d'incisives sur ma mâchoire supérieure. J'ai également un squelette interne osseux !"
-    },
-
-     "rabbit": {
-        "text": "As-tu croisé le loup blanc un peu plus à l'ouest ? Il se croit malin car le pelage blanc lui donne un avantage pour mieux traquer ses proies mais hé, regarde-moi, moi aussi je suis avantagé dans la neige ! Quoi ?! Tu t'en fiches ?! Pfff, t'es là pour le vieux Wengins je suis sûr ? Ok... Je suis un mammifère, alors j'ai des poils et des mammelles. J'ai aussi 4 pattes positionnées sur un squelette interne osseux. Une tête, une bouche, 2 paires d'incisives supérieures. Allez ! Vite ! Sauve-nous !"
-    },
-
-     "mouse": {
-        "text": "Ouh, tu m'as fait peur ! Je suis Mimi la souris, enchantée ! Je suis caractérisée par un pelage, des mammelles, un squelette interne d'os, 4 pattes et une tête avec une bouche. On me dit souvent que je dois être de la même famille que les lapins et les lièvre, mais c'est faux car je ne possède qu'une seule paire d'incisives supérieure !! Hihi !!"
-    },
-
-    "snake": {
-        "text": "Te voila enfin ! J'ai quelque chose à te raconter, ssss. Ecoute moi bien car ssssce que je vais te dire est très ssssimportant. Commençsssons par le commencssement. J'ai un sssquelette interne osssseux, une grande mâchoire et une tête. Mon corps est couvert d'écailles, comme tous les squamates. Maintenant le plus sssssimportant : je posssssède 4 pattes. Enfin, je possssédais. Quand j'étais encore dans mon oeuf, sssssous la forme d'un embryon, j'avais 4 petites pattes. En me développant, je les ai perdues. Mais Wenginsssss considère toujours que j'ai 4 pattes pour me placer dans la classsssification, car je les ai eues un jour. Les 4 pattes font donc partie de mes attributs, je suis moi aussi un tétrapode !"
-    },
-
-    "butterfly": {
-        "text": "Coucou, je suis papillon-sion. Je fais partie du groupe des insectes, c'est-à-dire que je possède 6 pattes articulées, ainsi que deux antennes et 2 paires d'ailes. Mon squelette est externe, comme l'abeille ! Et pour te parler, j'utilise ma tête et ma bouche !"
-    },
-
-    "chicken": {
-        "text": "Côôôôôt ! Côôôôôt ! Je suis coincée dans ce petit carré, côôôôôt ! Même si je ne suis pas l'animal le plus intelligent, j'ai quand même une tête ! Côt ! Egalement un squelette interne osseux, 4 membres puisque je marche sur deux pattes et que je vole avec 2 ailes, des plumes et un gésier. Et non je ne suis pas un côt côt canard !"
-    },
-
-    "white_wolf": {
-        "text": "Salut, moi c'est croc blanc, je suis un loup.... blanc. Tu as déjà dû croisé quelqu'un qui me ressemble... on est pas de la même espèce puisque mon pelage est blanc, mais on est similaires en ce qui concerne nos attributs, débrouille-toi avec ça. D'ailleurs sais-tu à quoi me sert ce pelage blanc ? Non bien sûr... tsss. Je vis dans la neige, le froid. C'est blanc. Donc ça me permet de mieux me camoufler pour attraper mes proies, épatant ce que fait l'évolution hein ?"
-    },
-
-    "frog": {
-        "text": "Croaaa, croaa. Je saute à l'aide de mes 4 membres fixés sur un squelette interne osseux. Je peux attraper de petits insectes avec la grande langue que j'ai dans la bouche. Ma particularité est que je ne possède que 4 doigts, comme tous les amphibiens... CROAAAA !"
-    },
-
-    "mentor_speech_1": {
-        "text": ".... OH !!! Te voilà enfin ! Je n'y croyais plus !\n\n\nOui tu te demandes sûrement ce que tu fais ici... Je t'ai appelé(e) pour que tu viennes m'aider. Vois-tu, je suis Wengin, le gardien de cette terre.. ou plutôt une projection de lui. Mon rôle est de garder un oeil sur le tableau qui classifie cette terre. Mais mon apprenti Toris m'a fait prisonnier et a tout désordonné. Il ne cherche pas à classer comme je lui ai appris, il range avec des critères qui sont... dépassés.\n\nTu n'as pas l'air expert dans le domaine mais je vais t'apprendre tout ce que tu as à savoir pour classer correctement ce monde.\nDéplace-toi avec les flèches de ton clavier et rejoins moi un peu plus loin sur le chemin."
-    },
-
-    "mentor_speech_2": {
-    	"text": "Avant que Toris fasse n'importe quoi, ce monde était peuplé de créatures très gentilles. Mais maintenant elles ont perdu la tête et posent sans cesse des questions... Tu DOIS les aider !\nComment ? Assez simple. Il te suffit d'aller rencontrer les quelques créatures qui sont encore en état de t'aider, elles te diront quels sont leurs attributs, je te conseille de les écrire sur une feuille au fur et à mesure pour t'en souvenir. Une fois que tu connaîtras tous les attributs, rends-toi au sommet du Mont Phylo. Là tu devras remettre chaque espèce à sa place dans la classification du vivant, en espérant que ça suffise. Je serais là pour t'aider à approfondir tes connaissances.\nBonne chance, nous comptons sur toi !"
-    },
-
-    "mentor_speech_3": {
-    	"text": "Voici une espèce, c'est une autruche. Mais... OH !! J'ai oublié de t'expliquer ce qu'est une espèce... D'après l'ensemble des scientifiques, une espèce est un groupe d'individus qui sont semblables et qui peuvent se reproduire entre eux avec une descendance féconde. Vas-y, parle-lui !"
-    },
-
-    "mentor_speech_4": {
-    	"text": "Désolé je ne pouvais pas trop parler, Toris me surveille ! Ah, je vois que tu as déjà rencontré plusieurs espèces différentes. T'ont-elles donné leurs attributs ?\n QUOIIIII ????!!!! Tu ne sais pas ce qu'est un attribut ?!! Mais enfin... ce sont les caractères visibles des êtres vivants, ils te permettent de les classer dans des groupes !"
-    },
-
-    "mentor_speech_5": {
-    	"text": "Te voici au pied du Mt. Phylo ! Tu as bientôt fini ton voyage... As-tu été parler au serpent à l'ouest ?"
-    },
-
-    "mentor_speech_6": {
-    	"text": "Tu remarqueras qu'il fait un peu plus froid ici... on a changé de climat. Et qui dit nouveau climat dit : nouvel écosystème. Tu trouveras ici des créatures qui sont aptes à survivre dans le froid et la neige. Allez ne perds pas de temps !"
-    },
-
-    "mentor_speech_7": {
-    	"text": "Regarde, une souris ! Ce sont normalement des animaux craintifs... essaie de t'approcher !"
-    },
-
-    "mentor_speech_8": {
-    	"text": "Nous y voila enfin ! La grotte du Mt. Phylo ! J'espère que tu as bien parlé à tous les animaux, il y en a 12, oui ? non ?\n\nBien, normalement tu devrais pouvoir entrer dans la grotte... mais les développeurs n'ont pas encore tout fini ! Alors je te conseille de cliquer sur le lien en haut de la page, c'est une photo de ce qu'a fait Toris... il a classé les animaux en fonction de leur mode de déplacement, mais ce n'est pas juste comme classification ! Les scientifiques, comme toi et moi, classent avec des attributs !\n\nAllez, écris sur ta feuille comment tu aurais classé toi ! Tu trouveras la correction en haut (plus tard).\n\nMerci !"
-    },
-
-    "mentor_speech_9": {
-    	"text": "Tu vois ce serpent là-bas ? Il va te raconter qu'il a 4 pattes. Tu vas trouver ça bizarre mais écoute bien son explication !"
-    },
-    "boss1": {
-        "questioning": [
+  "grey_wolf": {
+    "text": "Grrrrr... Qu'est-ce que tu fais là toi ? Mmmmh, t'es là pour nous sauver ? Pffff, c'est sans espoir.... Tu veux savoir à quoi je ressemble ? Bah regarde-moi !\nQuoi ? Faut que t'écrives tous mes attributs ? Comme si ça allait changer quelque chose.... Bon si ça peut te faire plaisir.... Je suis un loup, j'ai des poils et des mammelles. Quoi d'autre ? AH oui, 4 pattes, une tête de beau gosse avec un petite bouche dans laquelle se trouvent des canines bien pointues qui font craquer les louves. *sourit* A part ça le truc banal, un squelette interne osseux et voila. Allez bouge maintenant ! Grrrr !"
+  },
+  "ostrich": {
+    "text": "C'est toi le sauveur que Wengin a fait venir ? Je suis tellement contente !!! Tu n'as pas croisé mon frère un peu plus bas sur le chemin ? Il a changé depuis que Toris s'est rebellé... c'est un oiseau, une autruche comme moi ! J'imagine que tu veux savoir quels sont mes attributs ?\nQuoi ? Tu ne sais pas ce qu'est un attribut ? C'est un caractère visible d'un être vivant qui permet de le \"ranger\" dans une boîte, ce que tu feras plus tard. Par exemple mes plumes, c'est un attribut.\nTu as compris ? Aller on y va. Je possède un squelette interne composé d'os. Pour me déplacer j'utilise mes 2 membres inférieurs, j'ai aussi des 2 ailes qui correspondent à mes membres supérieurs mais je suis incapable de voler. Quoi d'autre... ah oui, j'ai un gésier mais ce n'est pas très intéressant... bien sûr je possède aussi une tête et une bouche comme tu peux le voir !"
+  },
+  "bee": {
+    "text": "Bzzz, salut ! Je suis bzzz une abeille ! Je possède des bzzz ailes qui me permettent de voler. J'ai bzzz aussi une tête et une bouche. Sur ma tête se trouvent deux bzzz antennes et quand je ne vole pas, je peux bzzz me déplacer avec mes 6 pattes ! Tous ces éléments sont fixés sur un squelette externe ou exosquelette. Bzzz !"
+  },
+  "fish": {
+    "text": "Oh ! Je suis un thon rouge du Nord, Thunnus thynnus pour les intimes. Je possède des nageoires rayonnées pour me mouvoir dans l'eau, comme tous les poissons, une tête et une bouche. Mais aussi un squelette interne composé d'arrêtes, ces arrêtes sont mes os, j'ai donc moi aussi un squelette osseux. Je suis donc un poisson osseux ! Ce que vous appelez vous les scientifiques les ACTINOPTERYGIENS, ce que vous êtes compliqués... Mon corps est également couvert d'écailles, bonne chance !"
+  },
+  "wild_rabbit": {
+    "text": "Héhé ! Je suis Garen le lièvre. Je possède des poils mais aussi des mammelles. Je cours sur 4 pattes, j'ai une bouche sur ma tête, dans laquelle se trouvent 2 paires d'incisives sur ma mâchoire supérieure. J'ai également un squelette interne osseux !"
+  },
+  "rabbit": {
+    "text": "As-tu croisé le loup blanc un peu plus à l'ouest ? Il se croit malin car le pelage blanc lui donne un avantage pour mieux traquer ses proies mais hé, regarde-moi, moi aussi je suis avantagé dans la neige ! Quoi ?! Tu t'en fiches ?! Pfff, t'es là pour le vieux Wengins je suis sûr ? Ok... Je suis un mammifère, alors j'ai des poils et des mammelles. J'ai aussi 4 pattes positionnées sur un squelette interne osseux. Une tête, une bouche, 2 paires d'incisives supérieures. Allez ! Vite ! Sauve-nous !"
+  },
+  "mouse": {
+    "text": "Ouh, tu m'as fait peur ! Je suis Mimi la souris, enchantée ! Je suis caractérisée par un pelage, des mammelles, un squelette interne d'os, 4 pattes et une tête avec une bouche. On me dit souvent que je dois être de la même famille que les lapins et les lièvre, mais c'est faux car je ne possède qu'une seule paire d'incisives supérieure !! Hihi !!"
+  },
+  "snake": {
+    "text": "Te voila enfin ! J'ai quelque chose à te raconter, ssss. Ecoute moi bien car ssssce que je vais te dire est très ssssimportant. Commençsssons par le commencssement. J'ai un sssquelette interne osssseux, une grande mâchoire et une tête. Mon corps est couvert d'écailles, comme tous les squamates. Maintenant le plus sssssimportant : je posssssède 4 pattes. Enfin, je possssédais. Quand j'étais encore dans mon oeuf, sssssous la forme d'un embryon, j'avais 4 petites pattes. En me développant, je les ai perdues. Mais Wenginsssss considère toujours que j'ai 4 pattes pour me placer dans la classsssification, car je les ai eues un jour. Les 4 pattes font donc partie de mes attributs, je suis moi aussi un tétrapode !"
+  },
+  "butterfly": {
+    "text": "Coucou, je suis papillon-sion. Je fais partie du groupe des insectes, c'est-à-dire que je possède 6 pattes articulées, ainsi que deux antennes et 2 paires d'ailes. Mon squelette est externe, comme l'abeille ! Et pour te parler, j'utilise ma tête et ma bouche !"
+  },
+  "chicken": {
+    "text": "Côôôôôt ! Côôôôôt ! Je suis coincée dans ce petit carré, côôôôôt ! Même si je ne suis pas l'animal le plus intelligent, j'ai quand même une tête ! Côt ! Egalement un squelette interne osseux, 4 membres puisque je marche sur deux pattes et que je vole avec 2 ailes, des plumes et un gésier. Et non je ne suis pas un côt côt canard !"
+  },
+  "white_wolf": {
+    "text": "Salut, moi c'est croc blanc, je suis un loup.... blanc. Tu as déjà dû croisé quelqu'un qui me ressemble... on est pas de la même espèce puisque mon pelage est blanc, mais on est similaires en ce qui concerne nos attributs, débrouille-toi avec ça. D'ailleurs sais-tu à quoi me sert ce pelage blanc ? Non bien sûr... tsss. Je vis dans la neige, le froid. C'est blanc. Donc ça me permet de mieux me camoufler pour attraper mes proies, épatant ce que fait l'évolution hein ?"
+  },
+  "frog": {
+    "text": "Croaaa, croaa. Je saute à l'aide de mes 4 membres fixés sur un squelette interne osseux. Je peux attraper de petits insectes avec la grande langue que j'ai dans la bouche. Ma particularité est que je ne possède que 4 doigts, comme tous les amphibiens... CROAAAA !"
+  },
+  "mentor_speech_1": {
+    "text": ".... OH !!! Te voilà enfin ! Je n'y croyais plus !\n\n\nOui tu te demandes sûrement ce que tu fais ici... Je t'ai appelé(e) pour que tu viennes m'aider. Vois-tu, je suis Wengin, le gardien de cette terre.. ou plutôt une projection de lui. Mon rôle est de garder un oeil sur le tableau qui classifie cette terre. Mais mon apprenti Toris m'a fait prisonnier et a tout désordonné. Il ne cherche pas à classer comme je lui ai appris, il range avec des critères qui sont... dépassés.\n\nTu n'as pas l'air expert dans le domaine mais je vais t'apprendre tout ce que tu as à savoir pour classer correctement ce monde.\nDéplace-toi avec les flèches de ton clavier et rejoins moi un peu plus loin sur le chemin."
+  },
+  "mentor_speech_2": {
+    "text": "Avant que Toris fasse n'importe quoi, ce monde était peuplé de créatures très gentilles. Mais maintenant elles ont perdu la tête et posent sans cesse des questions... Tu DOIS les aider !\nComment ? Assez simple. Il te suffit d'aller rencontrer les quelques créatures qui sont encore en état de t'aider, elles te diront quels sont leurs attributs, je te conseille de les écrire sur une feuille au fur et à mesure pour t'en souvenir. Une fois que tu connaîtras tous les attributs, rends-toi au sommet du Mont Phylo. Là tu devras remettre chaque espèce à sa place dans la classification du vivant, en espérant que ça suffise. Je serais là pour t'aider à approfondir tes connaissances.\nBonne chance, nous comptons sur toi !"
+  },
+  "mentor_speech_3": {
+    "text": "Voici une espèce, c'est une autruche. Mais... OH !! J'ai oublié de t'expliquer ce qu'est une espèce... D'après l'ensemble des scientifiques, une espèce est un groupe d'individus qui sont semblables et qui peuvent se reproduire entre eux avec une descendance féconde. Vas-y, parle-lui !"
+  },
+  "mentor_speech_4": {
+    "text": "Désolé je ne pouvais pas trop parler, Toris me surveille ! Ah, je vois que tu as déjà rencontré plusieurs espèces différentes. T'ont-elles donné leurs attributs ?\n QUOIIIII ????!!!! Tu ne sais pas ce qu'est un attribut ?!! Mais enfin... ce sont les caractères visibles des êtres vivants, ils te permettent de les classer dans des groupes !"
+  },
+  "mentor_speech_5": {
+    "text": "Te voici au pied du Mt. Phylo ! Tu as bientôt fini ton voyage... As-tu été parler au serpent à l'ouest ?"
+  },
+  "mentor_speech_6": {
+    "text": "Tu remarqueras qu'il fait un peu plus froid ici... on a changé de climat. Et qui dit nouveau climat dit : nouvel écosystème. Tu trouveras ici des créatures qui sont aptes à survivre dans le froid et la neige. Allez ne perds pas de temps !"
+  },
+  "mentor_speech_7": {
+    "text": "Regarde, une souris ! Ce sont normalement des animaux craintifs... essaie de t'approcher !"
+  },
+  "mentor_speech_8": {
+    "text": "Nous y voila enfin ! La grotte du Mt. Phylo ! J'espère que tu as bien parlé à tous les animaux, il y en a 12, oui ? non ?\n\nBien, normalement tu devrais pouvoir entrer dans la grotte... mais les développeurs n'ont pas encore tout fini ! Alors je te conseille de cliquer sur le lien en haut de la page, c'est une photo de ce qu'a fait Toris... il a classé les animaux en fonction de leur mode de déplacement, mais ce n'est pas juste comme classification ! Les scientifiques, comme toi et moi, classent avec des attributs !\n\nAllez, écris sur ta feuille comment tu aurais classé toi ! Tu trouveras la correction en haut (plus tard).\n\nMerci !"
+  },
+  "mentor_speech_9": {
+    "text": "Tu vois ce serpent là-bas ? Il va te raconter qu'il a 4 pattes. Tu vas trouver ça bizarre mais écoute bien son explication !"
+  },
+  "e_ostrich": {
+    "questioning": [
+      {
+        "text": "!!!!!!!!!!!!\nVOUS NE PASSEREZ PAS !!!!!\nPas sans répondre à une question, AHAHAHAHA !!"
+      },
+      {
+        "question": {
+          "title": "Alors, dis-moi.... qu'est-ce qu'une espèce ?",
+          "wrongAnswer": "Dommage mauvaise réponse héhé ! Renseigne-toi avant la prochaine fois !",
+          "answers": [
             {
-                "text": "!!!!!!!!!!!!\nVOUS NE PASSEREZ PAS !!!!!\nPas sans répondre à une question, AHAHAHAHA !!"
-            }, {
-                "question": {
-                    "title": "Alors, dis-moi.... qu'est-ce qu'une espèce ?",
-                    "wrongAnswer": "Dommage mauvaise réponse héhé ! Renseigne-toi avant la prochaine fois !",
-                    "answers": [
-                        {
-                            "text": "Un ensemble d'individus qui se ressemblent",
-                            "good": true
-                        },
-                        {
-                            "text": "Une sorte d'animal"
-                        },
-                        {
-                        	"text": "La même chose qu'une race"
-                        },
-                        {
-                        	"text": "Une insulte, espèce d'oiseau !"
-                        }
-                    ]
-                }
-            }, {
-            	"question": {
-            		"title": "Ah oui ? Vraiment ? Et puis quoi d'autre ?",
-            		"wrongAnswer": "Dommage mauvaise réponse ! Retour à la case départ !",
-            		"answers": [
-            			{
-            				"text": "Ils ont des poils"
-            			},
-            			{
-            				"text": "Ils peuvent se reproduire entre eux",
-            				"good": true
-            			},
-            			{
-            				"text": "J'en sais rien !"
-            			}
-            		]
-            	}
-            }, {
-            	"question": {
-            		"title": "Mais dis-moi... un âne et un cheval peuvent avoir une descendance, on appelle ça un mulet. Ils sont de la même espèce ?",
-            		"wrongAnswer": "C'est bien ce que je pensais, tu n'es pas à la hauteur !",
-            		"answers": [
-            			{
-            				"text": "Bien sûr que non !",
-            				"good": true
-            			},
-            			{
-            				"text": "Ohlala... je répète juste ce qu'on m'a dit moi !"
-            			}
-            		]            		
-            	}
-            }, {
-            	"question": {
-            		"title": "Du coup ta définition est fausse, ou il manque un truc !",
-            		"wrongAnswer": "Je savais bien que tu ne saurais pas !",
-            		"answers": [
-            			{
-            				"text": "Non ma définition est exacte, c'est toi qui dit n'importe quoi."
-            			},
-            			{
-            				"text": "Euuuh...."
-            			},
-            			{
-            				"text": "Le mulet ne peut pas se reproduire.",
-            				"good": true
-            			},
-            			{
-            				"text": "C'est une exception"
-            			}
-            		]
-            	}
-            }, {
-            	"text": "Argh, tu as raison... pour être de la même espèce, deux individus doivent pouvoir une descendance féconde, ce n'est pas le cas du mulet. Tu es trop fort, je m'en vais..."
+              "text": "Un ensemble d'individus qui se ressemblent",
+              "good": true
+            },
+            {
+              "text": "Une sorte d'animal"
+            },
+            {
+              "text": "La même chose qu'une race"
+            },
+            {
+              "text": "Une insulte, espèce d'oiseau !"
             }
-        ]
-    }
+          ]
+        }
+      },
+      {
+        "question": {
+          "title": "Ah oui ? Vraiment ? Et puis quoi d'autre ?",
+          "wrongAnswer": "Dommage mauvaise réponse ! Retour à la case départ !",
+          "answers": [
+            {
+              "text": "Ils ont des poils"
+            },
+            {
+              "text": "Ils peuvent se reproduire entre eux",
+              "good": true
+            },
+            {
+              "text": "J'en sais rien !"
+            }
+          ]
+        }
+      },
+      {
+        "question": {
+          "title": "Mais dis-moi... un âne et un cheval peuvent avoir une descendance, on appelle ça un mulet. Ils sont de la même espèce ?",
+          "wrongAnswer": "C'est bien ce que je pensais, tu n'es pas à la hauteur !",
+          "answers": [
+            {
+              "text": "Bien sûr que non !",
+              "good": true
+            },
+            {
+              "text": "Ohlala... je répète juste ce qu'on m'a dit moi !"
+            }
+          ]
+        }
+      },
+      {
+        "question": {
+          "title": "Du coup ta définition est fausse, ou il manque un truc !",
+          "wrongAnswer": "Je savais bien que tu ne saurais pas !",
+          "answers": [
+            {
+              "text": "Non ma définition est exacte, c'est toi qui dit n'importe quoi."
+            },
+            {
+              "text": "Euuuh...."
+            },
+            {
+              "text": "Le mulet ne peut pas se reproduire.",
+              "good": true
+            },
+            {
+              "text": "C'est une exception"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Argh, tu as raison... pour être de la même espèce, deux individus doivent pouvoir une descendance féconde, ce n'est pas le cas du mulet. Tu es trop fort, je m'en vais..."
+      }
+    ]
+  },
+  "e_bee": {
+    "questioning": [
+      {
+        "text": "Introduction"
+      },
+      {
+        "question": {
+          "title": "Question",
+          "wrongAnswer": "WrongAnswer",
+          "answers": [
+            {
+              "text": "Answer1",
+              "good": true
+            },
+            {
+              "text": "Answer2"
+            }
+          ]
+        }
+      },
+      {
+        "text": "RightAnswer"
+      }
+    ]
+  },
+  "e_wild_rabbit": {
+    "questioning": [
+      {
+        "text": "Introduction"
+      },
+      {
+        "question": {
+          "title": "Question",
+          "wrongAnswer": "WrongAnswer",
+          "answers": [
+            {
+              "text": "Answer1",
+              "good": true
+            },
+            {
+              "text": "Answer2"
+            }
+          ]
+        }
+      },
+      {
+        "text": "RightAnswer"
+      }
+    ]
+  },
+  "e_mouse": {
+    "questioning": [
+      {
+        "text": "Introduction"
+      },
+      {
+        "question": {
+          "title": "Question",
+          "wrongAnswer": "WrongAnswer",
+          "answers": [
+            {
+              "text": "Answer1",
+              "good": true
+            },
+            {
+              "text": "Answer2"
+            }
+          ]
+        }
+      },
+      {
+        "text": "RightAnswer"
+      }
+    ]
+  },
+  "e_rabbit": {
+    "questioning": [
+      {
+        "text": "Introduction"
+      },
+      {
+        "question": {
+          "title": "Question",
+          "wrongAnswer": "WrongAnswer",
+          "answers": [
+            {
+              "text": "Answer1",
+              "good": true
+            },
+            {
+              "text": "Answer2"
+            }
+          ]
+        }
+      },
+      {
+        "text": "RightAnswer"
+      }
+    ]
+  },
+  "e_snake": {
+    "questioning": [
+      {
+        "text": "Introduction"
+      },
+      {
+        "question": {
+          "title": "Question",
+          "wrongAnswer": "WrongAnswer",
+          "answers": [
+            {
+              "text": "Answer1",
+              "good": true
+            },
+            {
+              "text": "Answer2"
+            }
+          ]
+        }
+      },
+      {
+        "text": "RightAnswer"
+      }
+    ]
+  },
+  "e_chicken": {
+    "questioning": [
+      {
+        "text": "Introduction"
+      },
+      {
+        "question": {
+          "title": "Question",
+          "wrongAnswer": "WrongAnswer",
+          "answers": [
+            {
+              "text": "Answer1",
+              "good": true
+            },
+            {
+              "text": "Answer2"
+            }
+          ]
+        }
+      },
+      {
+        "text": "RightAnswer"
+      }
+    ]
+  }
 }

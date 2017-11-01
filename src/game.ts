@@ -97,8 +97,8 @@ export class Game {
         PIXI.loader.add("frog", "images/creatures/frog.png"); // Frog
         // LOADING : ennemies
         // PIXI.loader.add("e_grey_wolf", "images/creatures/grey_wolf_bad.png");
-        PIXI.loader.add("boss1", "images/creatures/chocobo_bad.png");
-        /*PIXI.loader.add("e_bee", "images/creatures/bee_bad.png");
+        PIXI.loader.add("e_ostrich", "images/creatures/chocobo_bad.png");
+        PIXI.loader.add("e_bee", "images/creatures/bee_bad.png");
         // PIXI.loader.add("e_fish", "images/creatures/fish_bad.png"); // Doesn't exist yet
         PIXI.loader.add("e_wild_rabbit", "images/creatures/wild_rabbit_bad.png");
         PIXI.loader.add("e_mouse", "images/creatures/mouse_bad.png");
@@ -106,9 +106,8 @@ export class Game {
         PIXI.loader.add("e_snake", "images/creatures/snake_bad.png");
         // PIXI.loader.add("e_butterfly", "images/creatures/buttrfly_bad.png"); // Doesn't exist yet
         PIXI.loader.add("e_chicken", "images/creatures/chicken_bad.png");
-        PIXI.loader.add("e_white_wolf", "images/creatures/white_wolf_bad.png");
-        PIXI.loader.add("e_frog", "images/creatures/frog_bad.png");
-        */
+        /*PIXI.loader.add("e_white_wolf", "images/creatures/white_wolf_bad.png");
+        PIXI.loader.add("e_frog", "images/creatures/frog_bad.png"); */
         return new Promise(r => {
             PIXI.loader.load(r);
         }).then(() => this.loadMap("./map.json"))
