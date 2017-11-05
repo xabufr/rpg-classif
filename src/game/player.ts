@@ -7,7 +7,7 @@ import { Tween } from "es6-tween/src/index.lite";
 import { Animal } from "./animal";
 import keyboardJS = require("keyboardjs");
 
-const SPEED = 300.0;
+export const SPEED = 300.0;
 
 enum PlayerKeys {
     UP = 38, DOWN = 40, RIGHT = 39, LEFT = 37

@@ -3,7 +3,7 @@ import { Player } from "./player";
 import { Pnj } from "./pnj";
 import { WorldObject } from "./worldObject";
 import { Direction, Directions, getDirectionVector } from "./direction";
-import { Rectangle, IVector } from "../engine/physics";
+import { Body, Rectangle, IVector } from "../engine/physics";
 import { Animation } from "../engine/animatedSprite";
 
 export abstract class Behaviour {
@@ -48,11 +48,11 @@ export class PassiveBehaviour extends Behaviour {
 }
 
 export class RandomBehaviour extends Behaviour {
-    private zone: Rectangle;
-    private currentDirection: Direction;
-    private lastDecitionMs: number;
-    private directionDuration: number;
-    private currentAnimation: Animation;
+    protected zone: Rectangle;
+    protected currentDirection: Direction;
+    protected lastDecitionMs: number;
+    protected directionDuration: number;
+    protected currentAnimation: Animation;
 
     constructor(pnj: Pnj, o: WorldObject, collideCooldown: number) {
         super(pnj, o, collideCooldown);
@@ -86,29 +86,33 @@ export class RandomBehaviour extends Behaviour {
         }
     }
 
-    private changeWalkDirection(now: number) {
+    protected changeWalkDirection(now: number) {
         this.lastDecitionMs = now;
         this.chooseRandomDirection();
         this.currentAnimation.play();
     }
 
-    private collideWithBounds() {
+    protected collideWithBounds() {
         this.changeWalkDirection(window.performance.now());
     }
 
-    private chooseRandomDirection() {
+    protected chooseRandomDirection() {
         const allowedDirections = this.getAllowedDirectionConsideringZoneBounds();
         const dirIndex = Math.floor(Math.random() * 1000) % allowedDirections.length;
 
         this.currentDirection = allowedDirections[dirIndex];
         this.directionDuration = Math.random() * 500 + 500;
 
+        this.setAnimation(this.currentDirection);
+    }
+
+    protected setAnimation(direction: Direction) {
         const animation = this.pnj.getSprite()
-            .getAnimation(Direction[this.currentDirection].toLocaleLowerCase());
+            .getAnimation(Direction[direction].toLocaleLowerCase());
         this.currentAnimation = animation;
     }
 
-    private getAllowedDirectionConsideringZoneBounds() {
+    protected getAllowedDirectionConsideringZoneBounds() {
         let allowedDirections = [];
         let body = this.pnj.getBody();
         if (body.position.y - this.zone.position.y > 10) {
@@ -124,5 +128,76 @@ export class RandomBehaviour extends Behaviour {
             allowedDirections.push(Direction.RIGHT);
         }
         return allowedDirections;
+    }
+}
+
+
+export class RandomAggressiveBehaviour extends RandomBehaviour {
+    private currentVelocity: number;
+    private readonly withPlayerVelocity: number;
+    private readonly standbyVelocity: number;
+
+    public constructor(pnj: Pnj,
+                       o: WorldObject,
+                       collideCooldown: number,
+                       standbyVelocity: number,
+                       withPlayerVelocity: number) {
+        super(pnj, o, collideCooldown);
+        this.standbyVelocity = standbyVelocity;
+        this.withPlayerVelocity = withPlayerVelocity;
+    }
+
+    public update(delta: number) {
+        let player = this.pnj.getPlayer();
+        let playerBody = <Body> player.getBody();
+        let body = this.pnj.getBody();
+
+        if (!this.isInAction) {
+            if (this.zone.intersects(playerBody)) {
+                this.goToPlayer();
+                this.currentVelocity = this.withPlayerVelocity;
+            } else {
+                let time = window.performance.now();
+                if (this.lastDecitionMs + this.directionDuration <= time) {
+                    this.changeWalkDirection(time);
+                }
+                this.currentVelocity = this.standbyVelocity;
+            }
+            let vel = getDirectionVector(this.currentDirection, this.currentVelocity);
+            body.velocity.copyFrom(vel);
+        } else {
+            body.velocity.set(0, 0);
+        }
+    }
+
+    private goToPlayer() {
+        let player = this.pnj.getPlayer();
+        let playerBody = <Body> player.getBody();
+        let body = this.pnj.getBody();
+
+        this.lastDecitionMs = 0;
+        let thisCenter = body.position.plus(body.size.mult(0.5));
+        let playerCenter = playerBody.position.plus(playerBody.size.mult(0.5));
+        let diff = thisCenter.minus(playerCenter);
+
+        let oldDirection = this.currentDirection;
+
+        if (Math.abs(diff.x) > body.size.x / 2) {
+            if (diff.x > 0) {
+                this.currentDirection = Direction.LEFT;
+            } else {
+                this.currentDirection = Direction.RIGHT;
+            }
+        } else if (Math.abs(diff.y) > body.size.y / 2) {
+            if (diff.y > 0) {
+                this.currentDirection = Direction.UP;
+            } else {
+                this.currentDirection = Direction.DOWN;
+            }
+        }
+        if (this.currentDirection !== oldDirection) {
+            this.setAnimation(this.currentDirection);
+            this.currentAnimation.play();
+        }
     }
 }

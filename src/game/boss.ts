@@ -1,11 +1,11 @@
 import { SpritesheetDefinition } from "../engine/animatedSprite";
 import { Pnj } from "./pnj";
 import { WorldObject } from "./worldObject";
-import { Player } from "./player";
+import { Player, SPEED as PlayerSpeed } from "./player";
 import { World } from "../world";
 import { GameObject } from "../game/gameObject";
 import { Vector, Rectangle } from "../engine/physics";
-import { RandomBehaviour } from "./behaviour";
+import { RandomAggressiveBehaviour } from "./behaviour";
 
 const frames = [{
     name: "down",
@@ -84,7 +84,7 @@ export class Boss extends Pnj {
                                   interceptZone.width,
                                   interceptZone.height);
         this.state = BossState.Alive;
-        this.behaviour = new RandomBehaviour(this, o, 1000);
+        this.behaviour = new RandomAggressiveBehaviour(this, o, 1000, 100, PlayerSpeed * 2);
         this.questioning = PIXI.loader.resources["dialogs"].data[o.properties.questioning].questioning;
         if (!this.questioning || this.questioning.length === 0) {
             throw `Unable to load questioning ${o.properties.questioning}`;
@@ -92,8 +92,8 @@ export class Boss extends Pnj {
     }
 
     public update(delta: number) {
-        super.update(delta);
         if (this.state === BossState.Alive) {
+            super.update(delta);
             let playerBody = <Rectangle> this.player.getBody();
             if (! playerBody.intersects(this.zone)) {
                 this.lastOutPlayerPosition = this.player.getPosition().clone();
