@@ -88,10 +88,10 @@ class BestiaryCard {
 
         let space = {
             x: (world.renderer.width - BestiaryCard.CARD_SIZE.x * 4) / 5,
-            y: (world.renderer.height - BestiaryCard.CARD_SIZE.y * 3 - 30) / 4,
+            y: (world.renderer.height - BestiaryCard.CARD_SIZE.y * 3 - 40) / 4,
         };
         cardContainer.position.set((BestiaryCard.CARD_SIZE.x + space.x) * x + space.x,
-                                   (BestiaryCard.CARD_SIZE.y + space.y) * y + space.y + 30);
+                                   (BestiaryCard.CARD_SIZE.y + space.y) * y + space.y + 35);
 
         cardContainer.addChild(this.unknownSprite);
         cardContainer.addChild(this.discoveredSprite);
