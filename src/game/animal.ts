@@ -7,6 +7,7 @@ import { Player } from "./player";
 import { Direction, Directions, getDirectionVector } from "./direction";
 import { GameObject } from "./gameObject";
 import { Rectangle, IVector } from "../engine/physics";
+import { Behaviour, RandomBehaviour, PassiveBehaviour } from "./behaviour";
 
 type BehaviourString = "passive" | "follower" | "fugitive" | "random";
 
@@ -40,8 +41,8 @@ const frames = [{
     ]
 }];
 
+const TALK_COOLDOWN = 1000;
 export class Animal extends Pnj {
-    private behaviour: Behaviour;
     public readonly talk: string;
     public readonly bestiaryIndex: IVector;
 
@@ -79,17 +80,26 @@ export class Animal extends Pnj {
         this.behaviour = this.createBehaviour();
     }
 
-    public update(delta: number) {
-        super.update(delta);
-        this.behaviour.update(delta);
-    }
-
     public getBestiaryIndex() {
         return this.bestiaryIndex;
     }
 
-    public onCollisionStart(other: GameObject) {
-        this.behaviour.onCollisionStart(other);
+    public interactWithPlayer(): Promise<void> {
+        return new Promise(resolve => {
+            let isTalking = this.getWorld()
+                .getHud()
+                .getMonologDialog()
+                .showTextToPlayer(this.talk, () => {
+                    this.player.canMove = true;
+                    this.player.animalMet(this);
+                    resolve();
+                });
+            if (isTalking) {
+                this.player.canMove = false;
+            } else {
+                resolve();
+            }
+        });
     }
 
     private createBehaviour(): Behaviour {
@@ -98,148 +108,15 @@ export class Animal extends Pnj {
         }
         switch (<BehaviourString> this.worldObject.properties.behaviour) {
         case "passive":
-            return new PassiveBehaviour(this, this.worldObject);
+            return new PassiveBehaviour(this, this.worldObject, TALK_COOLDOWN);
         case "follower":
             // return BehaviourType.Follower;
         case "fugitive":
             // return BehaviourType.Fugitive;
         case "random":
-            return new RandomBehaviour(this, this.worldObject);
+            return new RandomBehaviour(this, this.worldObject, TALK_COOLDOWN);
         }
         throw `Unknown behaviour ${this.worldObject.properties.behaviour}`;
-    }
-}
-
-const TALK_COOLDOWN = 1000;
-abstract class Behaviour {
-    protected canTalk: boolean;
-    protected isTalking: boolean;
-    protected lastTalkMs: number;
-
-    constructor(protected animal: Animal, protected worldObject: WorldObject) {
-        this.canTalk = true;
-        this.isTalking = false;
-        this.lastTalkMs = -TALK_COOLDOWN;
-    }
-
-    public abstract update(delta: number): void;
-
-    public canTalkNow() {
-        let time = window.performance.now();
-        return !this.isTalking && this.canTalk && time >= this.lastTalkMs + TALK_COOLDOWN;
-    }
-
-    public onCollisionStart(other: GameObject) {
-        if (other.type === "player" && this.canTalkNow()) {
-            let player = <Player> other;
-            let isTalking = this.animal
-                .getWorld()
-                .getHud()
-                .getMonologDialog()
-                .showTextToPlayer(this.animal.talk, () => {
-                    player.canMove = true;
-                    player.animalMet(this.animal);
-                    this.isTalking = false;
-                    this.lastTalkMs = performance.now();
-                });
-            if (isTalking) {
-                this.isTalking = true;
-                player.canMove = false;
-            }
-        }
-    }
-}
-
-class PassiveBehaviour extends Behaviour {
-    constructor(animal: Animal, o: WorldObject) {
-        super(animal, o);
-    }
-
-    public update(delta: number) {
-        // Nothing to do ?
-    }
-
-}
-
-const WALL_WIDTH = 50;
-class RandomBehaviour extends Behaviour {
-    private zone: Rectangle;
-    // private walls: AnimalZoneWall[];
-    private currentDirection: Direction;
-    private lastDecitionMs: number;
-    private directionDuration: number;
-    private currentAnimation: Animation;
-
-    constructor(animal: Animal, o: WorldObject) {
-        super(animal, o);
-        if (!this.worldObject.properties || !this.worldObject.properties.zone) {
-            throw `Missing zone for animal ${this.worldObject.name}`;
-        }
-        let zoneName = this.worldObject.properties.zone;
-        let zone = this.animal.getWorld().getMap().getZoneNamed(zoneName);
-        this.lastDecitionMs = 0;
-        this.zone = new Rectangle(zone.x,
-                                  zone.y,
-                                  zone.width,
-                                  zone.height);
-        this.animal.getBody().setWorldBounds(this.zone);
-        this.animal.getBody().onCollideWithBounds(() => this.collideWithBounds());
-        this.chooseRandomDirection();
-    }
-
-    public update(delta: number) {
-        let body = this.animal.getBody();
-        let time = window.performance.now();
-        if (!this.isTalking && this.lastDecitionMs + this.directionDuration <= time) {
-            this.changeWalkDirection(time);
-        }
-        // Nothing todo ?
-        if (!this.isTalking) {
-            let vel = getDirectionVector(this.currentDirection, 100);
-            body.velocity.copyFrom(vel);
-        } else {
-            body.velocity.set(0, 0);
-        }
-    }
-
-    private changeWalkDirection(now: number) {
-        this.lastDecitionMs = now;
-        this.chooseRandomDirection();
-        this.currentAnimation.play();
-    }
-
-    private collideWithBounds() {
-        this.changeWalkDirection(window.performance.now());
-    }
-
-    private chooseRandomDirection() {
-        const allowedDirections = this.getAllowedDirectionConsideringZoneBounds();
-        const dirIndex = Math.floor(Math.random() * 1000) % allowedDirections.length;
-
-        this.currentDirection = allowedDirections[dirIndex];
-        this.directionDuration = Math.random() * 500 + 500;
-
-        const animation = this.animal.getSprite()
-            .getAnimation(Direction[this.currentDirection].toLocaleLowerCase());
-        this.currentAnimation = animation;
-    }
-
-    private getAllowedDirectionConsideringZoneBounds() {
-        let allowedDirections = [];
-        let body = this.animal.getBody();
-        if (body.position.y - this.zone.position.y > 10) {
-            allowedDirections.push(Direction.UP);
-        }
-        if ((this.zone.position.y + this.zone.size.y) - (body.position.y + body.size.y) > 10) {
-            allowedDirections.push(Direction.DOWN);
-        }
-        if (body.position.x - this.zone.position.x > 10) {
-            allowedDirections.push(Direction.LEFT);
-        }
-        if ((this.zone.position.x + this.zone.size.x) - (body.position.x + body.size.x) > 10) {
-            allowedDirections.push(Direction.RIGHT);
-        }
-        return allowedDirections;
     }
 }
 

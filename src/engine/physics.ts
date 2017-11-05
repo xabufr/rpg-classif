@@ -54,6 +54,21 @@ export class Vector implements IVector {
         this.x = x;
         this.y = y;
     }
+
+    public minus(other: Vector): Vector {
+        return new Vector(this.x - other.x,
+                          this.y - other.y);
+    }
+
+    public plus(other: Vector): Vector {
+        return new Vector(this.x + other.x,
+                          this.y + other.y);
+    }
+
+    public mult(factor: number) {
+        return new Vector(this.x * factor,
+                          this.y * factor);
+    }
 }
 
 export class PhysicsWorld {

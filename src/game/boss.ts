@@ -1,10 +1,11 @@
 import { SpritesheetDefinition } from "../engine/animatedSprite";
 import { Pnj } from "./pnj";
 import { WorldObject } from "./worldObject";
-import { Player } from "./player";
+import { Player, SPEED as PlayerSpeed } from "./player";
 import { World } from "../world";
 import { GameObject } from "../game/gameObject";
-import { Vector } from "../engine/physics";
+import { Vector, Rectangle } from "../engine/physics";
+import { RandomAggressiveBehaviour } from "./behaviour";
 
 const frames = [{
     name: "down",
@@ -56,7 +57,7 @@ interface QuestioningQuestion {
 }
 
 export class Boss extends Pnj {
-    private interceptZone: PIXI.Rectangle;
+    private zone: Rectangle;
     private state: BossState;
     private questioning: QuestioningElement[];
     private currentQuestion: number;
@@ -78,11 +79,12 @@ export class Boss extends Pnj {
               spriteDef,
               frames);
         let interceptZone = this.world.getMap().getZoneNamed(`${o.name}_zone`);
-        this.interceptZone = new PIXI.Rectangle(interceptZone.x,
-                                                interceptZone.y,
-                                                interceptZone.width,
-                                                interceptZone.height);
+        this.zone = new Rectangle(interceptZone.x,
+                                  interceptZone.y,
+                                  interceptZone.width,
+                                  interceptZone.height);
         this.state = BossState.Alive;
+        this.behaviour = new RandomAggressiveBehaviour(this, o, 1000, 100, PlayerSpeed * 2);
         this.questioning = PIXI.loader.resources["dialogs"].data[o.properties.questioning].questioning;
         if (!this.questioning || this.questioning.length === 0) {
             throw `Unable to load questioning ${o.properties.questioning}`;
@@ -90,67 +92,79 @@ export class Boss extends Pnj {
     }
 
     public update(delta: number) {
-        super.update(delta);
         if (this.state === BossState.Alive) {
-            if (this.interceptZone.contains(this.player.getPosition().x,
-                                            this.player.getPosition().y)) {
-                this.currentQuestion = 0;
-                this.player.canMove = false;
-                this.state = BossState.InQcm;
-                this.doIntercept(this.questioning[this.currentQuestion]);
-            } else {
+            super.update(delta);
+            let playerBody = <Rectangle> this.player.getBody();
+            if (! playerBody.intersects(this.zone)) {
                 this.lastOutPlayerPosition = this.player.getPosition().clone();
             }
         }
     }
 
-    private doIntercept(step: QuestioningElement) {
-        if ("text" in step) {
-            let textStep = <QuestioningText> step;
+    public interactWithPlayer(): Promise<void> {
+        this.currentQuestion = 0;
+        this.player.canMove = false;
+        return this.doIntercept(this.questioning[this.currentQuestion]);
+    }
+
+    private doIntercept(step: QuestioningElement): Promise<void> {
+        return new Promise(resolve => {
+            if ("text" in step) {
+                let textStep = <QuestioningText> step;
+                this.world
+                    .getHud()
+                    .getMonologDialog()
+                    .showTextToPlayer(textStep.text, () => {
+                        this.nextStep().then(resolve);
+                    });
+            } else if ("question" in step) {
+                let questionStep = <QuestioningQuestion> step;
+                this.world
+                    .getHud()
+                    .getQuesrtionDialog()
+                    .showQuestionToPlayer(questionStep.question, a => {
+                        let answer = <Answer> a;
+                        if (answer.good === true) {
+                            this.nextStep().then(resolve);
+                        } else {
+                            this.onWrongAnswer(questionStep, answer).then(resolve);
+                        }
+                    });
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    private onWrongAnswer(question: QuestioningQuestion, answer: Answer): Promise<void> {
+        return new Promise(resolve => {
             this.world
                 .getHud()
                 .getMonologDialog()
-                .showTextToPlayer(textStep.text, () => {
-                    this.nextStep();
-                });
-        } else if ("question" in step) {
-            let questionStep = <QuestioningQuestion> step;
-            this.world
-                .getHud()
-                .getQuesrtionDialog()
-                .showQuestionToPlayer(questionStep.question, a => {
-                    let answer = <Answer> a;
-                    if (answer.good === true) {
-                        this.nextStep();
-                    } else {
-                        this.onWrongAnswer(questionStep, answer);
+                .showTextToPlayer(question.question.wrongAnswer, () => {
+                    this.state = BossState.Alive;
+                    let pBody = this.player.getBody();
+                    if (pBody) {
+                        pBody.position.copyFrom(this.lastOutPlayerPosition);
                     }
+                    this.player.canMove = true;
+                    this.player.removeLife();
+                    resolve();
                 });
-        }
+        });
     }
 
-    private onWrongAnswer(question: QuestioningQuestion, answer: Answer) {
-        this.world
-            .getHud()
-            .getMonologDialog()
-            .showTextToPlayer(question.question.wrongAnswer, () => {
-                this.state = BossState.Alive;
-                let pBody = this.player.getBody();
-                if (pBody) {
-                    pBody.position.copyFrom(this.lastOutPlayerPosition);
-                }
+    private nextStep(): Promise<void> {
+        return new Promise(resolve => {
+            if (++this.currentQuestion < this.questioning.length) {
+                this.doIntercept(this.questioning[this.currentQuestion])
+                    .then(resolve);
+            } else {
                 this.player.canMove = true;
-                this.player.removeLife();
-            });
-    }
-
-    private nextStep() {
-        if (++this.currentQuestion < this.questioning.length) {
-            this.doIntercept(this.questioning[this.currentQuestion]);
-        } else {
-            this.player.canMove = true;
-            this.kill();
-        }
+                this.kill();
+                resolve();
+            }
+        });
     }
 
     private kill() {

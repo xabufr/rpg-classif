@@ -565,12 +565,14 @@
                  "properties":
                     {
                      "questioning":"e_ostrich",
-                     "textureName":"e_ostrich"
+                     "textureName":"e_ostrich",
+                     "zone":"e_ostrich_zone"
                     },
                  "propertytypes":
                     {
                      "questioning":"string",
-                     "textureName":"string"
+                     "textureName":"string",
+                     "zone":"string"
                     },
                  "rotation":0,
                  "type":"boss",
@@ -586,12 +588,14 @@
                  "properties":
                     {
                      "questioning":"e_bee",
-                     "textureName":"e_bee"
+                     "textureName":"e_bee",
+                     "zone":"e_bee_zone"
                     },
                  "propertytypes":
                     {
                      "questioning":"string",
-                     "textureName":"string"
+                     "textureName":"string",
+                     "zone":"string"
                     },
                  "rotation":0,
                  "type":"boss",
@@ -607,12 +611,14 @@
                  "properties":
                     {
                      "questioning":"e_wild_rabbit",
-                     "textureName":"e_wild_rabbit"
+                     "textureName":"e_wild_rabbit",
+                     "zone":"e_wild_rabbit_zone"
                     },
                  "propertytypes":
                     {
                      "questioning":"string",
-                     "textureName":"string"
+                     "textureName":"string",
+                     "zone":"string"
                     },
                  "rotation":0,
                  "type":"boss",
@@ -628,12 +634,14 @@
                  "properties":
                     {
                      "questioning":"e_snake",
-                     "textureName":"e_snake"
+                     "textureName":"e_snake",
+                     "zone":"e_snake_zone"
                     },
                  "propertytypes":
                     {
                      "questioning":"string",
-                     "textureName":"string"
+                     "textureName":"string",
+                     "zone":"string"
                     },
                  "rotation":0,
                  "type":"boss",
@@ -649,12 +657,14 @@
                  "properties":
                     {
                      "questioning":"e_mouse",
-                     "textureName":"e_mouse"
+                     "textureName":"e_mouse",
+                     "zone":"e_mouse_zone"
                     },
                  "propertytypes":
                     {
                      "questioning":"string",
-                     "textureName":"string"
+                     "textureName":"string",
+                     "zone":"string"
                     },
                  "rotation":0,
                  "type":"boss",
@@ -670,12 +680,14 @@
                  "properties":
                     {
                      "questioning":"e_rabbit",
-                     "textureName":"e_rabbit"
+                     "textureName":"e_rabbit",
+                     "zone":"e_rabbit_zone"
                     },
                  "propertytypes":
                     {
                      "questioning":"string",
-                     "textureName":"string"
+                     "textureName":"string",
+                     "zone":"string"
                     },
                  "rotation":0,
                  "type":"boss",
@@ -691,12 +703,14 @@
                  "properties":
                     {
                      "questioning":"e_chicken",
-                     "textureName":"e_chicken"
+                     "textureName":"e_chicken",
+                     "zone":"e_chicken_zone"
                     },
                  "propertytypes":
                     {
                      "questioning":"string",
-                     "textureName":"string"
+                     "textureName":"string",
+                     "zone":"string"
                     },
                  "rotation":0,
                  "type":"boss",
@@ -908,8 +922,8 @@
                  "rotation":0,
                  "type":"boss_zone",
                  "visible":true,
-                 "width":96,
-                 "x":1376,
+                 "width":224,
+                 "x":1344,
                  "y":2760
                 }, 
                 {
