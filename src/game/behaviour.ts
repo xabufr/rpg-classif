@@ -323,17 +323,6 @@ export class RandomItemRequiredBehaviour extends RandomAggressiveBehaviour {
     }
 
     private getBestDestination(player: Player) {
-        let topLeft = this.zone.position.plus(this.zone.size.mult(1/4));
-        let topRight = this.zone.position.plus({
-            x: this.zone.size.x * 3 / 4,
-            y: this.zone.size.y * 1 / 4,
-        });
-        let bottomLeft = this.zone.position.plus({
-            x: this.zone.size.x * 1 / 4,
-            y: this.zone.size.y * 3 / 4,
-        });
-        let bottomRight = this.zone.position.plus(this.zone.size.mult(3/4));
-
         // |0|1|
         // |3|2|
         let squaresDist = this.zoneSquaresCenters.map((p, i) => {
