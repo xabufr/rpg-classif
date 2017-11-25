@@ -211,6 +211,11 @@ export class RandomItemRequiredBehaviour extends RandomAggressiveBehaviour {
     private hasItem: boolean;
     private hasTalk: boolean;
 
+    // |0|1|
+    // |3|2|
+    private readonly zoneSquaresCenters: Vector[];
+    private readonly fearDestinations: Vector[];
+
     public constructor(pnj: Pnj,
                        o: WorldObject,
                        collideCooldown: number,
@@ -223,6 +228,36 @@ export class RandomItemRequiredBehaviour extends RandomAggressiveBehaviour {
         this.itemName = o.properties.itemName;
         this.hasItem = false;
         this.hasTalk = false;
+
+        let topLeft = this.zone.position.plus(this.zone.size.mult(1/4));
+        let topRight = this.zone.position.plus({
+            x: this.zone.size.x * 3 / 4,
+            y: this.zone.size.y * 1 / 4,
+        });
+        let bottomLeft = this.zone.position.plus({
+            x: this.zone.size.x * 1 / 4,
+            y: this.zone.size.y * 3 / 4,
+        });
+        let bottomRight = this.zone.position.plus(this.zone.size.mult(3/4));
+
+        // |0|1|
+        // |3|2|
+        this.zoneSquaresCenters = [
+            topLeft, topRight,
+            bottomRight, bottomLeft
+        ];
+        this.fearDestinations = [
+            this.zone.position,
+            this.zone.position.plus({
+                x: this.zone.size.x,
+                y: 0
+            }),
+            this.zone.position.plus(this.zone.size),
+            this.zone.position.plus({
+                x: 0,
+                y: this.zone.size.y
+            })
+        ];
     }
 
     public update(delta: number) {
@@ -301,10 +336,7 @@ export class RandomItemRequiredBehaviour extends RandomAggressiveBehaviour {
 
         // |0|1|
         // |3|2|
-        let squaresDist = [
-            topLeft, topRight,
-            bottomRight, bottomLeft
-        ].map((p, i) => {
+        let squaresDist = this.zoneSquaresCenters.map((p, i) => {
             return  {
                 value: p.distSquare(player.getPosition()),
                 index: i
@@ -320,21 +352,7 @@ export class RandomItemRequiredBehaviour extends RandomAggressiveBehaviour {
             value: 9999999
         }).index;
         let dest = (min + 2) % 4;
-        if (dest === 0) {
-            return this.zone.position;
-        } else if (dest === 1) {
-            return this.zone.position.plus({
-                x: this.zone.size.x,
-                y: 0
-            });
-        } else if (dest === 2) {
-            return this.zone.position.plus(this.zone.size);
-        } else {
-            return this.zone.position.plus({
-                x: 0,
-                y: this.zone.size.y
-            });
-        }
+        return this.fearDestinations[dest];
     }
 
     private updateHasItem(player: Player) {
