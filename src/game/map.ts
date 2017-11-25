@@ -4,6 +4,7 @@ import { createPnj } from "./pnjFactory";
 import { Player } from "./player";
 import * as Utils from "../utils";
 import { PhysicTiledMap } from "../engine/physics";
+import { MapObject, createMapObject } from "./mapObject";
 
 interface TiledMapData {
     height: number;
@@ -312,5 +313,10 @@ export class Map {
                 zones.push(gotoZone);
             });
         return zones;
+    }
+
+    public loadObjects(player: Player) {
+        let objects = this.getObjectLayer("world-objects");
+        objects.map(o => createMapObject(this.world, o, player));
     }
 }

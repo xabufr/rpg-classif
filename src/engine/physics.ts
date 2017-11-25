@@ -55,12 +55,12 @@ export class Vector implements IVector {
         this.y = y;
     }
 
-    public minus(other: Vector): Vector {
+    public minus(other: IVector): Vector {
         return new Vector(this.x - other.x,
                           this.y - other.y);
     }
 
-    public plus(other: Vector): Vector {
+    public plus(other: IVector): Vector {
         return new Vector(this.x + other.x,
                           this.y + other.y);
     }

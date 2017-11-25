@@ -87,6 +87,15 @@ export class Player extends GameObject {
         this.canMove = true;
     }
 
+    public addLife(): boolean {
+        if (this.lives < this.maxLives) {
+            ++this.lives;
+            this.fire("life-changed");
+            return true;
+        }
+        return false;
+    }
+
     public removeLife() {
         if (this.lives != 0 && --this.lives == 0) {
             this.canMove = false;
