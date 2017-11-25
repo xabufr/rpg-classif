@@ -3,7 +3,7 @@ import { Player } from "./player";
 import { Pnj } from "./pnj";
 import { WorldObject } from "./worldObject";
 import { Direction, Directions, getDirectionVector } from "./direction";
-import { Body, Rectangle, IVector } from "../engine/physics";
+import { Body, Rectangle, IVector, Vector } from "../engine/physics";
 import { Animation } from "../engine/animatedSprite";
 
 export abstract class Behaviour {
@@ -255,32 +255,85 @@ export class RandomItemRequiredBehaviour extends RandomAggressiveBehaviour {
     }
 
     private fearPlayer(player: Player) {
-        let playerBody = <Body> player.getBody();
-        let body = this.pnj.getBody();
-
         this.lastDecitionMs = 0;
-        let thisCenter = body.position.plus(body.size.mult(0.5));
-        let playerCenter = playerBody.position.plus(playerBody.size.mult(0.5));
-        let diff = thisCenter.minus(playerCenter);
 
         let oldDirection = this.currentDirection;
-
-        if (Math.abs(diff.x) > body.size.x / 2) {
-            if (diff.x < 0) {
-                this.currentDirection = Direction.LEFT;
-            } else {
-                this.currentDirection = Direction.RIGHT;
-            }
-        } else if (Math.abs(diff.y) > body.size.y / 2) {
-            if (diff.y < 0) {
-                this.currentDirection = Direction.UP;
-            } else {
-                this.currentDirection = Direction.DOWN;
-            }
-        }
+        this.currentDirection = this.getBestDirection(player);
         if (this.currentDirection !== oldDirection) {
             this.setAnimation(this.currentDirection);
             this.currentAnimation.play();
+        }
+    }
+
+    private getBestDirection(player: Player) {
+        let body = this.pnj.getBody();
+        let thisCenter = body.position.plus(body.size.mult(0.5));
+        let destination = this.getBestDestination(player);
+        let diffDest = thisCenter.minus(destination);
+
+        if (Math.abs(diffDest.x) > body.size.x) {
+            if (diffDest.x > 0) {
+                return Direction.LEFT;
+            } else {
+                return Direction.RIGHT;
+            }
+        } else if (Math.abs(diffDest.y) > body.size.y * 1/2) {
+            if (diffDest.y > 0) {
+                return Direction.UP;
+            } else {
+                return Direction.DOWN;
+            }
+        }
+        return Direction.DOWN;
+    }
+
+    private getBestDestination(player: Player) {
+        let topLeft = this.zone.position.plus(this.zone.size.mult(1/4));
+        let topRight = this.zone.position.plus({
+            x: this.zone.size.x * 3 / 4,
+            y: this.zone.size.y * 1 / 4,
+        });
+        let bottomLeft = this.zone.position.plus({
+            x: this.zone.size.x * 1 / 4,
+            y: this.zone.size.y * 3 / 4,
+        });
+        let bottomRight = this.zone.position.plus(this.zone.size.mult(3/4));
+
+        // |0|1|
+        // |3|2|
+        let squaresDist = [
+            topLeft, topRight,
+            bottomRight, bottomLeft
+        ].map((p, i) => {
+            return  {
+                value: p.distSquare(player.getPosition()),
+                index: i
+            };
+        });
+        let min = squaresDist.reduce((previous, current, index) => {
+            if (previous.value > current.value) {
+                return current;
+            }
+            return previous;
+        }, {
+            index: -1,
+            value: 9999999
+        }).index;
+        let dest = (min + 2) % 4;
+        if (dest === 0) {
+            return this.zone.position;
+        } else if (dest === 1) {
+            return this.zone.position.plus({
+                x: this.zone.size.x,
+                y: 0
+            });
+        } else if (dest === 2) {
+            return this.zone.position.plus(this.zone.size);
+        } else {
+            return this.zone.position.plus({
+                x: 0,
+                y: this.zone.size.y
+            });
         }
     }
 

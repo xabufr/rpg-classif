@@ -9,6 +9,10 @@ export class Rectangle {
         this.size = new Vector(w, h);
     }
 
+    public getCenter() {
+        return this.position.plus(this.size.mult(1/2));
+    }
+
     public intersects(other: Rectangle): boolean {
         return this.position.x + this.size.x > other.position.x &&
             this.position.x < other.position.x + other.size.x &&
@@ -68,6 +72,11 @@ export class Vector implements IVector {
     public mult(factor: number) {
         return new Vector(this.x * factor,
                           this.y * factor);
+    }
+
+    public distSquare(to: IVector) {
+        return (this.x - to.x) * (this.x - to.x) +
+            (this.y - to.y) * (this.y - to.y);
     }
 }
 
