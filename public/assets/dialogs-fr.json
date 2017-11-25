@@ -296,5 +296,8 @@
         "text": "RightAnswer"
       }
     ]
+  },
+  "cheese_found": {
+    "text": "J'ai trouvé du fromage !\n Ca me sera certainement utile pour la suite ! Miammiam"
   }
 }

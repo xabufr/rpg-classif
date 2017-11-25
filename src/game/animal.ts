@@ -3,11 +3,11 @@ import { Pnj } from "./pnj";
 import { Animation } from "../engine/animatedSprite";
 import { WorldObject } from "./worldObject";
 import { World } from "../world";
-import { Player } from "./player";
+import { Player, SPEED as PlayerSpeed } from "./player";
 import { Direction, Directions, getDirectionVector } from "./direction";
 import { GameObject } from "./gameObject";
 import { Rectangle, IVector } from "../engine/physics";
-import { Behaviour, RandomBehaviour, PassiveBehaviour } from "./behaviour";
+import { Behaviour, RandomBehaviour, PassiveBehaviour, RandomItemRequiredBehaviour } from "./behaviour";
 
 type BehaviourString = "passive" | "follower" | "fugitive" | "random";
 
@@ -112,6 +112,7 @@ export class Animal extends Pnj {
         case "follower":
             // return BehaviourType.Follower;
         case "fugitive":
+            return new RandomItemRequiredBehaviour(this, this.worldObject, TALK_COOLDOWN, 100, PlayerSpeed * 2);
             // return BehaviourType.Fugitive;
         case "random":
             return new RandomBehaviour(this, this.worldObject, TALK_COOLDOWN);

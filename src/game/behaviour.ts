@@ -31,8 +31,12 @@ export abstract class Behaviour {
                 .then(() => {
                     this.isInAction = false;
                     this.lastActionMs = performance.now();
+                    this.afterTalk();
                 });
         }
+    }
+
+    protected afterTalk(): void {
     }
 }
 
@@ -133,9 +137,9 @@ export class RandomBehaviour extends Behaviour {
 
 
 export class RandomAggressiveBehaviour extends RandomBehaviour {
-    private currentVelocity: number;
-    private readonly withPlayerVelocity: number;
-    private readonly standbyVelocity: number;
+    protected currentVelocity: number;
+    protected readonly withPlayerVelocity: number;
+    protected readonly standbyVelocity: number;
 
     public constructor(pnj: Pnj,
                        o: WorldObject,
@@ -170,7 +174,7 @@ export class RandomAggressiveBehaviour extends RandomBehaviour {
         }
     }
 
-    private goToPlayer() {
+    protected goToPlayer() {
         let player = this.pnj.getPlayer();
         let playerBody = <Body> player.getBody();
         let body = this.pnj.getBody();
@@ -199,5 +203,99 @@ export class RandomAggressiveBehaviour extends RandomBehaviour {
             this.setAnimation(this.currentDirection);
             this.currentAnimation.play();
         }
+    }
+}
+
+export class RandomItemRequiredBehaviour extends RandomAggressiveBehaviour {
+    private readonly itemName: string;
+    private hasItem: boolean;
+    private hasTalk: boolean;
+
+    public constructor(pnj: Pnj,
+                       o: WorldObject,
+                       collideCooldown: number,
+                       standbyVelocity: number,
+                       withPlayerVelocity: number) {
+        super(pnj, o, collideCooldown, standbyVelocity, withPlayerVelocity);
+        if (!o.properties || !o.properties.itemName) {
+            throw `Missing itemName in ${JSON.stringify(o)}`;
+        }
+        this.itemName = o.properties.itemName;
+        this.hasItem = false;
+        this.hasTalk = false;
+    }
+
+    public update(delta: number) {
+        let player = this.pnj.getPlayer();
+        let playerBody = <Body> player.getBody();
+        let body = this.pnj.getBody();
+
+        if (!this.isInAction) {
+            if (this.zone.intersects(playerBody)) {
+                this.updateHasItem(player);
+                if (this.hasItem && !this.hasTalk) {
+                    this.currentVelocity = this.withPlayerVelocity;
+                    this.goToPlayer();
+                } else if (!this.hasItem) {
+                    this.currentVelocity = this.withPlayerVelocity;
+                    this.fearPlayer(player);
+                }
+            } else {
+                let time = window.performance.now();
+                if (this.lastDecitionMs + this.directionDuration <= time) {
+                    this.changeWalkDirection(time);
+                }
+                this.currentVelocity = this.standbyVelocity;
+            }
+            let vel = getDirectionVector(this.currentDirection, this.currentVelocity);
+            body.velocity.copyFrom(vel);
+        } else {
+            body.velocity.set(0, 0);
+        }
+    }
+
+    private fearPlayer(player: Player) {
+        let playerBody = <Body> player.getBody();
+        let body = this.pnj.getBody();
+
+        this.lastDecitionMs = 0;
+        let thisCenter = body.position.plus(body.size.mult(0.5));
+        let playerCenter = playerBody.position.plus(playerBody.size.mult(0.5));
+        let diff = thisCenter.minus(playerCenter);
+
+        let oldDirection = this.currentDirection;
+
+        if (Math.abs(diff.x) > body.size.x / 2) {
+            if (diff.x < 0) {
+                this.currentDirection = Direction.LEFT;
+            } else {
+                this.currentDirection = Direction.RIGHT;
+            }
+        } else if (Math.abs(diff.y) > body.size.y / 2) {
+            if (diff.y < 0) {
+                this.currentDirection = Direction.UP;
+            } else {
+                this.currentDirection = Direction.DOWN;
+            }
+        }
+        if (this.currentDirection !== oldDirection) {
+            this.setAnimation(this.currentDirection);
+            this.currentAnimation.play();
+        }
+    }
+
+    private updateHasItem(player: Player) {
+        if (!this.hasItem) {
+            this.hasItem = player.hasItem(this.itemName);
+        }
+    }
+
+    protected afterTalk(): void {
+        this.hasTalk = true;
+        console.log("After talk");
+    }
+
+    public canEnterInActionNow() {
+        return this.hasItem && super.canEnterInActionNow();
     }
 }
