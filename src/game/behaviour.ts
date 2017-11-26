@@ -3,7 +3,7 @@ import { Player } from "./player";
 import { Pnj } from "./pnj";
 import { WorldObject } from "./worldObject";
 import { Direction, Directions, getDirectionVector } from "./direction";
-import { Body, Rectangle, IVector } from "../engine/physics";
+import { Body, Rectangle, IVector, Vector } from "../engine/physics";
 import { Animation } from "../engine/animatedSprite";
 
 export abstract class Behaviour {
@@ -31,8 +31,12 @@ export abstract class Behaviour {
                 .then(() => {
                     this.isInAction = false;
                     this.lastActionMs = performance.now();
+                    this.afterTalk();
                 });
         }
+    }
+
+    protected afterTalk(): void {
     }
 }
 
@@ -133,9 +137,9 @@ export class RandomBehaviour extends Behaviour {
 
 
 export class RandomAggressiveBehaviour extends RandomBehaviour {
-    private currentVelocity: number;
-    private readonly withPlayerVelocity: number;
-    private readonly standbyVelocity: number;
+    protected currentVelocity: number;
+    protected readonly withPlayerVelocity: number;
+    protected readonly standbyVelocity: number;
 
     public constructor(pnj: Pnj,
                        o: WorldObject,
@@ -170,7 +174,7 @@ export class RandomAggressiveBehaviour extends RandomBehaviour {
         }
     }
 
-    private goToPlayer() {
+    protected goToPlayer() {
         let player = this.pnj.getPlayer();
         let playerBody = <Body> player.getBody();
         let body = this.pnj.getBody();
@@ -199,5 +203,159 @@ export class RandomAggressiveBehaviour extends RandomBehaviour {
             this.setAnimation(this.currentDirection);
             this.currentAnimation.play();
         }
+    }
+}
+
+export class RandomItemRequiredBehaviour extends RandomAggressiveBehaviour {
+    private readonly itemName: string;
+    private hasItem: boolean;
+    private hasTalk: boolean;
+
+    // |0|1|
+    // |3|2|
+    private readonly zoneSquaresCenters: Vector[];
+    private readonly fearDestinations: Vector[];
+
+    public constructor(pnj: Pnj,
+                       o: WorldObject,
+                       collideCooldown: number,
+                       standbyVelocity: number,
+                       withPlayerVelocity: number) {
+        super(pnj, o, collideCooldown, standbyVelocity, withPlayerVelocity);
+        if (!o.properties || !o.properties.itemName) {
+            throw `Missing itemName in ${JSON.stringify(o)}`;
+        }
+        this.itemName = o.properties.itemName;
+        this.hasItem = false;
+        this.hasTalk = false;
+
+        let topLeft = this.zone.position.plus(this.zone.size.mult(1/4));
+        let topRight = this.zone.position.plus({
+            x: this.zone.size.x * 3 / 4,
+            y: this.zone.size.y * 1 / 4,
+        });
+        let bottomLeft = this.zone.position.plus({
+            x: this.zone.size.x * 1 / 4,
+            y: this.zone.size.y * 3 / 4,
+        });
+        let bottomRight = this.zone.position.plus(this.zone.size.mult(3/4));
+
+        // |0|1|
+        // |3|2|
+        this.zoneSquaresCenters = [
+            topLeft, topRight,
+            bottomRight, bottomLeft
+        ];
+        this.fearDestinations = [
+            this.zone.position,
+            this.zone.position.plus({
+                x: this.zone.size.x,
+                y: 0
+            }),
+            this.zone.position.plus(this.zone.size),
+            this.zone.position.plus({
+                x: 0,
+                y: this.zone.size.y
+            })
+        ];
+    }
+
+    public update(delta: number) {
+        let player = this.pnj.getPlayer();
+        let playerBody = <Body> player.getBody();
+        let body = this.pnj.getBody();
+
+        if (!this.isInAction) {
+            if (this.zone.intersects(playerBody)) {
+                this.updateHasItem(player);
+                if (this.hasItem && !this.hasTalk) {
+                    this.currentVelocity = this.withPlayerVelocity;
+                    this.goToPlayer();
+                } else if (!this.hasItem) {
+                    this.currentVelocity = this.withPlayerVelocity;
+                    this.fearPlayer(player);
+                }
+            } else {
+                let time = window.performance.now();
+                if (this.lastDecitionMs + this.directionDuration <= time) {
+                    this.changeWalkDirection(time);
+                }
+                this.currentVelocity = this.standbyVelocity;
+            }
+            let vel = getDirectionVector(this.currentDirection, this.currentVelocity);
+            body.velocity.copyFrom(vel);
+        } else {
+            body.velocity.set(0, 0);
+        }
+    }
+
+    private fearPlayer(player: Player) {
+        this.lastDecitionMs = 0;
+
+        let oldDirection = this.currentDirection;
+        this.currentDirection = this.getBestDirection(player);
+        if (this.currentDirection !== oldDirection) {
+            this.setAnimation(this.currentDirection);
+            this.currentAnimation.play();
+        }
+    }
+
+    private getBestDirection(player: Player) {
+        let body = this.pnj.getBody();
+        let thisCenter = body.position.plus(body.size.mult(0.5));
+        let destination = this.getBestDestination(player);
+        let diffDest = thisCenter.minus(destination);
+
+        if (Math.abs(diffDest.x) > body.size.x) {
+            if (diffDest.x > 0) {
+                return Direction.LEFT;
+            } else {
+                return Direction.RIGHT;
+            }
+        } else if (Math.abs(diffDest.y) > body.size.y * 1/2) {
+            if (diffDest.y > 0) {
+                return Direction.UP;
+            } else {
+                return Direction.DOWN;
+            }
+        }
+        return Direction.DOWN;
+    }
+
+    private getBestDestination(player: Player) {
+        // |0|1|
+        // |3|2|
+        let squaresDist = this.zoneSquaresCenters.map((p, i) => {
+            return  {
+                value: p.distSquare(player.getPosition()),
+                index: i
+            };
+        });
+        let min = squaresDist.reduce((previous, current, index) => {
+            if (previous.value > current.value) {
+                return current;
+            }
+            return previous;
+        }, {
+            index: -1,
+            value: 9999999
+        }).index;
+        let dest = (min + 2) % 4;
+        return this.fearDestinations[dest];
+    }
+
+    private updateHasItem(player: Player) {
+        if (!this.hasItem) {
+            this.hasItem = player.hasItem(this.itemName);
+        }
+    }
+
+    protected afterTalk(): void {
+        this.hasTalk = true;
+        console.log("After talk");
+    }
+
+    public canEnterInActionNow() {
+        return this.hasItem && super.canEnterInActionNow();
     }
 }

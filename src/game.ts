@@ -106,6 +106,9 @@ export class Game {
         PIXI.loader.add("e_snake", "images/creatures/snake_bad.png");
         // PIXI.loader.add("e_butterfly", "images/creatures/buttrfly_bad.png"); // Doesn't exist yet
         PIXI.loader.add("e_chicken", "images/creatures/chicken_bad.png");
+        PIXI.loader.add("icons", "images/HUD-icons.png"); // HUD Icons
+        // Map Objects
+        PIXI.loader.add("cheese", "images/map_objects/cheese.png"); // HUD Icons
         /*PIXI.loader.add("e_white_wolf", "images/creatures/white_wolf_bad.png");
         PIXI.loader.add("e_frog", "images/creatures/frog_bad.png"); */
         return new Promise(r => {
@@ -135,6 +138,7 @@ export class Game {
 
     private loadCreatures() {
         this.pnjs = this.map.loadCreatures(this.player);
+        this.map.loadObjects(this.player);
     }
 
     private loadHud() {
@@ -175,8 +179,7 @@ export class Game {
 
         this.physics.update(delta);
         this.world.updatePhysics(delta);
-        this.player.update(delta);
-        this.pnjs.forEach(p => p.update(delta));
+        this.world.updateGameObjects(delta);
         this.zones.forEach(z => z.update(this.player));
         this.world.getHud().update();
         this.world.preRender();

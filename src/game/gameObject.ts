@@ -16,6 +16,7 @@ export class GameObject {
             this.body.setGameObject(this);
             this.world.physics.addBody(this.body);
         }
+        this.world.register(this);
     }
 
     public getBody() {

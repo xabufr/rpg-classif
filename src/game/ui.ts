@@ -181,8 +181,8 @@ class Bestiary {
 
 const GAME_HUD_ICONS = "hud-icons";
 const GAME_HUD_BACKGROUND = "hud-background";
-const HUD_ICON_WIDTH = 15;
-const HUD_ICON_HEIGHT = 13;
+export const HUD_ICON_WIDTH = 15;
+export const HUD_ICON_HEIGHT = 13;
 
 class GameHud {
     private player: Player;

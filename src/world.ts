@@ -35,6 +35,17 @@ export class World {
         }
     }
 
+    public unregister(gameObject: GameObject) {
+        let i = this.bodiesRegistry.indexOf(gameObject);
+        if (i !== -1) {
+            this.bodiesRegistry.splice(i, 1);
+        }
+    }
+
+    public register(gameObject: GameObject) {
+        this.bodiesRegistry.push(gameObject);
+    }
+
     public render() {
         this.renderer.render(this.root);
     }
@@ -52,6 +63,10 @@ export class World {
         if (this.camera) {
             this.camera.update(delta);
         }
+    }
+
+    public updateGameObjects(delta: number) {
+        this.bodiesRegistry.forEach(gameObject => gameObject.update(delta));
     }
 
     public preRender() {

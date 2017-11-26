@@ -222,9 +222,10 @@
                  "name":"grey_wolf",
                  "properties":
                     {
-                     "behaviour":"random",
+                     "behaviour":"fugitive",
                      "bestiary_x":3,
                      "bestiary_y":0,
+                     "itemName":"cheese",
                      "talk":"grey_wolf",
                      "textureName":"grey_wolf",
                      "zone":"grey_wolf_zone"
@@ -234,6 +235,7 @@
                      "behaviour":"string",
                      "bestiary_x":"int",
                      "bestiary_y":"int",
+                     "itemName":"string",
                      "talk":"string",
                      "textureName":"string",
                      "zone":"string"
@@ -997,8 +999,62 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "name":"world-objects",
+         "objects":[
+                {
+                 "height":0,
+                 "id":95,
+                 "name":"life",
+                 "properties":
+                    {
+                     "type":"life"
+                    },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":176,
+                 "y":2768
+                }, 
+                {
+                 "height":0,
+                 "id":96,
+                 "name":"cheese",
+                 "properties":
+                    {
+                     "dialog":"cheese_found",
+                     "itemName":"cheese",
+                     "texture":"cheese",
+                     "type":"collectible"
+                    },
+                 "propertytypes":
+                    {
+                     "dialog":"string",
+                     "itemName":"string",
+                     "texture":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":176,
+                 "y":2800
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":95,
+ "nextobjectid":97,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.0.3",

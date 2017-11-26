@@ -29,6 +29,7 @@ export class Player extends GameObject {
         [dir: number]: Animation;
         current: Animation;
     };
+    private collectedObjects: string[];
 
     constructor(world: World, texture: PIXI.Texture, position: PIXI.Point, lives: number, maxLives: number) {
         let body = new Body();
@@ -74,6 +75,7 @@ export class Player extends GameObject {
             "life-changed": [],
             "animal-met": [],
         };
+        this.collectedObjects = [];
         this.lives = lives;
         this.directions = [];
         this.maxLives = maxLives;
@@ -85,6 +87,15 @@ export class Player extends GameObject {
 
         this.setupControls();
         this.canMove = true;
+    }
+
+    public addLife(): boolean {
+        if (this.lives < this.maxLives) {
+            ++this.lives;
+            this.fire("life-changed");
+            return true;
+        }
+        return false;
     }
 
     public removeLife() {
@@ -213,5 +224,13 @@ export class Player extends GameObject {
 
     public getMetAnimals() {
         return this.metAnimals;
+    }
+
+    public addCollectedObject(itemName: string) {
+        this.collectedObjects.push(itemName);
+    }
+
+    public hasItem(itemName: string) {
+        return this.collectedObjects.indexOf(itemName) !== -1;
     }
 }
