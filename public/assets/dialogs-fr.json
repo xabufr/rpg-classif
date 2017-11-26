@@ -39,7 +39,7 @@
     "text": ".... OH !!! Te voilà enfin ! Je n'y croyais plus !\n\n\nOui tu te demandes sûrement ce que tu fais ici... Je t'ai appelé(e) pour que tu viennes m'aider. Vois-tu, je suis Wengin, le gardien de cette terre.. ou plutôt une projection de lui. Mon rôle est de garder un oeil sur le tableau qui classifie cette terre. Mais mon apprenti Toris m'a fait prisonnier et a tout désordonné. Il ne cherche pas à classer comme je lui ai appris, il range avec des critères qui sont... dépassés.\n\nTu n'as pas l'air expert dans le domaine mais je vais t'apprendre tout ce que tu as à savoir pour classer correctement ce monde.\nDéplace-toi avec les flèches de ton clavier et rejoins moi un peu plus loin sur le chemin."
   },
   "mentor_speech_2": {
-    "text": "Avant que Toris fasse n'importe quoi, ce monde était peuplé de créatures très gentilles. Mais maintenant elles ont perdu la tête et posent sans cesse des questions... Tu DOIS les aider !\nComment ? Assez simple. Il te suffit d'aller rencontrer les quelques créatures qui sont encore en état de t'aider, elles te diront quels sont leurs attributs, je te conseille de les écrire sur une feuille au fur et à mesure pour t'en souvenir. Une fois que tu connaîtras tous les attributs, rends-toi au sommet du Mont Phylo. Là tu devras remettre chaque espèce à sa place dans la classification du vivant, en espérant que ça suffise. Je serais là pour t'aider à approfondir tes connaissances.\nBonne chance, nous comptons sur toi !"
+    "text": "Avant que Toris fasse n'importe quoi, ce monde était peuplé de créatures très gentilles. Mais maintenant elles ont perdu la tête et posent sans cesse des questions... Tu DOIS les aider !\nComment ? Assez simple. Il te suffit d'aller rencontrer les quelques créatures qui sont encore en état de t'aider, elles te diront quels sont leurs attributs. Au fur et à mesure que tu les rencontreras, leurs attributs s'ajouteront dans ton bestiaire, c'est le petit livre que je t'ai donné. Une fois que tu connaîtras tous les attributs, rends-toi au sommet du Mont Phylo. Là tu devras remettre chaque espèce à sa place dans la classification du vivant, en espérant que ça suffise. Je serais là pour t'aider à approfondir tes connaissances.\nBonne chance, nous comptons sur toi !"
   },
   "mentor_speech_3": {
     "text": "Voici une espèce, c'est une autruche. Mais... OH !! J'ai oublié de t'expliquer ce qu'est une espèce... D'après l'ensemble des scientifiques, une espèce est un groupe d'individus qui sont semblables et qui peuvent se reproduire entre eux avec une descendance féconde. Vas-y, parle-lui !"
@@ -150,57 +150,111 @@
   "e_bee": {
     "questioning": [
       {
-        "text": "Introduction"
+        "text": "Bzzzz, bzzzz. Raté ! Je ne suis pas une gentille abeille ahahaha !"
       },
       {
         "question": {
-          "title": "Question",
-          "wrongAnswer": "WrongAnswer",
+          "title": "Tu veux passer ?",
+          "wrongAnswer": "Ok mais je prends ça dans ce cas-là. *part avec un coeur*",
           "answers": [
             {
-              "text": "Answer1",
-              "good": true
+              "text": "Non je vais contourner je pense....",
             },
             {
-              "text": "Answer2"
+              "text": "Oui !"
+              "good": true
             }
           ]
         }
       },
       {
-        "text": "RightAnswer"
+        "question": {
+          "title": "Il faut d'abord que tu répondes à cette énigme alors... J'ai des poils et des mammelles... qui suis-je ?",
+          "wrongAnswer": "Perdu ! Retente ta chance !",
+          "answers": [
+            {
+              "text": "Une abeille !",
+            },
+            {
+              "text": "Bigfoot le yéti de l'Himalaya."
+            },
+            {
+              "text": "Un mammifère."
+              "good": true
+            }
+          ]
+        }
+      },
+      {
+        "text": "Ok c'est bon passe..."
       }
     ]
   },
   "e_wild_rabbit": {
     "questioning": [
       {
-        "text": "Introduction"
+        "text": "??!"
       },
       {
         "question": {
-          "title": "Question",
-          "wrongAnswer": "WrongAnswer",
+          "title": "Qu'est-ce que tu fais là toi ?'",
+          "wrongAnswer": "Je ne suis pas intéressé, va-t-en !",
           "answers": [
             {
-              "text": "Answer1",
-              "good": true
+              "text": "Je vends des tapis, tu en veux un ?",
             },
             {
-              "text": "Answer2"
+              "text": "Je cherche à connaître les attributs des créatures comme toi."
+              "good": true
             }
           ]
         }
       },
       {
-        "text": "RightAnswer"
+        "question": {
+          "title": "Aaah... Tu veux donc connaître mes attributs.. qu'est-ce que ça peut bien te faire ?",
+          "wrongAnswer": "Je savais bien que tu ne saurais pas !",
+          "answers": [
+            {
+              "text": "J'aime bien savoir à qui je parle, c'est tout."
+            },
+            {
+              "text": "Juste pour information."
+            },
+            {
+              "text": "J'en ai besoin pour restaurer la classification.",
+              "good": true
+            }
+          ]
+        }
+      },
+      {
+        "question": {
+          "title": "La classification, tu sais même pas ce que ça veut dire !",
+          "wrongAnswer": "Ahah, reviens quand tu connaîtras tes définitions !",
+          "answers": [
+            {
+              "text": "Euh si d'abord, c'est cla façon dont on trie les choses."
+            },
+            {
+              "text": "Joker..? :D"
+            },
+            {
+              "text": "C'est une façon d'organiser les espèces de manière hierarchisée en fonction de critères.",
+              "good": true
+            }
+          ]
+        }
+      },
+      {
+        "text": "Ouais ouais c'est ça, je m'en fiche de tes histoires moi. *part*"
       }
     ]
   },
   "e_mouse": {
     "questioning": [
       {
-        "text": "Introduction"
+        "text": "Insecte - pattes"
       },
       {
         "question": {
@@ -225,7 +279,7 @@
   "e_rabbit": {
     "questioning": [
       {
-        "text": "Introduction"
+        "text": "Serpent - tétrapode"
       },
       {
         "question": {
