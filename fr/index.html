@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="content-language" content="fr" />
+   	<title>Wengin's Journey | Un jeu éducatif</title>
+   <!--	<script src="./script/chart.js"></script> -->
+</head>
+
+<body>
+
+	<div id="main_wrapper">
+		<header>
+    		<div id="logo">
+    			<img src="images/wengins_journey_logo.png" alt="Logo" />
+    		</div>
+
+    		<nav>
+	    		<ul>
+	    			<li><a class="presentation-menu" href="#presentation"><img src="images/presentation_projet_on.png" alt="Présentation du projet"/></a></li>
+	    			<li><a class="avancement-menu" href="#avancement"><img src="images/avancement_on.png" alt="Avancement"/></a></li>
+	    			<li><a class="usage-menu" href="#usage"><img src="images/usage_on.png" alt="Usage en classe"/></a></li>
+	    			<li><a class="equipe-menu" href="#equipe"><img src="images/equipe_on.png" alt="Equipe de développement" /></a></li>
+	    			<li><a class="statistiques-menu" href="#statistiques"><img src="images/statistiques_on.png" alt="Statistiques et chiffres" /></a></li>
+                    <li><a class="github-menu" href="https://github.com/xabufr/rpg-classif" onclick="window.open(this.href); return false;" ><img src="images/github_on.png" alt="Voir sur Github" /></a></li>
+	    			<li><a class="jeu-menu" href="../game.html?lang=fr" onclick="window.open(this.href); return false;" ><img src="images/jeu_on.png" alt="Accès au jeu" /></a></li>
+	    			<li><a href="../en/index.html"><img src="images/anglais_on.png" alt="Version anglaise" /></a></li>
+	    		</ul>
+    		</nav>
+    	</header>
+
+    	<div id="wrap">
+
+    	<section id="presentation">
+			<div class="gauche">
+				<h1>Salut aventurier !</h1>
+				<p>Et bienvenue sur la page d'accueil du jeu éducatif <em>Wengin's Journey : comprendre la classification du vivant en 6eme</em>. Le jeu est encore en <strong>bêta</strong>, ce qui signifie qu'il n'est pas encore fini, il manque beaucoup d'éléments (voir la liste ci-dessous). Mais tu peux quand même y jouer ! Pour cela il te suffit de te munir d'un peu de matériel supplémentaire :
+				<ul><li>Une feuille de papier et un crayon (à papier, bic, etc...)</li>
+				<li>Un cerveau en activité, c'est quand même plus pratique pour réfléchir !</li>
+				<li>De la bonne foi, car pour combler au manque de développement, un lien vers la correction est directement donné, mais fini d'abord le jeu avant de la vérifier !</li>
+				</ul>
+				</p>
+				<p>Quand tu auras fini le jeu, n'oublie pas de compléter <a href="https://docs.google.com/forms/d/e/1FAIpQLScxoh0JaS7VHEdtGoa4001__FM1g_2S-PhN11MWu7wY1RYg5Q/viewform?usp=sf_link" onclick="window.open(this.href); return false;">ce formulaire</a> pour nous donner ton opinion sur le jeu et son utilité dans l'enseignement des SVT !</p> 
+			</div>
+
+			<div class="droite">
+				<h1>Pourquoi ce jeu ?</h1>
+				L'observation a été faite que 68% des adolescents jouent aux jeux vidéos, dont 22% se considèrent comme de "gros joueurs" (<a href="http://www.tns-sofres.com/publications/les-adolescents-et-les-jeux-video">source TNS Sofres</a>). En outre, on a tendance à mieux retenir ce qui est présenté de manière ludique, ce qui nous semble intéressant.<br />
+				Au 21ème siècle, le numérique est présent partout, et de plus en plus de jeunes semblent mieux retenir le contenu des jeux auxquels ils jouent que le contenu de leurs cours. Alors pourquoi exclure le jeux vidéo de l'enseignement ? C'est le pari de ce projet, démarré en décembre 2016 dans le cadre d'un projet pédagogique numérique à l'ESPE d'Aquitaine.<br />
+				Le concept est simple : c'est un RPG (RolePlay Game), où le joueur incarne un personnage qui a été amené dans un monde régit par le classification du vivant. Il est accueilli par un mentor, qui va lui expliquer les grandes lignes de l'histoire. Le but est de faire le tour de la carte afin de parler à toutes les créatures présentes et, au final, reconstituer la classification du vivant avec les principes scientifiques qui sont actuellement admis dans ce domaine.
+			</div>
+		</section>
+
+		<section id="avancement">
+			<div class="gauche">
+				<h1>Développement actuel :</h1>
+				<p class="progress-bar">Avancement du code du jeu<br />
+				<progress value="50" max="100"></progress><br />
+				Construction des éléments graphiques <br />
+				<progress value="90" max="100"></progress><br />
+				Gamedesign - Conception du jeu (règles, fonctionnement,...)<br />
+				<progress value="90" max="100"></progress><br />
+				Level Design - Conception des différents niveaux du jeu<br />
+				<progress value="60" max="100"></progress><br />
+				Storyline - Ecriture de l'histoire, de l'univers<br />
+				<progress value="90" max="100"></progress><br />
+				Ecriture des dialogues<br />
+				<progress value ="70" max="100"></progress><br /></p>
+			</div>
+
+			<div class="droite">
+				<h1>En développement :</h1>
+				<ul><li><s>Implémenter des ennemis</s></li>
+				<li><s>Système de combat (sous forme de QCM) = contrôle des connaissances</s></li>
+				<li>Implémenter des objets en réponse aux combats</li>
+				<li><s>Le bestiaire, avec les attributs qui s'enregistrent automatiquement au fur et à mesure des rencontres</s></li>
+				<li>Implémenter des objets pour des mini-quêtes</li>
+				<li>Apparition du tableau final (celui de Toris) dans la grotte quand les 12 créatures ont été rencontrées</li>
+				<li>Tableau de classification à faire, sous forme de drag'n'drop</li>
+				<li>Scène dans le dojo</li>
+				<li>Accès au manoir, et boss final suite à la complétion du tableau</li>
+				</ul>
+			</div>
+		</section>
+
+		<section id="usage">
+			<div class="gauche">
+			<h1>Un jeu au service de l'enseignement</h1>
+			<p>Le jeu a été conçu avec un soucis de respecter les programmes en vigueur dans le cycle 3. Notamment pour ce qui est traditionnellement traité en 6ème concernant la classification du vivant. Il peut également faire office de rappels en 3ème ou encore en 2nde sur ce même thème. Pour aller plus loin, il est fait cas dans le jeu de la biodiversité associée aux écosystèmes, sans pour autant la traiter entièrement, ce qui permet de faire une passerelle vers le programme de cycle 4.<br />
+			Ce jeu a été conçu de manière à pouvoir, dans la finalité, correspondre à une séance d'apprentissage complète avec d'un côté les connaissances, et d'un autre leur contrôle en auto-évaluation des élèves. Bien entendu cela ne dispense pas l'enseignant d'être à côté afin de donner des informations complémentaires, également de réaliser une évaluation sommative en fin de chapitre.</p>
+			</div>
+
+            <div class="droite">
+                <h1>Plus qu'un jeu : un outil</h1>
+                <p>On peut imaginer utiliser ce jeu en classe, sur des postes informatiques. Les élèves sont seuls ou en groupe, en autonomie. A la fin de la séance, une mise en commun peut être faite sur ce que les élèves ont retenu, la trace écrite est alors construire avec l'ensemble de la classe.<br />
+                Ajoutons que dans la finalité, un compteur d'erreurs aux QCM, mais également un autre sur la création des groupes emboîtés, seront proposés à la fin de la partie. Ces compteurs peuvent d'une part permettre aux élèves de se comparer les uns aux autres, mais d'autre part sont un outil intéressant pour l'enseignant afin de savoir quels élèves ont eu du mal sur ce chapitre avant le devoir terminal.<br />
+                Bien sûr, le jeu étant accessible depuis n'importe quel ordinateur connecté à internet, les élèves peuvent également y jouer chez eux afin de s'entraîner à répondre à des questions, ou bien d'approfondir leurs connaissances dans le cadre d'une séance en pédagogie inversée.</p>
+			</div>
+
+<!-- ici un SLIDER
+            <div class="full">
+                <h1>Aller plus loin que la classification....</h1>
+                <p>Le jeu a été conçu et pensé dans le but de répondre aux besoins du programme concernant la classification du vivant en cycle 3 (6ème), mais il peut aussi être utilisé pour aborder d'autres notions du programme à d'autres niveaux. Quelques exemples ci-dessous.</p>
+
+                <div id="slideshow">
+                    <ul class="slides">
+                        <li><img src="fr/images/slider-img/biodiversite.png" width=100% height="400" alt="3 écosystèmes présents dans le jeu, pour étudier la biodiversité"></li>
+                        <li><img src="assets/fr/images/player_h.png" width="72" height="128" alt="playerh"></li>
+                    </ul>
+
+                    <span class="arrow previous"></span>
+                    <span class="arrow next"></span>
+
+                    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+                    <script src="./script/slider.js"></script>
+                </div>
+
+fin du SLIDER-->
+
+            </div>
+		</section>
+
+		<section id="equipe">
+			<div class="gauche">
+				<h1>Equipe de développement</h1>
+
+				<h2>Cassandra Courjaud <em>(Kalavecy)</em></h2>
+				<h3>Gamedesign - Level design - Graphiste</h3>
+				Etudiante en master MEEF 2nd degré SVT<br />
+		    	Université de Bordeaux - ESPE d'Aquitaine<br />
+		    	<em>cassandra.courjaud@etu.u-bordeaux.fr</em>
+		    	<br /><br />
+				<h2>Thomas Loubiou <em>(Xabufr)</em></h2>
+				<h3>Gamedesign - Développeur</h3>
+				Développeur JAVA - Directeur R&amp;D<br />
+				KeepAlert/Systonic
+			</div>
+
+			<div class="droite">
+				<h1>Crédits</h1>
+				Merci à toutes les personnes qui ont contribué de près ou de loin à l'élaboration de ce jeu. Que ce soit sur le gamedesign, la correction des dialogues, le débug,... Egalement merci à :
+				<ul><li><a href="zehfernando.com">Zeh Fernando</a> pour la typo du jeu (Perfect DOS VGA 437 Win).</li>
+				<li><a href="www.pixijs.com">Pixi.js</a> qui a été utilisé pour coder le jeu.</li>
+				<li><a href="www.mapeditor.org">Tiled Map Editor</a>, utilisé pour l'assemblage des tiles sur la carte.</li>
+				<li><a href="rmvx.pinedacr.com">Pineda</a>, <a href="chrisx698.deviantart.com">Chrisx698</a> et <a href="s444.photobucket.com/user/grandmadeb_rmvx/library">Grandmadeb_rmvx</a> pour certains de leurs sprites qui ont été utilisés et retouchés.</li>
+				</ul>
+				Le jeu est fortement inspiré de <em>Pokémon</em> (Pokémon/Nintendo) et de <em>The Legend of Zelda : Link's Awakening</em> (Nintendo).<br />
+				</div>
+		</section>
+
+		<section id="statistiques">
+			<div class="full">
+				<h1>Le jeu en quelques chiffres...</h1>
+				<ul><li>Un minimum de <strong>100</strong> heures ont été passée à l'élaboration technique du jeu (code, graphisme).</li>
+				<li>Environ <strong>20</strong> heures ont été nécessaires pour l'élaboration "théorique" du gamedesign, level deisgn, et de la storyline.</li>
+				<li>Pour réaliser les sprites (images) des joueurs et des créatures, ce sont plus de <strong>20 000</strong> pixels qui ont été assemblés.</li>
+				<li>La carte quant à elle est un carré de <strong>3 200</strong> pixels de côté ce qui représente <strong>10 240 000</strong> pixels.</li>
+				<li>La page web que vous consultez, fait appel à <strong>500</strong> lignes de codes et sa conception a pris <strong>10</strong> heures.</li>
+				<li>Ce sont <strong>1571</strong> lignes de codes qui sont appelées lorsque vous lancez le jeu.</li>
+				</ul>
+
+
+				<!-- <h1>Quelques graphiques...</h1>
+				<p></p>
+
+
+            	<div class="pieChart" style="width: 300px; height: 300px; display:inline-block; margin-right: 10px; margin-left: 10px;">
+            		<canvas id="pieChart1" width="300" height="300" style="width: 300px; height: 300px;"></canvas>
+            	</div>
+
+            	<div class="pieChart" style="width: 300Px; height: 300px; display:inline-block; margin-right: 10px; margin-left: 10px;">
+            		<canvas id="pieChart2" width="300" height="300" style="width: 300px; height: 300px;"></canvas>
+            	</div>
+
+                <div class="pieChart" style="width: 300Px; height: 300px; display:inline-block; margin-right: 10px; margin-left: 10px;">
+                    <canvas id="pieChart3" width="300" height="300" style="width: 300px; height: 300px;"></canvas>
+                </div>
+
+            	<script src="./script/pie-stats.js"></script> -->
+
+
+
+			</div>
+		</section>
+
+	</div>
+
+	</div>
+</body>
+
+</html>
